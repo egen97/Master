@@ -148,7 +148,7 @@ Lat05 <- Lat05 %>%
 Lat06 <- read_sav("Data/LatinoBarometer/Latinobarometro_2006_datos_eng_v2014_06_27.sav")
 
 Lat06 <- Lat06 %>%
-  select(p17st, p20stm, p9st, p19st, p77st.a, idenpa, numinves, wt) %>%
+  select(p17st, p20stm, p9st, p77st.a, idenpa, numinves, wt) %>%
   rename(
     "SuppDem" = "p17st",
     "CntPwr" = "p20stm",
@@ -165,6 +165,7 @@ Lat07 <- Lat07 %>%
   select(p9st, p25n, p16st, p54sta, idenpa, numinves, wt) %>%
   rename(
     "SuppDem" = "p9st",
+    "OthAdvanScale" = "p25n",
     "CntPwr" = "p16st",
     "Private" = "p54sta",
     "Country" = "idenpa",
@@ -202,3 +203,120 @@ Lat09 <- Lat09 %>%
   )
 
 Lat10 <- read_sav("Data/LatinoBarometer/Latinobarometro_2010_datos_eng_v2014_06_27.sav")
+
+Lat10 <- Lat10 %>%
+  select(P10ST, P16STM,
+         P17ST, P75ST.C, IDENPA, NUMINVES, wt) %>%
+  rename(
+    "SuppDem" = "P10ST",
+    "SuppMilGv" = "P16STM",
+    "CntPwr" = "P17ST",
+    "Private" = "P75ST.C",
+    "Country" = "IDENPA",
+    "year" = "NUMINVES",
+    "weight" = "wt"
+    
+  )
+
+Lat11 <- read_sav("Data/LatinoBarometer/Latinobarometro_2011_eng.sav")
+
+Lat11 <- Lat11 %>%
+  select(P13ST, P18ST, P19ST, P69ST.C, IDENPA, NUMINVES, WT) %>%
+  rename(
+    "SuppDem" = "P13ST",
+    "SuppMilGv" = "P18ST",
+    "CntPwr" = "P19ST",
+    "Private" = "P69ST.C",
+    "Country" = "IDENPA",
+    "year" = "NUMINVES",
+    "weight" = "WT"
+    
+  )
+
+Lat13 <- read_sav("Data/LatinoBarometer/Latinobarometro2013Eng.sav")
+
+Lat13 <- Lat13 %>%
+  select(P12STGBS, P14ST, P60ST.B, IDENPA, NUMINVES, WT) %>%
+  rename(
+    "SuppDem" = "P12STGBS",
+    "CntPwr" = "P14ST",
+    "Private" = "P60ST.B",
+    "Country" = "IDENPA",
+    "year" = "NUMINVES",
+    "weight" = "WT"
+    
+  )
+
+Lat15 <- read_sav("Data/LatinoBarometer/Latinobarometro_2015_Eng.sav")
+
+Lat15 <- Lat15 %>%
+  select(P11STGBS, P14ST, IDENPA, NUMINVES, WT) %>%
+  rename(
+    "SuppDem" = "P11STGBS",
+    "CntPwr" = "P14ST",
+    "Country" = "IDENPA",
+    "year" = "NUMINVES",
+    "weight" = "WT"
+    
+  )
+
+Lat16 <- read_sav("Data/LatinoBarometer/Latinobarometro2016Eng_v20170205.sav")
+
+Lat16 <- Lat16 %>%
+  select(P8STGBS, P10ST, IDENPA, NUMINVES, WT) %>%
+  rename(
+    "SuppDem" = "P8STGBS",
+    "CntPwr" = "P10ST",
+    "Country" = "IDENPA",
+    "year" = "NUMINVES",
+    "weight" = "WT"
+    
+  )
+
+Lat17 <- read_sav("Data/LatinoBarometer/Latinobarometro2017Eng_v20180117.sav")
+
+
+Lat17 <- Lat17 %>%
+  select(P8STGBS, P10ST, IDENPA, NUMINVES,WT) %>%
+  rename(
+    "SuppDem" = "P8STGBS",
+    "CntPwr" = "P10ST",
+    "Country" = "IDENPA",
+    "year" = "NUMINVES",
+    "weight" = "WT"
+    
+  )
+
+
+
+
+
+Lat18 <- read_sav("Data/LatinoBarometer/Latinobarometro_2018_Eng_Spss_v20190303.sav")
+
+Lat18 <- Lat18 %>%
+  select(P12STGBS, P14ST, IDENPA, NUMINVES, WT) %>%
+  rename(
+    "SuppDem" = "P12STGBS",
+    "CntPwr" = "P14ST",
+    "Country" = "IDENPA",
+    "year" = "NUMINVES",
+    "weight" = "WT"
+    
+  )
+
+
+
+
+LatinoBarometer <- list(Lat95, Lat96, Lat97, Lat98, Lat00, Lat01, Lat02,
+                             Lat03, Lat04, Lat05, Lat06, Lat07, Lat08, Lat09,
+                             Lat10, Lat11, Lat13, Lat15, Lat16, Lat17, Lat18) %>%
+  reduce(bind_rows)
+
+#LandKodene er ISO ISO 3166-1 numerisk
+
+
+
+
+
+
+
