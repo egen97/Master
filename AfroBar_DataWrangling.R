@@ -44,15 +44,14 @@ Afro7$COUNTRY <- as_factor(Afro7$COUNTRY)
 Afro1Country <- as_factor(Afro1$country)
 
 Afro1Clean <- Afro1 %>%
-  select(supdem, rejtrd, gidprd, gidbes, gidstr, withinwt, country) %>%
+  select(supdem, rejtrd, gidprd, gidbes, gidstr, withinwt) %>%
   rename(
     "suppDem_Afro" = "supdem",
     "TradRule_Afro" = "rejtrd",
     "GrpPrd_Afro" = "gidprd",
     "GrpBst_Afro" = "gidbes",
-    "GrpNat_Afro" = "gidstr",
-    "weight_Afro" = "withinwt",
-    "country_Afro" = "country"
+    "GroupNat_Afro" = "gidstr",
+    "weight_Afro" = "withinwt"
     
   ) %>%
   mutate(
@@ -74,7 +73,7 @@ Afro1Clean <- Afro1 %>%
          
          ) %>%
   
-  mutate(across(suppDem_Afro:GrpNat_Afro, ~ifelse(.x > 89, NA, .x))) %>%
+  mutate(across(suppDem_Afro:GroupNat_Afro, ~ifelse(.x > 89, NA, .x))) %>%
   mutate(country_Afro = Afro1Country) %>%
   mutate(year = 1999)
 
@@ -88,12 +87,12 @@ Afro1Clean <- Afro1 %>%
 Afro2Countries <- as_factor(Afro2$country)
 
 Afro2Clean <- Afro2 %>%
-  select(q25e, q38, q75, q57,country ,withinwt) %>%
+  select(q25e, q38, q75, q57 ,withinwt) %>%
   mutate(across(everything(), ~car::recode(.x,
     "c(9, 97,98,99,-1) = NA"
   ))) %>%
   mutate(q75 = ifelse(q75 == 5, NA, q75)) %>%
-  mutate(country = Afro2Countries) %>%
+  mutate(country_Afro = Afro2Countries) %>%
   rename(
     "PolViol_Afro" = "q25e",
     "suppDem_Afro" = "q38",
@@ -117,11 +116,11 @@ Afro3Clean <- Afro3 %>%
   mutate(across(everything(), ~recode(.x,
          "c(9,-1,97,98,99, 998, 997, 998) = NA"))) %>%
   mutate(year = 2005,
-        country = Afro3Countries ) %>%
+        country_Afro = Afro3Countries ) %>%
   rename(
     "WomMenPolLead_Afro" = "q24",
     "AlEduVote_Afro" = "q22",
-    "EthnUnfa_Afro" = "q81",
+    "EthnUnfair_Afro" = "q81",
     "weight_Afro" = "withinwt"
   )
   
@@ -138,7 +137,7 @@ Afro4Clean <- Afro4 %>%
   rename("suppDem_Afro" = "Q30",
           "weight_Afro" = "Withinwt") %>%
   mutate(year = 2008,
-         counry = Afro4Country)
+         country_Afro = Afro4Country)
 
 
 
@@ -164,7 +163,7 @@ Afro5Clean <- Afro5 %>%
     "NatPrd" = "Q85C",
     "weight_Afro" = "withinwt"
   ) %>%
-  mutate(country = Afro5Country,
+  mutate(country_Afro = Afro5Country,
          year = 2011)
   
 
@@ -172,12 +171,47 @@ Afro5Clean <- Afro5 %>%
 
 #Afro6
 
-# q30 supdem
-# q88a Ethinic group unfair
-# q88b Ethinc or national
+# q30 supdem -1, 9, 98
+# q88a Ethinic group unfair -1, 7, 9, 98, 99
+# q88b Ethinc or national -1, 9, 98, 99, snu
 # withinwht
+afro6Countries <- as_factor(Afro6$COUNTRY)
 
 
+Afro6Clean <- Afro6 %>%
+  select(Q30, Q88A, Q88B, withinwt) %>%
+  mutate(across(everything(), ~recode(.x,
+                                      "c(-1, 9,98, 99, 7) = NA"))) %>%
+  mutate(Q88B = car::recode(Q88B,
+        "1 = 5;
+        2 = 4;
+        3 = 3;
+        4 = 2;
+        5 = 1"
+  )) %>%
+  rename(
+    "suppDem_Afro" = "Q30",
+    "EthnUnfair_Afro" = "Q88A",
+    "EthnNat_Afro" = "Q88B",
+    "weight_Afro" = "withinwt"
+    
+  ) %>%
+  mutate(year = 2016,
+         country_Afro = afro6Countries)
 # Afr07
 
 #q28 suppdem
+
+Afro7Countries <- as_factor(Afro7$COUNTRY)
+Afro7Clean <- Afro7 %>%
+  select(Q28, withinwt) %>%
+  mutate( Q28 = ifelse(Q28 %in% c(-1,8,9), NA, Q28)) %>%
+  rename("suppDem_Afro" = "Q28",
+         "weight_Afro" = "withinwt") %>%
+  mutate(year = 2019, 
+         country_Afro = Afro7Countries)
+
+
+AfroBarometer <- bind_rows(Afro1Clean, Afro2Clean, Afro3Clean,
+                           Afro4Clean, Afro5Clean, Afro6Clean, Afro7Clean)
+
