@@ -3,6 +3,7 @@
 ####Pakker####
 library(tidyverse)
 library(haven)
+library(car)
 
 #####Data####
 
@@ -22,7 +23,7 @@ Afro6$COUNTRY <- as_factor(Afro6$COUNTRY)
 Afro7 <- read_spss("Data/AfroBarometer/merged_r7_data.sav")
 Afro7$COUNTRY <- as_factor(Afro7$COUNTRY)
 
-Afro1 <- as_factor(Afro1)
+#Afro1 <- as_factor(Afro1)
 
 
 #### Velge Variabler ####
@@ -40,6 +41,8 @@ Afro1 <- as_factor(Afro1)
 #country
 #Må legge til år
 
+Afro1Country <- as_factor(Afro1$country)
+
 Afro1Clean <- Afro1 %>%
   select(supdem, rejtrd, gidprd, gidbes, gidstr, withinwt, country) %>%
   rename(
@@ -52,56 +55,120 @@ Afro1Clean <- Afro1 %>%
     "country_Afro" = "country"
     
   ) %>%
-  mutate(across(suppDem_Afro:GrpNat_Afro, ~ifelse(.x > 89, NA, .x))) %>%
   mutate(
     suppDem_Afro = recode(suppDem_Afro, 
-    '3' = 1,
-    '2' = 2,
-    '1' = 3,
-    '4' = 99
+    "3 = 1;
+    2 = 2;
+    1 = 3;
+    4 = 99"
   ),
     TradRule_Afro = recode(TradRule_Afro,
-      '6' = 99
+      "6 = 99"
     ),
   GrpPrd_Afro = recode(GrpPrd_Afro,
-    '9' = 98
+    "9 = 98"
     ),
   GrpBst_Afro = recode(GrpBst_Afro,
-                  '9' = 98
-                  ),
-  recode(GrpPrd_Afro,
-         '9' = 98
+                  "9 = 98"
+                  )
          
-         )
-  )
+         ) %>%
   
+  mutate(across(suppDem_Afro:GrpNat_Afro, ~ifelse(.x > 89, NA, .x))) %>%
+  mutate(country_Afro = Afro1Country) %>%
+  mutate(year = 1999)
 
 #Afro2
-# q25e #Violence Political
-# q38 #SuppDem
-# q47 #People must obey laws
-# q65 #Groupp tratet unfair
-# q57 #Group or national
+# q25e #Violence Political remove 9, <97 >-0
+# q38 #SuppDem remove 9 <97 >0
+#q75 police/revenge 5, 9 < 97 >0 = NA
+# q57 #Group or national 0 national, 1 group
 # withinwt
 
-#Afro3
-# q24 #Women/Men Polleader
-# q22 #All/Educated vote
-# q81 #Etnich unfair
-# withingwght
+Afro2Countries <- as_factor(Afro2$country)
 
+Afro2Clean <- Afro2 %>%
+  select(q25e, q38, q75, q57,country ,withinwt) %>%
+  mutate(across(everything(), ~car::recode(.x,
+    "c(9, 97,98,99,-1) = NA"
+  ))) %>%
+  mutate(q75 = ifelse(q75 == 5, NA, q75)) %>%
+  mutate(country = Afro2Countries) %>%
+  rename(
+    "PolViol_Afro" = "q25e",
+    "suppDem_Afro" = "q38",
+    "PoliRev_Afro" = "q75",
+    "GroupNat_Afro" = "q57",
+    "weight_Afro" = "withinwt"
+  ) %>%
+  mutate(year = 2004)
+
+
+
+
+#Afro3
+# q24 #Women/Men Polleader 5,9 <90, -1
+# q22 #All/Educated vote same as above
+# q81 #Etnich unfair -1, 7 <
+# withingwght
+Afro3Countries <- as_factor(Afro3$country)
+Afro3Clean <- Afro3 %>%
+  select(q24, q22, q81, withinwt) %>%
+  mutate(across(everything(), ~recode(.x,
+         "c(9,-1,97,98,99, 998, 997, 998) = NA"))) %>%
+  mutate(year = 2005,
+        country = Afro3Countries ) %>%
+  rename(
+    "WomMenPolLead_Afro" = "q24",
+    "AlEduVote_Afro" = "q22",
+    "EthnUnfa_Afro" = "q81",
+    "weight_Afro" = "withinwt"
+  )
+  
+  
+  
+  
 # Afro4
 # q30 support democracy
 # withingwh
+Afro4Country <- as_factor(Afro4$COUNTRY)
+Afro4Clean <- Afro4 %>%
+  select(Q30, Withinwt) %>%
+  mutate(Q30 = ifelse(Q30 > 3 | Q30 < 1, NA, Q30)) %>%
+  rename("suppDem_Afro" = "Q30",
+          "weight_Afro" = "Withinwt") %>%
+  mutate(year = 2008,
+         counry = Afro4Country)
+
+
 
 #Afro5
 
 
-# q26e PolViolence
-# q32 support democracy
-# q78 violence ok/not
-# q85c proud national
+# q26e PolViolence -1, 9, 998
+# q32 support democracy 
+# q78 violence ok/not -1, 5, 9, 998
+# q85c proud national-1, , 9, 998
 # withinweight
+Afro5Country <- as_factor(Afro5$COUNTRY)
+
+Afro5Clean <- Afro5 %>%
+  select(Q26E, Q32, Q78, Q85C, withinwt) %>%
+  mutate(across(everything(), ~recode(.x,
+    "c(-1, 5, 9, 998) = NA"
+  ))) %>%
+  rename(
+    "PolViol_Afro" = "Q26E",
+    "suppDem_Afro" = "Q32",
+    "VilOK" = "Q78",
+    "NatPrd" = "Q85C",
+    "weight_Afro" = "withinwt"
+  ) %>%
+  mutate(country = Afro5Country,
+         year = 2011)
+  
+
+
 
 #Afro6
 
