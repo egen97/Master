@@ -78,6 +78,16 @@ WVSSelected <- WVS %>%
     
   )
 
-sum(is.na(WVSSelected))
+rm(WVS)
 
-saveRDS(WVSSelected, "WVS.rds")
+WVS_Mean <- WVSSelected %>%
+  group_by(CcIso, Year) %>%
+  summarise(across(everything(), ~weighted.mean(.x, w = Weights ,na.rm = TRUE))) %>%
+  select(- Weights) %>%
+  mutate(across(everything(), ~ifelse(is.nan(.x), NA, .x)))
+
+
+
+
+
+saveRDS(WVS_Mean, "WVS.rds")

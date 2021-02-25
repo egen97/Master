@@ -317,6 +317,11 @@ LatinoBarometer <- list(Lat95, Lat96, Lat97, Lat98, Lat00, Lat01, Lat02,
 
 
 
+LatinoBarometer_Mean <- LatinoBarometer %>%
+  group_by(Country, year) %>%
+  summarise(across(everything(), ~weighted.mean(.x, w = weight ,na.rm = TRUE))) %>%
+  select(- weight) %>%
+  mutate(across(everything(), ~ifelse(is.nan(.x), NA, .x)))
 
 
 
