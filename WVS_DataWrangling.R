@@ -79,3 +79,5 @@ WVSSelected <- WVS %>%
   )
 
 sum(is.na(WVSSelected))
+
+saveRDS(WVSSelected, "WVS.rds")

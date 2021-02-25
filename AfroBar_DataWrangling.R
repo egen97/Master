@@ -4,6 +4,7 @@
 library(tidyverse)
 library(haven)
 library(car)
+library(countrycode)
 
 #####Data####
 
@@ -215,3 +216,9 @@ Afro7Clean <- Afro7 %>%
 AfroBarometer <- bind_rows(Afro1Clean, Afro2Clean, Afro3Clean,
                            Afro4Clean, Afro5Clean, Afro6Clean, Afro7Clean)
 
+
+
+AfroBarometer$country <- countrycode(AfroBarometer$country_Afro, origin = "country.name", destination = "iso3n")
+AfroBarometer
+
+saveRDS(AfroBarometer, "AfroBarometer.rds")

@@ -320,3 +320,4 @@ LatinoBarometer <- list(Lat95, Lat96, Lat97, Lat98, Lat00, Lat01, Lat02,
 
 
 
+saveRDS(LatinoBarometer, "LatinoBarometer.rds")
