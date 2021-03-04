@@ -39,3 +39,5 @@ War <- War %>%
  mutate(Country = str_remove_all(Country, "Government of "))
 
 War$CountryNum <- countrycode(War$Country, origin = "country.name", destination = "iso3n" )
+
+saveRDS(War, "Data/ConflictData.rds")
