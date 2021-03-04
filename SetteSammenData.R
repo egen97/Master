@@ -4,6 +4,7 @@ AfroBarometer <- readRDS("AfroBarometer.rds")
 LatinoBarometer <- readRDS("LatinoBarometer.rds")
 WVS <- readRDS("WVS.rds")
 Polity <- readRDS("Data/politySelected.rds")
+Conflict <- readRDS("Data/ConflictData.rds")
 
 WVS$Country <- WVS$CcIso
 WVS$year <- WVS$Year
@@ -23,6 +24,9 @@ SurveyData <- SurveyData %>%
 SurveyData <- SurveyData %>%
   left_join(Polity)
 
+SurveyData <- SurveyData %>%
+  left_join(Conflict, by = c("Country" = "CountryNum", "year")) %>%
+  mutate(Conflict_Binary = ifelse(is.na(Conflict_Binary), 0, Conflict_Binary))
 
 Imp_Data <- amelia(SurveyData, m = 10, ts = "year", cs = "Country", polytime = 1, intercs = TRUE, incheck = TRUE)
 
