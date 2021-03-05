@@ -32,13 +32,14 @@ SurveyData <- SurveyData %>%
 
 
 SurveyData <- SurveyData %>%
+  select(-Country.y, -ccode, -Year)
   
   left_join(WB)
 
+SurveyData
+
 
 saveRDS(SurveyData, "CompleteData.rds")
-
-#Imp_Data <- amelia(SurveyData, m = 10, ts = "year", cs = "Country", polytime = 1, intercs = TRUE, incheck = TRUE)
 
 
 
