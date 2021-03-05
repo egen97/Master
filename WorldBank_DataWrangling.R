@@ -45,3 +45,28 @@ GDP_Cleaned <- GDP %>%
 GDP_Cleaned$Country <- countrycode(GDP_Cleaned$Country, origin = "country.name", destination = "iso3n")
 
 
+### Population
+
+
+
+Population$Country <- ifelse(Population$Country %in% Non_Countries, NA, Population$Country)
+
+Population$Country <- drop_na(Population$Country)
+
+Population_Cleaned <- Population %>%
+  select(Country, starts_with("x")) %>%
+  filter(!is.na(Country)) %>%
+  pivot_longer(starts_with("x"), names_to = "year", values_to = "Population") %>%
+  mutate(year = str_remove(year, "X")) %>%
+  filter(year != "") %>%
+  mutate(year = trimws(year)) %>%
+  mutate(year = as.numeric(year))
+
+
+Population_Cleaned$Country <- countrycode(Population_Cleaned$Country, origin = "country.name", destination = "iso3n")
+
+
+WB_Data <- GDP_Cleaned %>%
+  left_join(Population_Cleaned)
+
+saveRDS(WB_Data, "Data/WB_Data.rds")
