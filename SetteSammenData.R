@@ -34,10 +34,9 @@ SurveyData <- SurveyData %>%
 SurveyData <- SurveyData %>%
   select(-Country.y, -ccode, -Year)
   
+
+SurveyData <- SurveyData %>%
   left_join(WB)
-
-SurveyData
-
 
 saveRDS(SurveyData, "CompleteData.rds")
 
