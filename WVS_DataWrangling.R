@@ -1,12 +1,17 @@
 #Pakker
 library(tidyverse)
-
+library(haven)
 #Data, World Value Survey timeseries 1981-2020
 WVS <- readRDS("Data/WVS_TimeSeries_R_v1_6.rds")
 
+
+WVS <- as_factor(WVS, levels = "values")
+
+WVSSelected <- as.data.frame(WVSSelected)
+
 WVSSelected <- WVS %>%
   select(S002, S003, S020, S017, 
-         A047, A168A, 
+         A047, A168A, A192, A193, A194, A195, A196, A197, A198, A199,
          C001_01, C002, C005,
          C059, D059, E066,
          E035,
@@ -14,7 +19,7 @@ WVSSelected <- WVS %>%
          F199, E231, F203, D077,
           E121,
          E122, E123, E225,
-         E226, E227, E228, E229,
+         E226, E227,  E229,
          E230,  E232, E233,
          E233A, E233B, F144_02,
          A189, A190,A191) %>%
@@ -53,7 +58,6 @@ WVSSelected <- WVS %>%
     "ArmyCont" = "E225",
     "CivRigh" = "E226",
     "DemEcoProsp" = "E227",
-    "DemCrinPun" = "E228",
     "PeoChaLa" = "E229",
     "Womrigh" = "E230",
     "StaIncEqu" = "E231",
@@ -72,9 +76,27 @@ WVSSelected <- WVS %>%
     "ValueGoodSoci" = "A199"
     
     
-  )
+  ) %>%
+  mutate(across(everything(), ~as.numeric(as.character(.x))))
 
-rm(WVS)
+
+library(Amelia)
+library("plm")
+
+WVSSelected <- make.pbalanced(WVSSelected, index = c("CcIso", "Year"))
+WVSSelected$CcIso1 <- as.character(WVSSelected$CcIso)
+
+ImputedData <- amelia(WVS_Mean,
+                      m = 10,
+                      ts = "Year",
+                      cs = "CcIso1",
+                      idvars = c("Wave",
+                                 "CcIso",
+                                 "Year"),
+                      polytime = 2,
+                      intercs = TRUE,
+                      paralell = "snow",
+                      ncpus = "4")
 
 
 
@@ -83,7 +105,7 @@ rm(WVS)
 
 
 WVS_Mean <- WVSSelected %>%
-  group_by(CcIso, Year) %>%
+  group_by(CcIso1, Year) %>%
   summarise(across(everything(), ~weighted.mean(.x, w = Weights ,na.rm = TRUE))) %>%
   select(- Weights) %>%
   mutate(across(everything(), ~ifelse(is.nan(.x), NA, .x))) %>%
