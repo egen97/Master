@@ -1,15 +1,12 @@
 library(tidyverse)
 library("Amelia")
 AfroBarometer <- readRDS("AfroBarometer.rds")
-LatinoBarometer <- readRDS("LatinoBarometer.rds")
+LatinoBarometer <- readRDS("LatinoBarometer_Mean.rds")
 WVS <- readRDS("WVS.rds")
 Polity <- readRDS("Data/politySelected.rds")
 Conflict <- readRDS("Data/ConflictData.rds")
 WB <- readRDS("Data/WB_Data.rds")
 
-WVS$Country <- WVS$CcIso
-WVS$year <- WVS$Year
-LatinoBarometer$Country
 
 SurveyData <- WVS %>%
   full_join(LatinoBarometer, by = c("Country", "year"))
@@ -38,7 +35,15 @@ SurveyData <- SurveyData %>%
 SurveyData <- SurveyData %>%
   left_join(WB)
 
-#saveRDS(SurveyData, "CompleteData.rds")
+SurveyData <- SurveyData %>%
+  select(-country, -country_Afro, -Country.y, -ccode)
+
+SurveyData <- SurveyData %>%
+  select(-KilSelfDef, -C005, -TradRule_Afro, -OthAdvanScale)
+
+
+missmap(SurveyData)
+saveRDS(SurveyData, "CompleteData.rds")
 
 
 

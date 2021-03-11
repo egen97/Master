@@ -7,61 +7,53 @@ WVS <- readRDS("Data/WVS_TimeSeries_R_v1_6.rds")
 
 WVS <- as_factor(WVS, levels = "values")
 
-WVSSelected <- as.data.frame(WVSSelected)
+
 
 WVSSelected <- WVS %>%
-  select(S002, S003, S020, S017, 
-         A047, A168A, A192, A193, A194, A195, A196, A197, A198, A199,
+  select( S003, S020, S017, 
+          A168A, A192, A193, A194, A195, A196, A197, A198, A199,
          C001_01, C002, C005,
-         C059, D059, E066,
+          D059, 
          E035,
-          F114D, F114C, F144,
-         F199, E231, F203, D077,
-          E121,
-         E122, E123, E225,
-         E226, E227,  E229,
-         E230,  E232, E233,
-         E233A, E233B, F144_02,
+          F114D, F144,
+          E231,  D077,
+          E121, E275,
+          
+          
+           E232, F144_02,
          A189, A190,A191) %>%
   rename(
-    "Wave" = "S002",
-    "CcIso" = "S003",
-    "Year" = "S020",
+    
+    "Country" = "S003",
+    "year" = "S020",
     "Weights" = "S017",
-    "AbrtHand" = "A047",
+    
     "PeopAdv" = "A168A",
     "MenJob" = "C001_01",
-    "JobNati" = "C002",
-    "HanNotJob" = "C005",
     
-    "SecPaid" = "C059",
-    "MenPolLead" = "D059",
+    "TerrMil" = "E275",
     
-    "SocEga" = "E066",
+    
+    
+    
+    
     "IncEq" = "E035",
     
     "ViolOthJust" = "F114D",
-    "BeatKids" = "F114C",
     "KilSelfDef" = "F144",
-    "WifeBeat" = "F199",
     
     
-    "MyRel" = "F203",
+    
     "WifeObey" = "D077",
     
     
     
     "DemInde" = "E121",
-    "DemBett" = "E122",
-    "DemBaOrd" = "E123",
     
-    "ArmyCont" = "E225",
-    "CivRigh" = "E226",
-    "DemEcoProsp" = "E227",
-    "PeoChaLa" = "E229",
-    "Womrigh" = "E230",
+    
+    
     "StaIncEqu" = "E231",
-    "PeopObey" = "E232",
+    
     "DeathPena" = "F144_02",
     "ValueCreat" = "A189",
     "ValueRich" = "A190",
@@ -79,53 +71,49 @@ WVSSelected <- WVS %>%
   ) %>%
   mutate(across(everything(), ~as.numeric(as.character(.x))))
 
+WVSSelected %>%
+  select(starts_with("Value"), IncEq) %>%
+  drop_na() %>%
+  factanal(
+    factors = 4,
+    rotation = "varimax"
+  )
+
+
+WVSSelected <- as.data.frame(WVSSelected)
 
 library(Amelia)
 library("plm")
-
-WVSSelected <- make.pbalanced(WVSSelected, index = c("CcIso", "Year"))
-WVSSelected$CcIso1 <- as.character(WVSSelected$CcIso)
-
-ImputedData <- amelia(WVS_Mean,
-                      m = 10,
-                      ts = "Year",
-                      cs = "CcIso1",
-                      idvars = c("Wave",
-                                 "CcIso",
-                                 "Year"),
-                      polytime = 2,
-                      intercs = TRUE,
-                      paralell = "snow",
-                      ncpus = "4")
-
-
-
 
 
 
 
 WVS_Mean <- WVSSelected %>%
-  group_by(CcIso1, Year) %>%
+  group_by(Country, year) %>%
   summarise(across(everything(), ~weighted.mean(.x, w = Weights ,na.rm = TRUE))) %>%
   select(- Weights) %>%
   mutate(across(everything(), ~ifelse(is.nan(.x), NA, .x))) %>%
+  
   ungroup()
 
 
-
-#### Faktor Analyse (?) #####
-
-
-Fakt <- factanal(
-  WVSSelected %>% select(SecPaid, MenPolLead, SocEga, IncEq, SocEga, starts_with("Value"),
-                         starts_with("Dem")) %>%  mutate(across(everything(), ~as.numeric(.x))) %>% View() ,
-  2
-)
-
-
-
-
-
-
+# numCores  = round(parallel::detectCores() * .70)
+# cl_par <- parallel::makePSOCKcluster(numCores)
+# 
+# WVSSelected$Weights <- NULL
+# ImputedData <- amelia(WVSSelected,
+#                       m = 1,
+#                       ts = "year",
+#                       cs = "Country",
+#                       
+#                       polytime = 2,
+#                       intercs = TRUE,
+#                       
+#                       paralell = "snow",
+#                       cl = cl_par)
+# 
+# 
+# parallel::stopCluster(cl_par)
 
 saveRDS(WVS_Mean, "WVS.rds")
+
