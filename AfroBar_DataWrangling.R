@@ -220,6 +220,7 @@ AfroBarometer <- bind_rows(Afro1Clean, Afro2Clean, Afro3Clean,
 
 AfroBarometer$country <- countrycode(AfroBarometer$country_Afro, origin = "country.name", destination = "iso3n")
 
+saveRDS(AfroBarometer, "AroBarSammen.rds")
 
 AfroBarometer_Mean <- AfroBarometer %>%
   group_by(country, year) %>%
@@ -227,5 +228,6 @@ AfroBarometer_Mean <- AfroBarometer %>%
   select(- weight_Afro) %>%
   mutate(across(everything(), ~ifelse(is.nan(.x), NA, .x)))
 
-saveRDS(AfroBarometer_Mean, "AfroBarometer.rds")
 AfroBarometer$weight_Afro <- NULL
+saveRDS(AfroBarometer_Mean, "AfroBarometer.rds")
+

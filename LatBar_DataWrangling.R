@@ -221,44 +221,44 @@ Lat10 <- Lat10 %>%
 Lat11 <- read_sav("Data/LatinoBarometer/Latinobarometro_2011_eng.sav")
 
 Lat11 <- Lat11 %>%
-  select(P13ST, P18ST, P19ST,  IDENPA, NUMINVES, WT) %>%
+  select(P13ST, P18ST, P19ST,  IDENPA,  WT) %>%
   rename(
     "SuppDem" = "P13ST",
     "SuppMilGv" = "P18ST",
     "CntPwr" = "P19ST",
     
     "Country" = "IDENPA",
-    "year" = "NUMINVES",
     "weight" = "WT"
     
-  )
+  ) %>%
+  mutate(year = 2011)
 
 Lat13 <- read_sav("Data/LatinoBarometer/Latinobarometro2013Eng.sav")
 
 Lat13 <- Lat13 %>%
-  select(P12STGBS, P14ST,  IDENPA, NUMINVES, WT) %>%
+  select(P12STGBS, P14ST,  IDENPA,  WT) %>%
   rename(
     "SuppDem" = "P12STGBS",
     "CntPwr" = "P14ST",
     
     "Country" = "IDENPA",
-    "year" = "NUMINVES",
     "weight" = "WT"
     
-  )
+  ) %>%
+  mutate(year = 2013)
 
 Lat15 <- read_sav("Data/LatinoBarometer/Latinobarometro_2015_Eng.sav")
 
 Lat15 <- Lat15 %>%
-  select(P11STGBS, P14ST, IDENPA, NUMINVES, WT) %>%
+  select(P11STGBS, P14ST, IDENPA,  WT) %>%
   rename(
     "SuppDem" = "P11STGBS",
     "CntPwr" = "P14ST",
     "Country" = "IDENPA",
-    "year" = "NUMINVES",
     "weight" = "WT"
     
-  )
+  ) %>%
+  mutate(year = 2015)
 
 Lat16 <- read_sav("Data/LatinoBarometer/Latinobarometro2016Eng_v20170205.sav")
 
@@ -315,7 +315,7 @@ LatinoBarometer <- list(Lat95, Lat96, Lat97, Lat98, Lat00, Lat01, Lat02,
 #LandKodene er ISO ISO 3166-1 numerisk
 
 
-
+saveRDS(LatinoBarometer, "LatBarSammen.rds")
 
 LatinoBarometer_Mean <- LatinoBarometer %>%
   group_by(Country, year) %>%

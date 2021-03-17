@@ -24,3 +24,5 @@ Data/WVS_Corrected.rds
 Data/WVS_CY.rds
 Data/WVS_TimeSeries_R_v1_2.rds
 Data/WVS_Vars.rds
+*.rds
+*.sav
