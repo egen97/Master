@@ -90,6 +90,14 @@ WVS_Mean <- WVSSelected %>%
   ungroup()
 
 
+WVS_Mean <- WVS %>%
+  group_by(S003, S020) %>%
+  summarise(across(everything(), ~weighted.mean(.x, w = Weights ,na.rm = TRUE))) %>%
+  select(- Weights) %>%
+  mutate(across(everything(), ~ifelse(is.nan(.x), NA, .x))) %>%
+  ungroup()
+
+
 
 #### Faktor Analyse (?) #####
 
