@@ -31,7 +31,7 @@ War <- War %>%
 War$Conflict_Binary <- 1
 
 
-War <- make.pbalanced(War, index = c("Country", "year") )
+#War <- make.pbalanced(War, index = c("Country", "year") )
 
 War$Conflict_Binary <- ifelse(is.na(War$Conflict_Binary), 0, War$Conflict_Binary)
 
@@ -39,5 +39,7 @@ War <- War %>%
  mutate(Country = str_remove_all(Country, "Government of "))
 
 War$CountryNum <- countrycode(War$Country, origin = "country.name", destination = "iso3n" )
+War <- War %>%
+  filter(!is.na(War$CountryNum))
 
 saveRDS(War, "Data/ConflictData.rds")

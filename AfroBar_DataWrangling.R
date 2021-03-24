@@ -113,13 +113,13 @@ Afro2Clean <- Afro2 %>%
 # withingwght
 Afro3Countries <- as_factor(Afro3$country)
 Afro3Clean <- Afro3 %>%
-  select(q24, q22, q81, withinwt) %>%
+  select( q22, q81, withinwt) %>%
   mutate(across(everything(), ~recode(.x,
          "c(9,-1,97,98,99, 998, 997, 998) = NA"))) %>%
   mutate(year = 2005,
         country_Afro = Afro3Countries ) %>%
   rename(
-    "WomMenPolLead_Afro" = "q24",
+    
     "AlEduVote_Afro" = "q22",
     "EthnUnfair_Afro" = "q81",
     "weight_Afro" = "withinwt"
@@ -220,10 +220,14 @@ AfroBarometer <- bind_rows(Afro1Clean, Afro2Clean, Afro3Clean,
 
 AfroBarometer$country <- countrycode(AfroBarometer$country_Afro, origin = "country.name", destination = "iso3n")
 
+saveRDS(AfroBarometer, "AroBarSammen.rds")
+
 AfroBarometer_Mean <- AfroBarometer %>%
   group_by(country, year) %>%
   summarise(across(everything(), ~weighted.mean(.x, w = weight_Afro ,na.rm = TRUE))) %>%
   select(- weight_Afro) %>%
   mutate(across(everything(), ~ifelse(is.nan(.x), NA, .x)))
 
+AfroBarometer$weight_Afro <- NULL
 saveRDS(AfroBarometer_Mean, "AfroBarometer.rds")
+

@@ -16,4 +16,7 @@ PolitySelected$Country <- countrycode(PolitySelected$ccode, origin = "cown", des
 #   In countrycode(PolitySelected$ccode, origin = "cown", destination = "iso3n") :
 #   Some values were not matched unambiguously: 260, 265, 315, 342, 345, 347, 348, 364, 525, 529, 678, 680, 818
 
+PolitySelected <- PolitySelected %>%
+  filter(!is.na(Country))
+
 saveRDS(PolitySelected, "Data/politySelected.rds")

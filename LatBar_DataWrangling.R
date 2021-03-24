@@ -45,11 +45,11 @@ Lat97 <- Lat97 %>%
 Lat98 <- read_sav("Data/LatinoBarometer/Latinobarometro_1998_datos_english_v2014_06_27.sav")
 
 Lat98 <- Lat98 %>%
-  select(sp28, np14b,
+  select(sp28,
          idenpa, numinves, pondera) %>%
   rename(
    "SuppDem" = "sp28",
-   "Privat" = "np14b",
+   
    "Country" = "idenpa",
    "year" = "numinves",
    "weight" = "pondera"
@@ -59,12 +59,12 @@ Lat98 <- Lat98 %>%
 Lat00 <- read_sav("Data/LatinoBarometer/Latinobarometro_2000_datos_eng_v2014_06_27.sav")
 
 Lat00 <- Lat00 %>%
-  select(P29ST, P39ST, P70ST.D, P16ST.A, IDENPA,NUMINVES, WT) %>%
+  select(P29ST, P39ST, P70ST.D,  IDENPA,NUMINVES, WT) %>%
   rename(
-    "SupppDem" = "P29ST",
+    "SuppDem" = "P29ST",
     "PrdNat" = "P39ST",
     "WomenPubOff" = "P70ST.D",
-    "Privat" = "P16ST.A",
+    
     "Country" = "IDENPA",
     "year" = "NUMINVES",
     "weight" = "WT"
@@ -73,12 +73,12 @@ Lat00 <- Lat00 %>%
 Lat01 <- read_sav("Data/LatinoBarometer/Latinobarometro_2001_datos_english_v2014_06_27.sav")
 
 Lat01 <- Lat01 %>%
-  select(p46st, p52nusa,p73st,p15sta, idenpa,
+  select(p46st, p52nusa,p73st, idenpa,
          numinves,wt) %>%
   rename("SuppDem" = "p46st",
          "PunGuil" = "p52nusa",
          "PrdNat" = "p73st",
-         "Privat" = "p15sta",
+         
          "Country" = "idenpa",
          "year" = "numinves",
          "weight" = "wt")
@@ -87,11 +87,11 @@ Lat02 <- read_sav("Data/LatinoBarometer/Latinobarometro_2002_datos_eng_v2014_06_
 
 
 Lat02 <- Lat02 %>%
-  select(p32st,p47st,p22sta,idenpa, numinves,wt) %>%
+  select(p32st,p47st,idenpa, numinves,wt) %>%
   rename(
     "SuppDem" = "p32st",
     "PrdNat" = "p47st",
-    "Privat" = "p22sta",
+    
     "Country" = "idenpa",
     "year" = "numinves",
     "weight" = "wt"
@@ -100,13 +100,13 @@ Lat02 <- Lat02 %>%
 Lat03 <- read_sav("Data/LatinoBarometer/Latinobarometro_2003_datos_eng_v2014_06_27.sav")
 
 Lat03 <- Lat03 %>%
-  select(p14st, p22gb.b ,p64st.b, p18st, p26st, idenpa, numinves,wt) %>%
+  select(p14st, p22gb.b , p18st,  idenpa, numinves,wt) %>%
   rename(
     "SuppDem" = "p14st",
     "NoEduPol" = "p22gb.b",
-    "PuinGuil" = "p64st.b",
+    
     "PrdNat" = "p18st",
-    "Privat" = "p26st",
+    
     "Country" = "idenpa",
     "year" = "numinves",
     "weight" = "wt"
@@ -132,14 +132,14 @@ Lat04 <- Lat04 %>%
 Lat05 <- read_sav("Data/LatinoBarometer/Latinobarometro_2005_datos_eng_v2014_06_27.sav")
 
 Lat05 <- Lat05 %>%
-  select(p16st, p75st,p22st, p40sta,p13st, p40stc, idenpa,numinves,wt) %>%
+  select(p16st, p75st,p22st,p13st,  idenpa,numinves,wt) %>%
   rename(
     "SuppDem" = "p16st",
     "SuppMilGv" = "p75st",
     "CntPwr" = "p22st",
-    "PuinGuil" = "p40sta",
+    
     "PrdNat" = "p13st",
-    "Private" = "p40stc",
+   
     "Country" = "idenpa",
     "year" = "numinves",
     "weight" = "wt"
@@ -162,12 +162,12 @@ Lat06 <- Lat06 %>%
 Lat07 <- read_sav("Data/LatinoBarometer/Latinobarometro_2007_datos_eng_v2014_06_27.sav")
 
 Lat07 <- Lat07 %>%
-  select(p9st, p25n, p16st, p54sta, idenpa, numinves, wt) %>%
+  select(p9st, p25n, p16st,  idenpa, numinves, wt) %>%
   rename(
     "SuppDem" = "p9st",
     "OthAdvanScale" = "p25n",
     "CntPwr" = "p16st",
-    "Private" = "p54sta",
+    
     "Country" = "idenpa",
     "year" = "numinves",
     "weight" = "wt"
@@ -206,12 +206,12 @@ Lat10 <- read_sav("Data/LatinoBarometer/Latinobarometro_2010_datos_eng_v2014_06_
 
 Lat10 <- Lat10 %>%
   select(P10ST, P16STM,
-         P17ST, P75ST.C, IDENPA, NUMINVES, wt) %>%
+         P17ST,  IDENPA, NUMINVES, wt) %>%
   rename(
     "SuppDem" = "P10ST",
     "SuppMilGv" = "P16STM",
     "CntPwr" = "P17ST",
-    "Private" = "P75ST.C",
+    
     "Country" = "IDENPA",
     "year" = "NUMINVES",
     "weight" = "wt"
@@ -221,44 +221,44 @@ Lat10 <- Lat10 %>%
 Lat11 <- read_sav("Data/LatinoBarometer/Latinobarometro_2011_eng.sav")
 
 Lat11 <- Lat11 %>%
-  select(P13ST, P18ST, P19ST, P69ST.C, IDENPA, NUMINVES, WT) %>%
+  select(P13ST, P18ST, P19ST,  IDENPA,  WT) %>%
   rename(
     "SuppDem" = "P13ST",
     "SuppMilGv" = "P18ST",
     "CntPwr" = "P19ST",
-    "Private" = "P69ST.C",
+    
     "Country" = "IDENPA",
-    "year" = "NUMINVES",
     "weight" = "WT"
     
-  )
+  ) %>%
+  mutate(year = 2011)
 
 Lat13 <- read_sav("Data/LatinoBarometer/Latinobarometro2013Eng.sav")
 
 Lat13 <- Lat13 %>%
-  select(P12STGBS, P14ST, P60ST.B, IDENPA, NUMINVES, WT) %>%
+  select(P12STGBS, P14ST,  IDENPA,  WT) %>%
   rename(
     "SuppDem" = "P12STGBS",
     "CntPwr" = "P14ST",
-    "Private" = "P60ST.B",
+    
     "Country" = "IDENPA",
-    "year" = "NUMINVES",
     "weight" = "WT"
     
-  )
+  ) %>%
+  mutate(year = 2013)
 
 Lat15 <- read_sav("Data/LatinoBarometer/Latinobarometro_2015_Eng.sav")
 
 Lat15 <- Lat15 %>%
-  select(P11STGBS, P14ST, IDENPA, NUMINVES, WT) %>%
+  select(P11STGBS, P14ST, IDENPA,  WT) %>%
   rename(
     "SuppDem" = "P11STGBS",
     "CntPwr" = "P14ST",
     "Country" = "IDENPA",
-    "year" = "NUMINVES",
     "weight" = "WT"
     
-  )
+  ) %>%
+  mutate(year = 2015)
 
 Lat16 <- read_sav("Data/LatinoBarometer/Latinobarometro2016Eng_v20170205.sav")
 
@@ -315,14 +315,15 @@ LatinoBarometer <- list(Lat95, Lat96, Lat97, Lat98, Lat00, Lat01, Lat02,
 #LandKodene er ISO ISO 3166-1 numerisk
 
 
-
+saveRDS(LatinoBarometer, "LatBarSammen.rds")
 
 LatinoBarometer_Mean <- LatinoBarometer %>%
   group_by(Country, year) %>%
   summarise(across(everything(), ~weighted.mean(.x, w = weight ,na.rm = TRUE))) %>%
   select(- weight) %>%
-  mutate(across(everything(), ~ifelse(is.nan(.x), NA, .x)))
+  mutate(across(everything(), ~ifelse(is.nan(.x), NA, .x))) %>%
+  mutate(across(everything(), ~ifelse(.x < 0, NA, .x))) 
 
 
-
-saveRDS(LatinoBarometer_Mean, "LatinoBarometer.rds")
+LatinoBarometer$weight <- NULL
+saveRDS(LatinoBarometer_Mean, "LatinoBarometer_Mean.rds")
