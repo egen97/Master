@@ -17,12 +17,12 @@ EVS <- EVS %>%
 
 #164997
 WVSSelected <- WVS %>%
-  select( S003, S020, S024, S017, 
-          A168A, A192, A193, A194, A195, A196, A197, A198, A199, A039,
-         C001_01, C002, C005, A029, A030,  A032, A034, A035,  A038,
-          D059, C010, C011, C012, C013, C014, C015, C016, C017, C018, C019,
-         E035, A165, D017, D019, D022, D023, D024, D054, D055, D056, D057, D058,
-          F114D, F144, F120, E023, E022,  E025B, E026B, E027, E028, E028B, E029,
+  select( S003, S020, S024, S017, S025,A008, A029,A030, A039, A040, A042, A170, 
+          A168A, A192, A193, A194, A195, A196, A197, A198, A199, A039, E001, E002, E003, E004, E005, E006,
+         C001_01, C002, C005, A029, A030,  A032, A034, A035,  A038, E007, E008, E009, E010, E018, E025, E025B,
+          D059, C010, C011, C012, C013, C014, C015, C016, C017, C018, C019, E026, E026B, E027, E028, E045, E061,
+         E035, A165, D017, D019, D022, D023, D024, D054, D055, D056, D057, D058, E198, E221B, F063, F120, G007_02,
+          F114D, F144, F120, E023, E022,  E025B, E026B, E027, E028, E028B, E029, Y002, Y003,
           E231,  D077, E038, F001, F028, F050, F115, F116, F117, F118, F119,  F121, F121, F123,
           E121, E275, E069_02, E069_06, E069_20, E069_19,
           C059, E012, E018,
@@ -82,18 +82,18 @@ WVSSelected <- WVS %>%
   mutate(across(everything(), ~ifelse(.x < 0, NA, .x)))
 
 EVSSelected <- EVS %>%
-  select(S003, S020, S017,S024,  
-           A168A, A192, A193, A194, A195, A196, A197, A198, A199, A039,
-            C002, C005, A029, A030,  A032, A034, A035,  A038,
-           D059, C010, C011, C012, C013, C014, C015, C016, C017, C018, C019,
-           E035, A165, D017, D019, D022, D023, D024, D054, D055, D056, D057, D058,
-            F144, F120, E023, E022,  E025B, E026B, E027, E028, E028B, E029,
-           E231,  D077, E038, F001, F028, F050, F115, F116, F117, F118, F119,  F121, F121, F123,
-           E121,  E069_02, E069_06, E069_20, E069_19,
-           C059, E012, E018,
-           E036, G006, Y022,
-           E232, F144_02,
-           A189, A190,A191, Y001) %>%
+  select( S003, S020, S024, S017, S025,A008, A029,A030, A039, A040, A042, A170, 
+          A168A, A192, A193, A194, A195, A196, A197, A198, A199, A039, E001, E002, E003, E004, E005, E006,
+           C002, C005, A029, A030,  A032, A034, A035,  A038, E007, E008, E009, E010, E018, E025, E025B,
+          D059, C010, C011, C012, C013, C014, C015, C016, C017, C018, C019, E026, E026B, E027, E028, E045, E061,
+          E035, A165, D017, D019, D022, D023, D024, D054, D055, D056, D057, D058, E198, E221B, F063, F120, G007_02,
+           F144, F120, E023, E022,  E025B, E026B, E027, E028, E028B, E029, Y002, Y003,
+          E231,  D077, E038, F001, F028, F050, F115, F116, F117, F118, F119,  F121, F121, F123,
+          E121,  E069_02, E069_06, E069_20, E069_19,
+          C059, E012, E018,
+          E036, G006, Y022,
+          E232, F144_02,
+          A189, A190,A191, Y001) %>%
   rename(
     
     "Country" = "S003",
@@ -156,7 +156,7 @@ SurveyData <- WVSSelected %>%
 SurveyData <- EVS %>%
   bind_rows(WVS)
 
-saveRDS(SurveyData, "WVS_EVS.rds")
+#saveRDS(SurveyData, "WVS_EVS.rds")
 
 SurveyData <- readRDS("WVS_EVS.rds")
 
@@ -184,7 +184,7 @@ WVS_Mean <- SurveyData %>%
 WVS_Limited <- WVS_Mean %>%
   select(starts_with("Value"), PostMatInd, Country, year, FightCountry, ViolOthJust )
 
-#saveRDS(WVS_Mean, "wvs_everything.rds")
+saveRDS(WVS_Mean, "wvs_everything.rds")
 
 saveRDS(WVS_Limited, "WVS.rds")
 

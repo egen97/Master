@@ -5,8 +5,8 @@ library(countrycode)
 GDP <- read.csv("Data/gdpCAPITA.csv")
 Population <- read.csv("Data/population.csv")
 
-GDP <- rename(GDP, "Country" = "ï..Country.Name")
-Population <- rename(Population, "Country" = "ï..Country.Name")
+GDP <- rename(GDP, "Country" = "Ã¯..Country.Name")
+Population <- rename(Population, "Country" = "Ã¯..Country.Name")
 
 
 Non_Countries <- c( "Arab World", "Caribbean small states", 
@@ -67,19 +67,19 @@ Population_Cleaned$Country <- countrycode(Population_Cleaned$Country, origin = "
 
 
 Corruption <- read.csv("Data/CPIACORUPTION.csv")
-Corruption <- rename(Corruption, "Country" = "ï..Country.Name")
+Corruption <- rename(Corruption, "Country" = "Ã¯..Country.Name")
 
 Gender <- read.csv("Data/CPIAGENDER.csv")
-Gender <- rename(Gender, "Country" = "ï..Country.Name")
+Gender <- rename(Gender, "Country" = "Ã¯..Country.Name")
 
 Law <- read.csv("Data/CPIALAW.csv")
-Law <- rename(Law, "Country" = "ï..Country.Name")
+Law <- rename(Law, "Country" = "Ã¯..Country.Name")
 
 SocProt <- read.csv("Data/CPIASOCIALPROTECTION.csv")
-SocProt <- rename(SocProt, "Country" = "ï..Country.Name")
+SocProt <- rename(SocProt, "Country" = "Ã¯..Country.Name")
 
 Gini <- read.csv("Data/gini.csv")
-Gini <- rename(Gini, "Country" = "ï..Country.Name")
+Gini <- rename(Gini, "Country" = "Ã¯..Country.Name")
 
 
 
@@ -224,4 +224,54 @@ WB_Data <- WB_Data %>%
   left_join(HDI_Cleaned)
 
 
+
+
+
+MoreDataIGuess <- read.csv("Data/WBSERIES.csv")
+
+MoreDataIGuess <- rename(MoreDataIGuess, "Country" = "Ã¯..Country.Name")
+
+Clean <- MoreDataIGuess %>%
+  select(Country, Series.Name, starts_with("x"))%>%
+  pivot_longer(starts_with("x"), names_to = "year") 
+
+
+Cleaner <- Clean %>%
+  filter(Series.Name != "") %>%
+  #distinct(Country, year, .keep_all = TRUE) %>%
+  pivot_wider(id = c("Country", "year"), names_from = "Series.Name") %>%
+  mutate(across(everything(), ~ifelse(.x == "..", NA, .x)))
+
+
+
+Cleaner <- Cleaner %>%
+  mutate(year = str_extract(year, "X\\d*"),
+         year = str_remove(year, "X"))
+
+
+Cleaner$year <- as.numeric(Cleaner$year)
+
+Cleaner <- Cleaner %>%
+  rename(
+    "Fules_prcap" = "Access to clean fuels and technologies for cooking (% of population)",
+    "Elec_prcap" = "Access to electricity (% of population)",
+    "fuel_exprprgdp" = "Fuel exports (% of merchandise exports)",
+    "expr_prgdp" = "Exports of goods and services (% of GDP)",
+    "edu_year" = "Compulsory education, duration (years)",
+    "edu_xpns" = "Current education expenditure, primary (% of total expenditure in primary public institutions)",
+    "health_xpns" = "Current health expenditure (% of GDP)" 
+    
+  )
+
+Cleaner$Country <- countrycode(Cleaner$Country, origin = "country.name", destination = "iso3n")
+Cleaner <- Cleaner %>%
+  filter(!is.na(Country))
+
+WB_Data <- WB_Data %>%
+  left_join(Cleaner)
+
+
+WB_Data <- WB_Data %>%
+  filter(year >= 1980)
+  
 saveRDS(WB_Data, "Data/WB_Data.rds")

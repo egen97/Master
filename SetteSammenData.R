@@ -5,9 +5,11 @@ FHI <- download_fh(verbose = FALSE, include_territories = F)
 WGI <- download_wgi_voice_and_accountability()
 FHIelec <- download_fh_electoral()
 
+CIRI <- readRDS("ciri.rds")
+
 AfroBarometer <- readRDS("AfroBarometer.rds")
 LatinoBarometer <- readRDS("LatinoBarometer_Mean.rds")
-WVS <- readRDS("WVS.rds")
+WVS <- readRDS("wvs_everything.rds")
 Polity <- readRDS("Data/politySelected.rds")
 Conflict <- readRDS("Data/ConflictData.rds")
 WB <- readRDS("Data/WB_Data.rds")
@@ -51,8 +53,7 @@ SurveyData <- SurveyData %>%
 
 
 SurveyData <- SurveyData %>%
-  full_join(MilDat, by = c("Country", "year")) %>%
-  select(-ccode)
+  full_join(MilDat, by = c("Country", "year"))
 
 
 
@@ -94,6 +95,12 @@ FHIelec <- FHIelec %>%
 SurveyData <- SurveyData %>%
   full_join(FHIelec, by = c("Country", "year"))
 
+SurveyData <- SurveyData %>%
+  full_join(CIRI, by = c("Country", "year"))
+
+SurveyData <- SurveyData %>%
+  filter(year >= 1980)
+
 # 
 #missmap(SurveyData)
 #saveRDS(SurveyData, "CompleteData.rds")
@@ -103,8 +110,20 @@ SurveyData <- SurveyData %>%
   distinct(Country, year, .keep_all = TRUE) %>%
   filter(Country %in% WVSCountries) %>%
   filter(year >= 1980)
+SurveyData <- SurveyData %>%
+  select(-D022, -C002)
+# 
+ 
+SurveyData$majorpower <- ifelse(!is.na(SurveyData$majorpower), 0, SurveyData$majorpower)
+table(is.na(SurveyData$Conflict_Binary))
+SurveyData$Conflict_Binary <- ifelse(is.na(SurveyData$Conflict_Binary), 0, SurveyData$Conflict_Binary)
+
+SurveyData <- SurveyData %>%
+  select(-ccode.y, -ccode.x, -Country.y)
+
+missmap(SurveyData)
 
 
-
-saveRDS(SurveyData, "CompleteData.rds")
-
+# 
+#saveRDS(SurveyData, "CompleteData.rds")
+# 
