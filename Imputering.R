@@ -8,11 +8,22 @@ CompleteData <- CompleteData %>%
   filter(!is.na(Country)) %>%
   select(-Country.y, -ccode )
 
+CompleteData$milex <- ifelse(CompleteData$milex < 0, NA, CompleteData$milex)
 #c(column.number, lower.bound,upper.bound)
 
-colnr <- c(151, 152,149 )
-low <- c(94.56473, 37500,0)
-up <- c(118823.6, 1397715000,1)
+# Riddikulus <- CompleteData %>%
+#   select(Country, year, ValueRisk, ValueRich, ValueSecur, HDI, Gini, polity, expr_prgdp, health_xpns, gdpPRcapita, Population,
+#          fh_total,fuel_exprprgdp, Law, pr, edu_year, Fules_prcap,Conflict_Binary, milex, milper, irst,
+#          starts_with("v2"))
+
+
+Riddikulus <- CompleteData %>%
+  select(Country, year, ValueRich, ValueRisk, ValueSecur, expr_prgdp, Population, gdpPRcapita, v2x_polyarchy,
+         polity, expr_prgdp, A08, ChildDeter, A040, A170, )
+
+colnr <- c(14, 15)
+low <- c(94.56473, 37500)
+up <- c(118823.6, 1397715000)
 
 Bounds <- data.frame(colnr, low, up)
 Bounds <- as.matrix(Bounds)
@@ -49,18 +60,23 @@ CompleteData$majorpower <- ifelse(is.na(CompleteData$majorpower), 0, 1)
 
 
 CompleteData$HDI <- as.numeric(CompleteData$HDI)
+
+
+
+
 numCores  = round(parallel::detectCores())
 cl_par <- parallel::makePSOCKcluster(numCores)
 
-ImputedData <- amelia(CompleteData,
-                      m = 10,
+ImputedData <- amelia(Riddikulus,
+                      m = 1,
                       ts = "year",
                       cs = "Country",
-                      idvars = c("type_of_conflict", "conflict_id"),    
+                      #idvars = c("type_of_conflict", "conflict_id"),    
                       polytime = 2,
                       intercs = TRUE,
-                      ords = "status",
-                      bounds = Bounds,
+                      #ords = "status",
+                      #bounds = Bounds,
+                      logs = c("gdpPRcapita", "Population"),
                       autopri = 1,
                       paralell = "snow",
                       cl = cl_par)

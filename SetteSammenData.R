@@ -15,7 +15,7 @@ Conflict <- readRDS("Data/ConflictData.rds")
 WB <- readRDS("Data/WB_Data.rds")
 MilDat <- readRDS("Data/mildat.rds")
 Arab <- readRDS("arabMean.rds")
-
+demoData <- readRDS("demoData.rds")
 SurveyData <- WVS %>%
   full_join(LatinoBarometer, by = c("Country", "year"))
 
@@ -121,9 +121,15 @@ SurveyData$Conflict_Binary <- ifelse(is.na(SurveyData$Conflict_Binary), 0, Surve
 SurveyData <- SurveyData %>%
   select(-ccode.y, -ccode.x, -Country.y)
 
+
+SurveyData <- SurveyData %>%
+  left_join(demoData)
+
+
+
 missmap(SurveyData)
 
 
 # 
-#saveRDS(SurveyData, "CompleteData.rds")
+saveRDS(SurveyData, "CompleteData.rds")
 # 
