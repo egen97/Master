@@ -18,3 +18,15 @@ MilDat <- MilDat %>%
 
 
 saveRDS(MilDat, "mildat.rds")
+unique(MilDat$majorpower)
+
+Yhe <- MilDat %>%
+  select(Country, year, majorpower)
+
+CompleteData <- CompleteData %>%
+  left_join(Yhe)
+
+CompleteData$majorpower <- NULL
+unique(CompleteData$majorpower)
+
+CompleteData$majorpower <- ifelse(is.na(CompleteData$majorpower), 0, CompleteData$majorpower)

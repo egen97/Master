@@ -4,7 +4,7 @@ library(countrycode)
 FHI <- download_fh(verbose = FALSE, include_territories = F) 
 WGI <- download_wgi_voice_and_accountability()
 FHIelec <- download_fh_electoral()
-
+MID <- readRDS("Data/MID_Data.rds")
 CIRI <- readRDS("ciri.rds")
 
 AfroBarometer <- readRDS("AfroBarometer.rds")
@@ -96,7 +96,7 @@ SurveyData <- SurveyData %>%
   full_join(FHIelec, by = c("Country", "year"))
 
 SurveyData <- SurveyData %>%
-  full_join(CIRI, by = c("Country", "year"))
+  full_join(CIRI, by = c("Country", "year" = "YEAR"))
 
 SurveyData <- SurveyData %>%
   filter(year >= 1980)
@@ -113,10 +113,6 @@ SurveyData <- SurveyData %>%
 SurveyData <- SurveyData %>%
   select(-D022, -C002)
 # 
- 
-SurveyData$majorpower <- ifelse(!is.na(SurveyData$majorpower), 0, SurveyData$majorpower)
-table(is.na(SurveyData$Conflict_Binary))
-SurveyData$Conflict_Binary <- ifelse(is.na(SurveyData$Conflict_Binary), 0, SurveyData$Conflict_Binary)
 
 SurveyData <- SurveyData %>%
   select(-ccode.y, -ccode.x, -Country.y)
@@ -125,7 +121,19 @@ SurveyData <- SurveyData %>%
 SurveyData <- SurveyData %>%
   left_join(demoData)
 
+SurveyData$majorpower <- ifelse(is.na(SurveyData$majorpower), 0, SurveyData$majorpower)
 
+SurveyData$Conflict_Binary <- ifelse(is.na(SurveyData$Conflict_Binary), 0, SurveyData$Conflict_Binary)
+
+
+SurveyData <- SurveyData %>%
+  mutate(across(c("HDI","Fules_prcap", "Elec_prcap", "expr_prgdp", "fuel_exprprgdp", "edu_year", "edu_xpns", "health_xpns"),
+                ~as.numeric(.x)))
+
+
+
+SurveyData <- SurveyData %>%
+  left_join(MID)
 
 missmap(SurveyData)
 
