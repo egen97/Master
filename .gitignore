@@ -30,3 +30,7 @@ Data/WVS_Vars.rds
 *.rds
 *.csv
 *.rds
+*.dta
+Data/imputed/MidINclude.RData
+*.RData
+.RDataTmp1

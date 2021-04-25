@@ -17,7 +17,7 @@ EVS <- EVS %>%
 
 #164997
 WVSSelected <- WVS %>%
-  select( S003, S020, S024, S017, S025,A008, A029,A030, A039, A040, A042, A170, 
+  select( S002,S003, S020, S024, S017, S025,A008, A029,A030, A039, A040, A042, A170, 
           A168A, A192, A193, A194, A195, A196, A197, A198, A199, A039, E001, E002, E003, E004, E005, E006,
          C001_01, C002, C005, A029, A030,  A032, A034, A035,  A038, E007, E008, E009, E010, E018, E025, E025B,
           D059, C010, C011, C012, C013, C014, C015, C016, C017, C018, C019, E026, E026B, E027, E028, E045, E061,
@@ -82,7 +82,7 @@ WVSSelected <- WVS %>%
   mutate(across(everything(), ~ifelse(.x < 0, NA, .x)))
 
 EVSSelected <- EVS %>%
-  select( S003, S020, S024, S017, S025,A008, A029,A030, A039, A040, A042, A170, 
+  select(S002EVS, S003, S020, S024, S017, S025,A008, A029,A030, A039, A040, A042, A170, 
           A168A, A192, A193, A194, A195, A196, A197, A198, A199, A039, E001, E002, E003, E004, E005, E006,
            C002, C005, A029, A030,  A032, A034, A035,  A038, E007, E008, E009, E010, E018, E025, E025B,
           D059, C010, C011, C012, C013, C014, C015, C016, C017, C018, C019, E026, E026B, E027, E028, E045, E061,
@@ -95,7 +95,7 @@ EVSSelected <- EVS %>%
           E232, F144_02,
           A189, A190,A191, Y001) %>%
   rename(
-    
+    "S002" = "S002EVS",
     "Country" = "S003",
     "year" = "S020",
     "Weights" = "S017",
@@ -160,21 +160,19 @@ SurveyData <- EVS %>%
 
 SurveyData <- readRDS("WVS_EVS.rds")
 
-<<<<<<< HEAD
-WVS_Mean <- WVS %>%
-  group_by(S003, S020) %>%
+
+WVS_Mean <- SurveyData %>%
+  group_by(Country, year) %>%
   summarise(across(everything(), ~weighted.mean(.x, w = Weights ,na.rm = TRUE))) %>%
   select(- Weights) %>%
   mutate(across(everything(), ~ifelse(is.nan(.x), NA, .x))) %>%
   ungroup()
 
 
-=======
 WVSSelected <- as.data.frame(WVSSelected)
->>>>>>> 89814d99639118d4201b83dcec3200fe51d1d42b
 
 SurveyData <- as.data.frame(SurveyData)
-
+WVS_Mean$S024
 
 
 

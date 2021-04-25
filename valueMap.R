@@ -10,7 +10,7 @@ ggplot(mi_counties, aes(lon, lat)) +
 
 country_data <- ImputedData[[1]][1]
 country_data <- as.data.frame(country_data)
-#library(fuzzyjoin)
+library(fuzzyjoin)
 
 country_data$CountryChar <- countrycode(country_data$imp1.Country, origin = "iso3n", destination = "iso3c")
 
@@ -51,5 +51,4 @@ map_data("world") %>%
   facet_wrap(~imp1.year) +
   theme_map() +
   labs(title = "Self-Enchantement Value Scores", fill = "Value Score")
-
 
