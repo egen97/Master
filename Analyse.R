@@ -3,8 +3,8 @@ library(Amelia)
 library("stargazer")
 library(tidyverse)
 #z5$zelig(tariff ~ polity + pop + gdp.pc + year + country, data = a.out)
-ImputedData <- r
-
+#ImputedData <- load("Data/imputed/10imp46var.RData")
+#Vel den funka ikke, men det funka å bare klike..god knows why, og gud hater jeg .RData
 #a.out <- transform(a.out, lgdp = log(gdp.pc))
 
 ImputedData <- transform.amelia(ImputedData, ValueScore =  (ValueRisk + ValueSucses + ValueGodTim + ValueSecur)*-1)
@@ -86,4 +86,34 @@ ggplot(Df ) +
   geom_smooth(aes(year, ValueScore), size = 3, colour = "firebrick2", fill = "firebrick1", alpha = .7) +
   guides(colour = FALSE)
 
+
+
+
+
+#Ovverimpute, plese work, by good
+
+
+overimpute(ImputedData, "gdpPRcapita", 4, subset = year > 1990, main = "Imputed versus Observed Value: GDP/capita")
+dev.off()
+
+
+overimpute(ImputedData, "HDI", 4, subset = year > 1990, main = "Imputed versus Observed Value: HDI")
+
+
+overimpute(ImputedData, "polity", 4, subset = year > 1990, main = "Imputed versus Observed Value: Polity V Democracy Score")
+
+
+overimpute(ImputedData, "A035", 4, subset = year > 1990, main = "Imputed versus Observed Value: WVS-A035")
+
+
+overimpute(ImputedData, "A035", 4, subset = year > 1990, main = "Imputed versus Observed Value: WVS-A035")
+
+
+overimpute(ImputedData, "ValueSecur", 4, subset = year > 1990, main = "Imputed versus Observed Value: Value Secure (WVS A191)")
+
+
+overimpute(ImputedData, "ValueRisk", 4, subset = year > 1990, main = "Imputed versus Observed Value: Value Risk (WVS A195)")
+
+
+overimpute(ImputedData, "ValueGodTim", 4, subset = year > 1990, main = "Imputed versus Observed Value: Value Good Time (WVS A192)")
 
