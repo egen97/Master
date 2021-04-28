@@ -117,3 +117,13 @@ overimpute(ImputedData, "ValueRisk", 4, subset = year > 1990, main = "Imputed ve
 
 overimpute(ImputedData, "ValueGodTim", 4, subset = year > 1990, main = "Imputed versus Observed Value: Value Good Time (WVS A192)")
 
+
+#Dispertion
+
+disperse(ImputedData, 5, 1)
+
+
+disperse(ImputedData, 10, 2)
+
+
+disperse(ImputedData, 8, 1)
