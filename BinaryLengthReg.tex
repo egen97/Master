@@ -1,0 +1,33 @@
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c}
+\hline
+ & \multicolumn{2}{c}{logistic regression} & \multicolumn{1}{c}{OLS} \\
+\cline{2-3} \cline{4-4}
+ & MID Binary & UCDP/PRIO Binary & Conflict Length \\
+\hline
+(Intercept) & $-22.95$    & $-1.21$       & $0.31$   \\
+            & $(6930.19)$ & $(1.78)$      & $(0.47)$ \\
+ValueScore  & $-0.04$     & $-0.08$       & $-0.01$  \\
+            & $(0.26)$    & $(0.10)$      & $(0.02)$ \\
+milper      & $0.00$      & $0.00^{***}$  & $-0.00$  \\
+            & $(0.00)$    & $(0.00)$      & $(0.00)$ \\
+majorpower  & $-1.00$     & $-0.36$       & $-0.03$  \\
+            & $(0.64)$    & $(0.32)$      & $(0.12)$ \\
+DeathPena   & $-0.05$     & $0.01$        & $0.00$   \\
+            & $(0.20)$    & $(0.07)$      & $(0.02)$ \\
+polity      & $-0.04$     & $-0.06^{**}$  & $0.00$   \\
+            & $(0.04)$    & $(0.02)$      & $(0.01)$ \\
+gdpPRcapita & $0.00$      & $-0.00^{***}$ & $-0.00$  \\
+            & $(0.00)$    & $(0.00)$      & $(0.00)$ \\
+\hline
+Num. obs.   & $42250$     & $42250$       & $42250$  \\
+Num. imp.   & $10$        & $10$          & $10$     \\
+\hline
+\multicolumn{4}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\end{tabular}
+\caption{Statistical models}
+\label{table:coefficients}
+\end{center}
+\end{table}

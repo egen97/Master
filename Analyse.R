@@ -7,7 +7,7 @@ library(tidyverse)
 #Vel den funka ikke, men det funka å bare klike..god knows why, og gud hater jeg .RData
 #a.out <- transform(a.out, lgdp = log(gdp.pc))
 
-ImputedData <- transform.amelia(ImputedData, ValueScore =  (ValueRisk + ValueSucses + ValueGodTim + ValueSecur)*-1)
+ImputedData <- transform.amelia(ImputedData, ValueScore =  (ValueRisk + ValueSucses + ValueGodTim + ValueSecur))
 
 
 ImputedData <- transform.amelia(ImputedData, MID_Binary = ifelse(!is.na(dispnum) & fatality > 1, 1, 0))
@@ -75,7 +75,8 @@ TARFU <- zelig(length ~ ValueScore +
 
 
 texreg::texreg(FUBAR)
-texreg::screenreg(l = list(SNAFU, FUBAR, TARFU), omit.coef = "(year)|(Country)", custom.model.names =  c("MID Binary", "UCDP/PRIO Binary", "Conflict Length"))
+texreg::texreg(l = list(SNAFU, FUBAR, TARFU), omit.coef = "(year)|(Country)", custom.model.names =  c("MID Binary", "UCDP/PRIO Binary", "Conflict Length"),
+                 custom.header = list("logistic regression" = 1:2, "OLS" = 3), file = "BinaryLengthReg.tex")
 
 
 
@@ -83,8 +84,10 @@ Df <- ImputedData$imputations$imp1
 Df <- as.data.frame(Df)
 ggplot(Df ) +
   geom_smooth(aes(year, ValueScore, colour = as.factor(Country)), alpha = .2, size = .01, se = FALSE) +
-  geom_smooth(aes(year, ValueScore), size = 3, colour = "firebrick2", fill = "firebrick1", alpha = .7) +
-  guides(colour = FALSE)
+  geom_smooth(aes(year, ValueScore), size = 2.5, colour = "#FF6666", fill = "#FF6666", alpha = .8) +
+  guides(colour = FALSE) +
+  theme_classic() +
+  labs(y = "Value Score", x = "Year", title = "Timeline: Value Score", subtitle = "All participating countries & World Trend")
 
 
 
