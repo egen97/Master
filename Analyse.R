@@ -78,7 +78,7 @@ texreg::texreg(FUBAR)
 texreg::texreg(l = list(SNAFU, FUBAR, TARFU), omit.coef = "(year)|(Country)", custom.model.names =  c("MID Binary", "UCDP/PRIO Binary", "Conflict Length"),
                  custom.header = list("logistic regression" = 1:2, "OLS" = 3), file = "BinaryLengthReg.tex")
 
-
+#Labels og sånt må settes her
 
 Df <- ImputedData$imputations$imp1
 Df <- as.data.frame(Df)
