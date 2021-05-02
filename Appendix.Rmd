@@ -1,0 +1,32 @@
+---
+title: "Appendix I"
+author: "Eric G. E. Nilsen"
+date: "2 5 2021"
+output: html_document
+---
+
+# Imputed vs. Observed Density
+
+This part will show the density between the imputed and observed values for all variables. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(Amelia)
+load("Data/imputed/MidINclude.RData")
+
+```
+
+
+```{r}
+
+
+for (i in 3:46) {
+  tryCatch({
+  compare.density(ImputedData, var = i)
+  }, error = function(e){})
+}
+```
+
+
+
+
