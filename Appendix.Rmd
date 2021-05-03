@@ -30,5 +30,97 @@ for (i in VAR) {
 ```
 
 
+# Overimputation
+
+In addition to the the variables shown in part 4.3, this section will present the results of overimputing all variables in the dataset.
+
+
+```{r, echo=FALSE, results='asis'}
+
+plots <- list.files("OverImputedAp/")
+
+for(i in plots){
+  filename <- file.path("OverImputedAp", i)
+  cat("![text](",filename,")")
+}
+```
+
+
+
+     
+       
+
+
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- " 
+| Source        | Variable           | Period  |
+|---------------|:-------------:|------:|
+|WVS     |A189       |2005-2014|
+|WVS     |A190       |2005-2014|
+|WVS     |A191       |2005-2014|
+|WVS     |A192       |2005-2014|
+|WVS     |A193       |2005-2014|
+|WVS     |A194       |2005-2014|
+|WVS     |A195       |2005-2014|
+|WVS     |A196       |2005-2014|
+|WVS     |A197       |2005-2014|
+|WVS     |A198       |2005-2014|
+|WVS     |A199       |2005-2014|
+|WVS     |A035       |1981-2020|
+|WVS     |A039       |1981-2020|
+|WVS     |A008       |1981-2020|
+|WVS     |A029       |1981-2020|
+|WVS     |A170       |1981-2020|
+|WVS     |E012       |1981-2020|
+|WVS     |F114_02    |2017-2020|
+|WVS     |E006       |1989-2020|
+|WVS     |C019       |1981-2004|
+|WVS     |A165       |1981-2020|
+|WVS     |E035       |1989-2020|
+|WVS     |E2333A     |2010-2020|
+|Polity V| polity    |1980-2020
+|WB Open Data |  NY.GDP.PCAP.CD | 1980-2020|
+|WB Open Data | SP.POP.TOTL| 1980-2020|
+|WB Open Data | EG.CFT.ACCS.ZS| 1980-2020|
+|WB Open Data | SI.POV.GINI   | 1980-2020
+|V-DEM v.11.1 | v2x_polyarchy| 1980-2020 |
+|V-DEM v.11.1 | v2xpe_exlgender|1980-2020|
+|V-DEM v.11.1 | e_total_resources_income_pc |1980-2020|
+|V-DEM v.11.1 | e_pefeliex | 1980-2020|
+|V-DEM v.11.1 | v2xpe_exlecon | 1980-2020 |
+|V-DEM v.11.1 | e_miurbani | 1980-2020|
+|V-DEM v.11.1 | v2x_accountability | 1980-2020|
+|V-DEM v.11.1 | e_total_fuel_income_pc | 1980-2020|
+|UNDP   | HDI | 1980-2020|
+|Afrobarometer | supdem ,q38,32,q30,q28| 1999-2019|
+|Arabbarometer | q604,q706 | 2006-2018|
+|Arabbarometer | q2476 | 2006|
+|Arabbarometer | q2476 | 2006|
+|Latinobarometer |p19, sp31,sp28,P29ST,p46st, p32st, p14st,p13st,p16st,p17st,p9st,p13st, ,P10ST,P12STGBS, P11STGBS, P8STGBS |1995-2018|
+|COW | majorpower | 1980-2012|
+|COW |milex | 1980-2012|
+|COW |milper | 1980-2012|
+|MIDB 5.0 | dispnum | 1980-2014|
+|MIDB 5.0 | hiact | 1980-2014|
+|MIDB 5.0| hostlev | 1980-2014|
+|MIDB 5.0| fatality | 1980-2014|
+|MIDB 5.0 | fatalpre | 1980-2014|
+|CIRI | DOMMOV | 1980-2011|
+|CIRI | KILL | 1980-2011|
+|CIRI | POLPRIS | 1980-2011|
+|CIRI | PHYSINT | 1980-2011|
+|UCDP/PRIO| type_of_conflict | 1980-2019|
+|UCDP/PRIO| conflict_id | 1980-2019|
+|UCDP/PRIO | side_a | 1980-2019|
+|UCDP/PRIO | side_b | 1980-2019|
+|UCDP/PRIO | side_a_2nd| 1980-2019|
+|UCDP/PRIO | side_b_2nd| 1980-2019|
+|UCDP/PRIO | intensity_level| 1980-2019|
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+
+
 
 
