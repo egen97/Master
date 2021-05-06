@@ -12,7 +12,7 @@ This part will show the density between the imputed and observed values for all 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(Amelia)
-load("Data/imputed/MidINclude.RData")
+load("Data/imputed/CAAPinclude.RData")
 
 ```
 
@@ -78,7 +78,11 @@ tabl <- "
 |WVS     |A165       |1981-2020|
 |WVS     |E035       |1989-2020|
 |WVS     |E2333A     |2010-2020|
-|Polity V| polity    |1980-2020
+|WVS     |X047       |1981-2020|
+|WVS     |X025R      |1981-2020|
+|WVS     |X003       |1981-2020|
+|WVS     |X001       |1981-2020|
+|Polity V| polity    |1980-2020|
 |WB Open Data |  NY.GDP.PCAP.CD | 1980-2020|
 |WB Open Data | SP.POP.TOTL| 1980-2020|
 |WB Open Data | EG.CFT.ACCS.ZS| 1980-2020|
@@ -100,6 +104,10 @@ tabl <- "
 |COW | majorpower | 1980-2012|
 |COW |milex | 1980-2012|
 |COW |milper | 1980-2012|
+|COW |land   |1980-2012|
+|COW |sea    |1980-2012|
+|COW |cinc   |1980-2012|
+|COW |num_mem|1980-2012|
 |MIDB 5.0 | dispnum | 1980-2014|
 |MIDB 5.0 | hiact | 1980-2014|
 |MIDB 5.0| hostlev | 1980-2014|
