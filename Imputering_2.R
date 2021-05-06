@@ -13,7 +13,7 @@ SubSet <- CompleteData %>%
         v2xpe_exlgender, PHYSINT, A035, armedAntiUsAbarb, dealMoralArab, DeathPena,
         v2xpe_exlecon, POLPRIS, e_miurbani, e_total_resources_income_pc, e_total_fuel_income_pc,
         v2xpe_exlecon, E006, C019, TrustOth, IncEq, StaIncEqu, attackCivArab,FightCountry,
-        dispnum, hiact, hostlev, fatality, length,  fatalpre)
+        dispnum, hiact, hostlev, fatality, length,  fatalpre, land, sea, cinc, num_mem, edu_year)
 
 
 
@@ -52,11 +52,10 @@ ImputedData <- amelia(SubSet,
                       cl = cl_par)
 
 
-write.amelia(ImputedData, separate = TRUE,  "Data/imputed/MIDInclude", format = "csv")
 
 parallel::stopCluster(cl_par)
 
-save(ImputedData,file = "Data/imputed/MidINclude.RData")
+save(ImputedData,file = "Data/imputed/CAAPinclude.RData")
 
 
 overimpute(ImputedData, c("polity"), draws = 1)

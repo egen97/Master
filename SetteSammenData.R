@@ -16,6 +16,7 @@ WB <- readRDS("Data/WB_Data.rds")
 MilDat <- readRDS("Data/mildat.rds")
 Arab <- readRDS("arabMean.rds")
 demoData <- readRDS("demoData.rds")
+MilCap <- readRDS("MilCap.rds")
 SurveyData <- WVS %>%
   full_join(LatinoBarometer, by = c("Country", "year"))
 
@@ -54,6 +55,9 @@ SurveyData <- SurveyData %>%
 
 SurveyData <- SurveyData %>%
   full_join(MilDat, by = c("Country", "year"))
+
+SurveyData <- SurveyData %>%
+  full_join(MilCap, by = c("Country", "year"))
 
 
 
