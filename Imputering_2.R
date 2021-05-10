@@ -17,6 +17,24 @@ SubSet <- CompleteData %>%
 
 
 
+#Fikse at MID dupliserte år
+SubSet <- SubSet %>%
+  group_by(Country, year) %>%
+  summarise(across(everything(), ~max(.x))) 
+
+#Legge til aar siden sist konflikt, og verdier
+
+SubSet <- SubSet %>%
+  mutate(ValueScore = ValueRisk + ValueSucses + ValueGodTim + ValueSecur,
+         dispnum = ifelse(dispnum == 0, NA, dispnum), 
+         MID_Binary = ifelse(!is.na(dispnum) & fatality > 1, 1, 0))
+
+SubSet <- SubSet %>% 
+  mutate(
+    TimUCDP = cumsum_reset(!(as.logical(Conflict_Binary))),
+    TimMID = cumsum_reset(!(as.logical(MID_Binary)))
+  ) 
+
 
 
 missmap(SubSet)
@@ -55,7 +73,7 @@ ImputedData <- amelia(SubSet,
 
 parallel::stopCluster(cl_par)
 
-save(ImputedData,file = "Data/imputed/CAAPinclude.RData")
+save(ImputedData,file = "Data/imputed/ValueTimeinclude.RData")
 
 
 overimpute(ImputedData, c("polity"), draws = 1)

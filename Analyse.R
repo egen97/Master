@@ -7,10 +7,6 @@ library(tidyverse)
 #Vel den funka ikke, men det funka å bare klike..god knows why, og gud hater jeg .RData
 #a.out <- transform(a.out, lgdp = log(gdp.pc))
 
-ImputedData <- transform.amelia(ImputedData, ValueScore =  (ValueRisk + ValueSucses + ValueGodTim + ValueSecur))
-
-
-ImputedData <- transform.amelia(ImputedData, MID_Binary = ifelse(!is.na(dispnum) & fatality > 1, 1, 0))
 
 
 stargazer(from_zelig_model(FML)[[1]])
