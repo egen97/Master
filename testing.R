@@ -36,5 +36,22 @@ library(hutilscpp)
 
 
 
-SubSet %>%
-  
+SubSet <- SubSet %>%
+  mutate(ValueScore = ValueRisk + ValueSucses + ValueGodTim + ValueSecur,
+        dispnum = ifelse(dispnum == 0, NA, dispnum), 
+        MID_Binary = ifelse(!is.na(dispnum) & fatality > 1, 1, 0))
+
+SubSet <- SubSet %>% 
+  mutate(
+    TimUCDP = cumsum_reset(!(as.logical(Conflict_Binary))),
+    TimMID = cumsum_reset(!(as.logical(MID_Binary)))
+  ) 
+
+
+
+
+
+
+
+
+
