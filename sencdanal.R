@@ -1,18 +1,100 @@
-install.packages("lme4")
+#install.packages("lme4")
 library(lme4)
 
 WVS <- readRDS("WVS_EVS.rds")
 
 SubSet <- WVS %>%
-  select(FightCountry, DeathPena, starts_with("Value"), Weights, TrstArm, S024)
+  select(FightCountry, DeathPena, starts_with("Value"), Weights, TrstArm, S024,
+         starts_with("X"), Age)
+
+
+
+
 
 
 SubSet <- SubSet %>%
   mutate(ValueScore = ValueRisk + ValueSucses + ValueGodTim + ValueSecur)
 
 
-Mod1 <- lm(FightCountry ~ ValueScore,  SubSet, na.action = "na.exclude")
-Mod2 <- lm(FightCountry ~ ValueScore + TrstArm,  SubSet, na.action = "na.exclude")
-summary(Mod2)
+# "X047"   Income Scale
+# "X025R"  Education
+# "X003"   Age
+# "X001"   Sex
+
+
+
+
+
+Mod1 <- glm(
+  FightCountry ~ ValueScore + X001 + X025R +X047 + Age,
+  na.action = "na.exclude",
+  family = binomial(link = "logit"),
+  data = SubSet
+)
+
 summary(Mod1)
+
+
+Mod2 <- glm(
+  FightCountry ~ ValueScore + X001 + X025R +X047 + Age +
+    as.factor(S024),
+  na.action = "na.exclude",
+  family = binomial(link = "logit"),
+  data = SubSet
+)
+
+summary(Mod2)
+
+
+texreg::screenreg(Mod2,
+                  omit.coef = ("S024"),
+                  custom.model.names = "Fight For Country",
+                  custom.coef.names = c(
+                    "(intercept)",
+                    "Value Score",
+                    "Gender",
+                    "Education",
+                    "Income",
+                    "Age"
+                  ),
+                  label = "FCreg",
+                  booktabs = TRUE,
+                  caption = "Willigness to fight for own country",
+                  file = "FCreg.tex")
+
+
+
+
+
+
+
+texreg::texreg(l = list(UCDPBinary, UCDPFatal, UCDPInten), omit.coef = "(year)|(Country)|(Tim)", 
+               custom.model.names =  c("UCDP/Prio Binary", "Conflict Intensity", "Fatalities"),
+               custom.header = list("logistic" = 1:2, "OLS" = 3),
+               custom.coef.names = c(
+                 "(intercept)",
+                 "Value Score",
+                 "Military Personnel",
+                 "Major Power",
+                 "COW: CINC",
+                 "Nr. Allies",
+                 "Borders: Land",
+                 "Borders: Sea",
+                 "Support capital punishment",
+                 "Polity",
+                 "GDP/cap"
+               ),
+               label = "UCDPreg",
+               booktabs = TRUE,
+               caption = "Regression tables: UCDP/Prio",
+               file = "UCDPreg.tex"
+)
+
+
+
+
+
+
+
+
 

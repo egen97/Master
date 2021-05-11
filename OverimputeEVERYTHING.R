@@ -22,8 +22,11 @@ for (i in VAR) {
 }
 
 
-overimpute(ImputedData, "ValueGodTim", 4, subset = year > 1990, main = "Imputed versus Observed Value: Value Good Time (WVS A192)")
 
-compare.density(ImputedData, 4,
-                main = paste("Observed and Imputed Values of:",
-                             names(ImputedData[[1]][[1]][4]), sep = " "))
+disperse(ImputedData, 5, 1)
+
+
+disperse(ImputedData, 10, 2)
+
+
+disperse(ImputedData, 8, 1)

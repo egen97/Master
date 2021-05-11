@@ -5,6 +5,16 @@ library(haven)
 WVS <- readRDS("Data/WVS_TimeSeries_R_v1_6.rds")
 EVS <- read_spss("Data/ESV.sav")
 
+WVSAge <- WVS$X003
+EVSAge <- EVS$X003
+WVSAge <- as.numeric(WVSAge)
+EVSAge <- EVS %>% 
+  select(S024, X003) %>%
+  filter(!(S024 %in% WVSConWave)) %>%
+  select(X003) 
+
+EVSAge <- as.numeric(EVSAge$X003)
+
 WVS <- as_factor(WVS, levels = "values")
 EVS <- as_factor(EVS, levels = "values")
 
@@ -28,7 +38,7 @@ WVSSelected <- WVS %>%
           C059, E012, E018,
           E036, G006, Y022, Y014A, Y014B,
            E232, F144_02,
-         A189, A190,A191, Y001, X047, X025R, X003, X001) %>%
+         A189, A190,A191, Y001, X047, X025R, X003, X001, X002) %>%
   rename(
     
     "Country" = "S003",
@@ -81,6 +91,9 @@ WVSSelected <- WVS %>%
   mutate(across(everything(), ~as.numeric(as.character(.x)))) %>%
   mutate(across(everything(), ~ifelse(.x < 0, NA, .x)))
 
+
+WVSSelected$Age <- WVSAge
+
 EVSSelected <- EVS %>%
   select(S002EVS, S003, S020, S024, S017, S025,A008, A029,A030, A039, A040, A042, A170, 
           A168A, A192, A193, A194, A195, A196, A197, A198, A199, A039, E001, E002, E003, E004, E005, E006,
@@ -93,7 +106,7 @@ EVSSelected <- EVS %>%
           C059, E012, E018,
           E036, G006, Y022,
           E232, F144_02,
-          A189, A190,A191, Y001, X047, X025R, X003, X001) %>%
+          A189, A190,A191, Y001, X047, X025R, X003, X001, X002) %>%
   rename(
     "S002" = "S002EVS",
     "Country" = "S003",
@@ -145,7 +158,7 @@ EVSSelected <- EVS %>%
   mutate(across(everything(), ~ifelse(.x < 0, NA, .x))) 
 
 
-
+EVSSelected$Age <- EVSAge
 
 
 
@@ -156,7 +169,7 @@ SurveyData <- WVSSelected %>%
 SurveyData <- EVS %>%
   bind_rows(WVS)
 
-#saveRDS(SurveyData, "WVS_EVS.rds")
+saveRDS(SurveyData, "WVS_EVS.rds")
 
 SurveyData <- readRDS("WVS_EVS.rds")
 
