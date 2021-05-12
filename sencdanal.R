@@ -46,7 +46,7 @@ Mod2 <- glm(
 summary(Mod2)
 
 
-texreg::screenreg(Mod2,
+texreg::texreg(Mod2,
                   omit.coef = ("S024"),
                   custom.model.names = "Fight For Country",
                   custom.coef.names = c(
@@ -61,40 +61,6 @@ texreg::screenreg(Mod2,
                   booktabs = TRUE,
                   caption = "Willigness to fight for own country",
                   file = "FCreg.tex")
-
-
-
-
-
-
-
-texreg::texreg(l = list(UCDPBinary, UCDPFatal, UCDPInten), omit.coef = "(year)|(Country)|(Tim)", 
-               custom.model.names =  c("UCDP/Prio Binary", "Conflict Intensity", "Fatalities"),
-               custom.header = list("logistic" = 1:2, "OLS" = 3),
-               custom.coef.names = c(
-                 "(intercept)",
-                 "Value Score",
-                 "Military Personnel",
-                 "Major Power",
-                 "COW: CINC",
-                 "Nr. Allies",
-                 "Borders: Land",
-                 "Borders: Sea",
-                 "Support capital punishment",
-                 "Polity",
-                 "GDP/cap"
-               ),
-               label = "UCDPreg",
-               booktabs = TRUE,
-               caption = "Regression tables: UCDP/Prio",
-               file = "UCDPreg.tex"
-)
-
-
-
-
-
-
 
 
 

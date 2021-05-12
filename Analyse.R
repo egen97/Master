@@ -105,22 +105,29 @@ FUBAR <- zelig(Conflict_Binary ~ ValueScore +
 
 MIDBinary <- zelig(MID_Binary ~ ValueScore +
                  milper + majorpower + cinc + num_mem + land + sea +
-                 polity + gdpPRcapita + DeathPena  +
+                 polity + log(gdpPRcapita) + DeathPena  +
                  as.factor(Country) +  as.factor(year) + as.factor(TimMID), 
                  model = "logit", data = ImputedData)
 
 Highact <- zelig(hiact ~ ValueScore +
                    milper + majorpower + cinc + num_mem + land + sea +
-                   polity + gdpPRcapita + DeathPena  +
+                   polity + log(gdpPRcapita) + DeathPena  +
                    as.factor(Country) +  as.factor(year), 
                  model = "ls", data = ImputedData)
 
 
 MIDLength <- zelig(length ~ ValueScore +
                    milper + majorpower + cinc + num_mem + land + sea +
-                   polity + gdpPRcapita + DeathPena  +
+                   polity + log(gdpPRcapita) + DeathPena  +
                    as.factor(Country) +  as.factor(year), 
                  model = "ls", data = ImputedData)
+
+
+MIDFatal <- zelig(fatalpre ~ ValueScore +
+                    milper + majorpower + cinc + num_mem + land + sea +
+                    DeathPena + polity + log(gdpPRcapita) +
+                    as.factor(Country) + as.factor(year),
+                  model = "ls", data = ImputedData)
 
 
 
@@ -137,15 +144,15 @@ texreg::screenreg(l = list(MIDBinary, Highact, MIDLength), omit.coef = "(year)|(
                                         "Borders: Land",
                                         "Borders: Sea",
                                         "Polity",
-                                        "GDP/cap",
+                                        "ln(GDP/cap)",
                                         "Support capital punishment"))
 
 #### To tex ####
 
 
-texreg::texreg(l = list(MIDBinary, Highact, MIDLength), omit.coef = "(year)|(Country)|(Tim)", 
-                  custom.model.names =  c("MID Binary", "Level of Conflict", "Conflict Length"),
-                  custom.header = list("logistic" = 1, "OLS" = 2:3),
+texreg::texreg(l = list(MIDBinary, Highact, MIDFatal, MIDLength), omit.coef = "(year)|(Country)|(Tim)", 
+                  custom.model.names =  c("MID Binary", "Level of Conflict", "Fatalities", "Conflict Length"),
+                  custom.header = list("logistic" = 1, "OLS" = 2:4),
                   custom.coef.names = c("(intercept)",
                                         "Value Score",
                                         "Military Personnel",
@@ -155,11 +162,12 @@ texreg::texreg(l = list(MIDBinary, Highact, MIDLength), omit.coef = "(year)|(Cou
                                         "Borders: Land",
                                         "Borders: Sea",
                                         "Polity",
-                                        "GDP/cap",
+                                        "ln(GDP/cap)",
                                         "Support capital punishment"),
                label = "MIDReg",
                booktabs = TRUE,
                caption = "Regression tables: Military Interstate Disputes",
+               use.packages = FALSE,
                file = "MIDreg.tex")
 
 
@@ -170,37 +178,33 @@ texreg::texreg(l = list(MIDBinary, Highact, MIDLength), omit.coef = "(year)|(Cou
 
 UCDPBinary <- zelig(Conflict_Binary ~ ValueScore +
                      milper + majorpower + cinc + num_mem + land + sea +
-                     DeathPena  + polity + gdpPRcapita +
+                     DeathPena  + polity + log(gdpPRcapita) +
                      as.factor(Country) + as.factor(year) + as.factor(TimUCDP), 
                      model = "logit",  data = ImputedData)
 
 
-texreg::screenreg(UCDPBinary,  omit.coef = "(year)|(Country)|(Tim)")
+#texreg::screenreg(UCDPBinary,  omit.coef = "(year)|(Country)|(Tim)")
 
 
-ImputedData <- transform.amelia(ImputedData, intre = intensity_level -1)
+#ImputedData <- transform.amelia(ImputedData, intre = intensity_level -1)
 
 UCDPInten <- zelig(intre ~ ValueScore +
                      milper + majorpower + cinc + num_mem + land + sea +
-                     DeathPena + polity + gdpPRcapita +
+                     DeathPena + polity + log(gdpPRcapita) +
                      as.factor(Country) + as.factor(year),
                    model = "logit", data = ImputedData)
 
 texreg::screenreg(UCDPInten,  omit.coef = "(year)|(Country)|(Tim)")
 
-UCDPFatal <- zelig(fatalpre ~ ValueScore +
-                     milper + majorpower + cinc + num_mem + land + sea +
-                     DeathPena + polity + gdpPRcapita +
-                     as.factor(Country) + as.factor(year),
-                   model = "ls", data = ImputedData)
+
 
 texreg::screenreg(UCDPInten,  omit.coef = "(year)|(Country)|(Tim)")
 
 #### Screenreg UCDP #####
 
-texreg::screenreg(l = list(UCDPBinary, UCDPFatal, UCDPInten), omit.coef = "(year)|(Country)|(Tim)", 
-               custom.model.names =  c("UCDP/Prio Binary", "Conflict Intensity", "Fatalities"),
-               custom.header = list("logistic" = 1:2, "OLS" = 3),
+texreg::screenreg(l = list(UCDPBinary,  UCDPInten), omit.coef = "(year)|(Country)|(Tim)", 
+               custom.model.names =  c("UCDP/Prio Binary", "Conflict Intensity"),
+               custom.header = list("logistic" = 1:2),
                custom.coef.names = c(
                  "(intercept)",
                  "Value Score",
@@ -219,9 +223,9 @@ texreg::screenreg(l = list(UCDPBinary, UCDPFatal, UCDPInten), omit.coef = "(year
 
 #### Texreg:: UCDP ####
 
-texreg::texreg(l = list(UCDPBinary, UCDPFatal, UCDPInten), omit.coef = "(year)|(Country)|(Tim)", 
-                  custom.model.names =  c("UCDP/Prio Binary", "Conflict Intensity", "Fatalities"),
-                  custom.header = list("logistic" = 1:2, "OLS" = 3),
+texreg::texreg(l = list(UCDPBinary, UCDPInten), omit.coef = "(year)|(Country)|(Tim)", 
+                  custom.model.names =  c("UCDP/Prio Binary", "Conflict Intensity"),
+                  custom.header = list("logistic" = 1:2),
                   custom.coef.names = c(
                     "(intercept)",
                     "Value Score",
@@ -233,11 +237,12 @@ texreg::texreg(l = list(UCDPBinary, UCDPFatal, UCDPInten), omit.coef = "(year)|(
                     "Borders: Sea",
                     "Support capital punishment",
                     "Polity",
-                    "GDP/cap"
+                    "ln(GDP/cap)"
                   ),
                label = "UCDPreg",
                booktabs = TRUE,
                caption = "Regression tables: UCDP/Prio",
+               use.packages = FALSE,
                file = "UCDPreg.tex"
 )
 
