@@ -11,7 +11,7 @@ ggplot(mi_counties, aes(lon, lat)) +
 country_data <- ImputedData[[1]][1]
 country_data <- as.data.frame(country_data)
 library(fuzzyjoin)
-
+library(countrycode)
 country_data$CountryChar <- countrycode(country_data$imp1.Country, origin = "iso3n", destination = "iso3c")
 
 country_data <- country_data %>%
@@ -36,7 +36,6 @@ country_data <- country_data %>%
 
 
 
-country_data$imp1.ValueScore <- scales::rescale(country_data$imp1.ValueScore, to = c(1,100))
 class(maps::iso3166)
 library(ggthemes)
 
@@ -47,7 +46,7 @@ map_data("world") %>%
   filter(!is.na(imp1.year)) %>%
   ggplot(aes(long, lat, group = group, fill = imp1.ValueScore)) +
   geom_polygon(color = "black", size = .05) +
-  scale_fill_gradient2(low = "blue", high = "red",mid = "green" ,midpoint = 55, na.value = "black") +
+  scale_fill_gradient2(low = "blue", high = "red",mid = "green" ,midpoint = 14.5, na.value = "black") +
   facet_wrap(~imp1.year) +
   theme_map() +
   labs(title = "Self-Enchantement Value Scores", fill = "Value Score")

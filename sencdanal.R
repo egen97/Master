@@ -60,6 +60,7 @@ texreg::texreg(Mod2,
                   label = "FCreg",
                   booktabs = TRUE,
                   caption = "Willigness to fight for own country",
+                  use.packages = FALSE,
                   file = "FCreg.tex")
 
 
