@@ -1,5 +1,6 @@
 library(Amelia)
 library(tidyverse)
+library(hutilscpp)
 CompleteData <- readRDS("CompleteData.rds")
 
 
@@ -13,7 +14,7 @@ SubSet <- CompleteData %>%
         v2xpe_exlgender, PHYSINT, A035, armedAntiUsAbarb, dealMoralArab, DeathPena,
         v2xpe_exlecon, POLPRIS, e_miurbani, e_total_resources_income_pc, e_total_fuel_income_pc,
         v2xpe_exlecon, E006, C019, TrustOth, IncEq, StaIncEqu, attackCivArab,FightCountry,
-        dispnum, hiact, hostlev, fatality, length,  fatalpre, land, sea, cinc, num_mem, edu_year)
+        dispnum, hiact, hostlev, fatality, length,  fatalpre, land, sea, cinc, num_mem, edu_year, Y002, Y003)
 
 
 
@@ -73,7 +74,7 @@ ImputedData <- amelia(SubSet,
 
 parallel::stopCluster(cl_par)
 
-save(ImputedData,file = "Data/imputed/ValueTimeinclude.RData")
+save(ImputedData,file = "Data/imputed/PostMatinclude.RData")
 
 
 overimpute(ImputedData, c("polity"), draws = 1)
