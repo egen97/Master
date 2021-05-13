@@ -249,5 +249,7 @@ texreg::texreg(l = list(UCDPBinary, UCDPInten), omit.coef = "(year)|(Country)|(T
 
 
 
+#### Robustness Checks ####
+
 
 
