@@ -180,7 +180,7 @@ UCDPBinary <- zelig(Conflict_Binary ~ ValueScore +
                      milper + majorpower + cinc + num_mem + land + sea +
                      DeathPena  + polity + log(gdpPRcapita) +
                      as.factor(Country) + as.factor(year) + as.factor(TimUCDP), 
-                     model = "logit",  data = ImputedData)
+                     data = ImputedData)
 
 
 #texreg::screenreg(UCDPBinary,  omit.coef = "(year)|(Country)|(Tim)")
@@ -251,5 +251,51 @@ texreg::texreg(l = list(UCDPBinary, UCDPInten), omit.coef = "(year)|(Country)|(T
 
 #### Robustness Checks ####
 
+UCDPBinaryPost <- zelig(Conflict_Binary ~ Y002 +
+                      milper + majorpower + cinc + num_mem + land + sea +
+                      DeathPena  + polity + log(gdpPRcapita) +
+                      as.factor(Country) + as.factor(year) + as.factor(TimUCDP), 
+                    model = "logit",  data = ImputedData)
 
 
+texreg::screenreg(UCDPBinaryWar,  omit.coef = "(year)|(Country)|(Tim)")
+
+
+
+
+ImputedData <- transform.amelia(ImputedData, MajorWar = ifelse(intensity_level == 2, 1, 0))
+ImputedData <- transform.amelia(ImputedData, MajorWar = ifelse(is.na(MajorWar),0, 1))
+
+
+UCDPBinaryWar <- zelig(MajorWar ~ ValueScore +
+                          milper + majorpower + cinc + num_mem + land + sea +
+                          DeathPena  + polity + log(gdpPRcapita) +
+                          as.factor(Country) + as.factor(year) + as.factor(TimUCDP), 
+                        model = "logit",  data = ImputedData)
+
+
+
+
+### War baby ####
+texreg::texreg(l = list(UCDPBinaryWar), omit.coef = "(year)|(Country)|(Tim)", 
+               custom.model.names =  c("UCDP/Prio War"),
+               custom.header = list("logistic" = 1),
+               custom.coef.names = c(
+                 "(intercept)",
+                 "Value Score",
+                 "Military Personnel",
+                 "Major Power",
+                 "COW: CINC",
+                 "Nr. Allies",
+                 "Borders: Land",
+                 "Borders: Sea",
+                 "Support capital punishment",
+                 "Polity",
+                 "ln(GDP/cap)"
+               ),
+               label = "UCDPWar",
+               booktabs = TRUE,
+               caption = "Regression tables: UCDP/Prio",
+               use.packages = FALSE,
+               file = "UCDPWar.tex"
+)
