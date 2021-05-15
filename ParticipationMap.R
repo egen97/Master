@@ -41,19 +41,23 @@ country_data <- country_data %>%
 
 
 
+country_data <- country_data %>%
+  mutate(part = ifelse(part == 1, "Participant", "Not participating"),
+         part = factor(part, levels = c("Participant", "Not participating"))) 
+
 map_data("world") %>%
   as_tibble() %>%
   filter(region != "Antarctica") %>%
   regex_left_join(country_data, by = c(region = "mapname")) %>% 
   filter(!is.na(S002)) %>%
-ggplot(aes(long, lat, group = group, fill = part)) +
+  ggplot(aes(long, lat, group = group, fill = part)) +
   geom_polygon(color = "black", size = .05) +
-  scale_fill_gradient2(low = "blue", high = "green",mid = "red" , na.value = "black") +
+  scale_fill_manual(values = c("red", "green"), na.value = "black", name = NULL,
+                    labels = c("Not participating", "Participating", "Never participated"))+
   facet_wrap(~S002) +
   theme_map() +
   labs(title = "Participating Countries",  subtitle = "World - and European Value Survey") +
-  guides(fill = FALSE)
-
+  theme(legend.position = "right") 
 
 head(CompleteData)
 
