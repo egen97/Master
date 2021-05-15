@@ -299,3 +299,54 @@ texreg::texreg(l = list(UCDPBinaryWar), omit.coef = "(year)|(Country)|(Tim)",
                use.packages = FALSE,
                file = "UCDPWar.tex"
 )
+
+
+
+
+
+
+#### Not imputed <3 ####
+
+
+#UCDP
+SubSet$cnFa <- as.factor(SubSet$Conflict_Binary)
+UCDPBinaryNI <- zelig(Conflict_Binary ~ ValueScore +
+                      as.factor(Country) + as.factor(year) , 
+                    model = "logit",
+                    data = SubSet)
+
+
+MIDBinaryNI <- glm(
+  MID_Binary ~ ValueScore + milper + cinc + + num_mem +
+    land + sea + polity + log(gdpPRcapita)+
+    as.factor(Country) + as.factor(year) + as.factor(TimUCDP),
+  family = binomial(link = "logit"),
+  na.action = "na.exclude",
+  data = SubSet
+)
+summary(MIDBinaryNI)
+
+
+
+
+texreg::texreg(l = list(MIDBinaryNI), omit.coef = "(year)|(Country)|(Tim)", 
+               custom.model.names =  c("MID Binary"),
+               custom.header = list("logistic" = 1),
+               custom.coef.names = c(
+                 "(intercept)",
+                 "Value Score",
+                 "Military Personnel",
+                 "COW: CINC",
+                 "Nr. Allies",
+                 "Borders: Land",
+                 "Borders: Sea",
+                 "Polity",
+                 "ln(GDP/cap)"
+               ),
+               label = "MIDni",
+               booktabs = TRUE,
+               caption = "Regression tables: MID Binary, not imputed",
+               use.packages = FALSE,
+               file = "MIDni.tex"
+)
+
