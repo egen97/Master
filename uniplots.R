@@ -113,8 +113,9 @@ map_data("world") %>%
   filter(!is.na(decade)) %>%
   ggplot(aes(long, lat, group = group, fill = FC)) +
   geom_polygon(color = "black", size = .05) +
-  scale_fill_gradient2(low = "blue", high = "red",mid = "green" ,midpoint = .6,
-                       na.value = "black", labels = scales::percent) +
+  scale_fill_gradient2(low = "blue", high = "red",mid = "green" ,midpoint = .60,
+                      na.value = "black", labels = scales::percent) +
+  
   facet_wrap(~decade) +
   theme_map() +
   labs(title = "Willigness to Fight for Country", fill = "", subtitle = "World Value Survey") 
