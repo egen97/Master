@@ -1,6 +1,7 @@
 library(Amelia)
 library(tidyverse)
 library(Zelig)
+library(hutilscpp)
 load("Data/Imputed/PostMatinclude.RData")
 
 ##### Tidsvariabel ####
@@ -84,13 +85,13 @@ UCDP_0_LPM <- zelig(Conflict_Binary ~ ValueScore,
                     data = ImputedData)
 
 
-#####Tid gir complete seperation siden P(Conflict|ln(t) = 0) = 1#####
+
 
 
 
 UCDP_1 <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP),
                 model = "logit",
-                data = ImputedData) #Algoritm did not converge: Complete seperation
+                data = ImputedData) 
 
 
 UCDP_1_LPM <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP),
@@ -98,50 +99,34 @@ UCDP_1_LPM <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP),
                 data = ImputedData)
 
 
-#Tid + FE
+texreg::screenreg(l = list(UCDP_0, UCDP_0_LPM))
+texreg::screenreg(l = list(UCDP_1, UCDP_1_LPM))
 
-UCDP_2 <- zelig(Conflict_Binary ~ ValueScore + #Algoritm did not converge: Complete seperation
-                log(TimUCDP) +
-                as.factor(year) +
-                as.factor(Country)  ,
+
+
+
+
+
+
+UCDP_2 <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
+                  polity,
                 model = "logit",
                 data = ImputedData) 
 
 
-UCDP_2_LPM <- zelig(Conflict_Binary ~ ValueScore + 
-                    log(TimUCDP) +
-                    as.factor(year) +
-                    as.factor(Country),
+UCDP_2_LPM <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
+                      polity,
                     model = "ls",
                     data = ImputedData)
 
-summary(UCDP_2)
-summary(UCDP_2_LPM)
+
+
+texreg::screenreg(l = list(UCDP_2, UCDP_2_LPM))
 
 
 
-
-
-texreg::screenreg(UCDP_0)
-
-#### Fixed Effect
-
-UCDP_1 <- zelig(Conflict_Binary ~ ValueScore +
-                as.factor(year) +
-                as.factor(country),
-                model = "logit",
-                data = ImputedData)
-
-
-texreg::screenreg(UCDP_1, omit.coef = "(year)|(Country)")
-#Fixed Effects fjerner effekten
-
-
-
-
-### Alle kontroller men ikke FE
-
-UCDP_2 <- zelig(Conflict_Binary ~ ValueScore +
+UCDP_3 <- zelig(Conflict_Binary ~ ValueScore +
+                  log(TimUCDP) +
                   milper + 
                   majorpower +
                   cinc + 
@@ -151,17 +136,33 @@ UCDP_2 <- zelig(Conflict_Binary ~ ValueScore +
                   DeathPena + 
                   polity + 
                   log(gdpPRcapita),
-                  model = "logit",
-                  data = ImputedData)
+                model = "logit",
+                data = ImputedData)
 
 
-texreg::screenreg(UCDP_2, omit.coef = "(year)|(Country)")
-#Endelig er kontrollvariablene signifikante, men ikke value-score
 
-# Alle + FE
+UCDP_3_LPM <- zelig(Conflict_Binary ~ ValueScore +
+                  log(TimUCDP) +
+                  milper + 
+                  majorpower +
+                  cinc + 
+                  num_mem + 
+                  land + 
+                  sea +
+                  DeathPena + 
+                  polity + 
+                  log(gdpPRcapita),
+                model = "ls",
+                data = ImputedData)
 
 
-UCDP_3 <- zelig(Conflict_Binary ~ ValueScore + #Complete seperation
+texreg::screenreg(l = list(UCDP_3, UCDP_3_LPM))
+
+
+
+
+UCDP_4 <- zelig(Conflict_Binary ~ ValueScore +
+                  log(TimUCDP) +
                   milper + 
                   majorpower +
                   cinc + 
@@ -177,8 +178,26 @@ UCDP_3 <- zelig(Conflict_Binary ~ ValueScore + #Complete seperation
                 data = ImputedData)
 
 
-texreg::screenreg(UCDP_3, omit.coef = "(year)|(Country)",
-                  custom.gof.rows = list("Num. obs." = 2),
+
+UCDP_4_LPM <- zelig(Conflict_Binary ~ ValueScore +
+                      log(TimUCDP) +
+                      milper + 
+                      majorpower +
+                      cinc + 
+                      num_mem + 
+                      land + 
+                      sea +
+                      DeathPena + 
+                      polity + 
+                      log(gdpPRcapita) +
+                      as.factor(Country) +
+                      as.factor(year),
+                    model = "ls",
+                    data = ImputedData)
+
+
+texreg::screenreg(l = list(UCDP_3, UCDP_3_LPM), omit.coef = "(year)|(Country)",
+                  custom.gof.rows = list("Num. obs." = c(3734, 3734)),
                   include.nobs = F) #For å endre anall observasjoner :D
 
 
@@ -186,4 +205,20 @@ texreg::screenreg(UCDP_3, omit.coef = "(year)|(Country)",
 
 
 
+UCDP_5 <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
+                  polity + ValueScore*polity,
+                model = "logit",
+                data = ImputedData) 
 
+
+UCDP_5_LPM <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
+                      polity + ValueScore*polity,
+                    model = "ls",
+                    data = ImputedData)
+
+
+
+
+texreg::screenreg(l = list(UCDP_5, UCDP_5_LPM), omit.coef = "(year)|(Country)",
+                  custom.gof.rows = list("Num. obs." = c(3734, 3734)),
+                  include.nobs = F)

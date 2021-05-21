@@ -20,3 +20,8 @@ PolitySelected <- PolitySelected %>%
   filter(!is.na(Country))
 
 saveRDS(PolitySelected, "Data/politySelected.rds")
+
+PolitySelected %>%
+  count(polity) %>%
+  mutate(sum = cumsum(n)) %>%
+  View()
