@@ -51,6 +51,20 @@ SubSet <- SubSet %>%
 
 
 
+#ind <- with(MyData, c(FALSE, farm[-1L]!= farm[-length(farm)]) & farm!='NULL')
+
+ImputedData <- transform.amelia(ImputedData,
+                                Tim_UCDP =
+                                with(
+                                  ImputedData, c(FALSE, Conflict_Binary[-1L] != Conflict_Binary[-length(Conflict_Binary)])
+                                )
+                                )
+
+
+ImputedData[[1]][[1]] %>%
+  select(Country, year, Conflict_Binary, Tim_UCDP) %>%
+  filter(Country == 8) %>%
+  View()
 
 
 
