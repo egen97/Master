@@ -82,6 +82,8 @@ tabl <- "
 |WVS     |X025R      |1981-2020|
 |WVS     |X003       |1981-2020|
 |WVS     |X001       |1981-2020|
+|WVS     |Y002       |1981-2020|
+|WVS     |Y003       |1981-2020|
 |Polity V| polity    |1980-2020|
 |WB Open Data |  NY.GDP.PCAP.CD | 1980-2020|
 |WB Open Data | SP.POP.TOTL| 1980-2020|
