@@ -89,12 +89,12 @@ UCDP_0_LPM <- zelig(Conflict_Binary ~ ValueScore,
 
 
 
-UCDP_1 <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP),
+UCDP_1 <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3),
                 model = "logit",
                 data = ImputedData) 
 
 
-UCDP_1_LPM <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP),
+UCDP_1_LPM <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3),
                 model = "ls",
                 data = ImputedData)
 
@@ -106,12 +106,12 @@ texreg::screenreg(l = list(UCDP_1, UCDP_1_LPM))
 
 
 
-
-
-UCDP_2 <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
+UCDP_2 <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
                   polity,
                 model = "logit",
                 data = ImputedData) 
+
+
 
 
 UCDP_2_LPM <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
@@ -125,100 +125,207 @@ texreg::screenreg(l = list(UCDP_2, UCDP_2_LPM))
 
 
 
-UCDP_3 <- zelig(Conflict_Binary ~ ValueScore +
-                  log(TimUCDP) +
-                  milper + 
-                  majorpower +
-                  cinc + 
-                  num_mem + 
-                  land + 
-                  sea +
-                  DeathPena + 
-                  polity + 
+UCDP_3 <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  polity +
                   log(gdpPRcapita),
-                model = "logit",
-                data = ImputedData)
-
-
-
-UCDP_3_LPM <- zelig(Conflict_Binary ~ ValueScore +
-                  log(TimUCDP) +
-                  milper + 
-                  majorpower +
-                  cinc + 
-                  num_mem + 
-                  land + 
-                  sea +
-                  DeathPena + 
-                  polity + 
-                  log(gdpPRcapita),
-                model = "ls",
-                data = ImputedData)
-
-
-texreg::screenreg(l = list(UCDP_3, UCDP_3_LPM))
-
-
-
-
-UCDP_4 <- zelig(Conflict_Binary ~ ValueScore +
-                  log(TimUCDP) +
-                  milper + 
-                  majorpower +
-                  cinc + 
-                  num_mem + 
-                  land + 
-                  sea +
-                  DeathPena + 
-                  polity + 
-                  log(gdpPRcapita) +
-                  as.factor(Country) +
-                  as.factor(year),
-                model = "logit",
-                data = ImputedData)
-
-
-
-UCDP_4_LPM <- zelig(Conflict_Binary ~ ValueScore +
-                      log(TimUCDP) +
-                      milper + 
-                      majorpower +
-                      cinc + 
-                      num_mem + 
-                      land + 
-                      sea +
-                      DeathPena + 
-                      polity + 
-                      log(gdpPRcapita) +
-                      as.factor(Country) +
-                      as.factor(year),
-                    model = "ls",
-                    data = ImputedData)
-
-
-texreg::screenreg(l = list(UCDP_3, UCDP_3_LPM), omit.coef = "(year)|(Country)",
-                  custom.gof.rows = list("Num. obs." = c(3734, 3734)),
-                  include.nobs = F) #For å endre anall observasjoner :D
-
-
-
-
-
-
-UCDP_5 <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
-                  polity + ValueScore*polity,
                 model = "logit",
                 data = ImputedData) 
 
 
-UCDP_5_LPM <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
-                      polity + ValueScore*polity,
-                    model = "ls",
-                    data = ImputedData)
+
+
+
+#Fixed effects 
+
+UCDP_1_FE <- zelig(Conflict_Binary ~ ValueScore + 
+                     log(TimUCDP) + 
+                     as.factor(Country)+ 
+                     as.factor(year) ,
+                model = "logit",
+                data = ImputedData) 
+
+
+
+UCDP_2_FE <- zelig(Conflict_Binary ~ ValueScore + 
+                     log(TimUCDP)  +
+                     as.factor(Country) +
+                     as.factor(year) +
+                  polity,
+                model = "logit",
+                data = ImputedData) 
 
 
 
 
-texreg::screenreg(l = list(UCDP_5, UCDP_5_LPM), omit.coef = "(year)|(Country)",
-                  custom.gof.rows = list("Num. obs." = c(3734, 3734)),
-                  include.nobs = F)
+UCDP_3_FE <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
+                     as.factor(Country) +
+                     as.factor(year) +
+                     polity +
+                     log(gdpPRcapita),
+                model = "logit",
+                data = ImputedData) 
+
+
+
+# Military Power
+
+UCDP_4 <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  cinc + majorpower + log(gdpPRcapita),
+                model = "logit",
+                data = ImputedData)
+
+
+
+UCDP_5 <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  cinc + majorpower + log(gdpPRcapita) + num_mem + sea + land,
+                model = "logit",
+                data = ImputedData)
+
+
+
+
+UCDP_4_FE <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  cinc + majorpower + log(gdpPRcapita) +
+                    as.factor(Country) + as.factor(year),
+                model = "logit",
+                data = ImputedData)
+
+
+
+UCDP_5_FE <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  cinc + majorpower + log(gdpPRcapita) + num_mem + sea + land +
+                    as.factor(Country) + as.factor(year),
+                model = "logit",
+                data = ImputedData)
+
+
+#Complete model!
+
+
+UCDP_6 <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower,
+                model = "logit",
+                data = ImputedData)
+
+
+UCDP_6_FE <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) + 
+                  polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower +
+                  as.factor(Country) + as.factor(year),
+                model = "logit",
+                data = ImputedData)
+
+#### MID #####
+
+
+MID_1 <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3),
+               model = "logit",
+               data = ImputedData) 
+
+
+
+
+
+MID_2 <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
+                 polity,
+               model = "logit",
+               data = ImputedData) 
+
+
+
+
+
+
+
+
+
+
+MID_3 <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
+                 polity +
+                 log(gdpPRcapita),
+               model = "logit",
+               data = ImputedData) 
+
+
+
+
+
+#Fixed effects 
+
+MID_1_FE <- zelig(MID_Binary ~ ValueScore + 
+                    log(TimMID) + 
+                    as.factor(Country)+ 
+                    as.factor(year) ,
+                  model = "logit",
+                  data = ImputedData) 
+
+
+
+MID_2_FE <- zelig(MID_Binary ~ ValueScore + 
+                    log(TimMID)  +
+                    as.factor(Country) +
+                    as.factor(year) +
+                    polity,
+                  model = "logit",
+                  data = ImputedData) 
+
+
+
+
+MID_3_FE <- zelig(MID_Binary ~ ValueScore + log(TimMID) +
+                    as.factor(Country) +
+                    as.factor(year) +
+                    polity +
+                    log(gdpPRcapita),
+                  model = "logit",
+                  data = ImputedData) 
+
+
+
+# Military Power
+
+MID_4 <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
+                 cinc + majorpower + log(gdpPRcapita),
+               model = "logit",
+               data = ImputedData)
+
+
+
+MID_5 <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
+                 cinc + majorpower + log(gdpPRcapita) + num_mem + sea + land,
+               model = "logit",
+               data = ImputedData)
+
+
+
+
+MID_4_FE <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
+                    cinc + majorpower + log(gdpPRcapita) +
+                    as.factor(Country) + as.factor(year),
+                  model = "logit",
+                  data = ImputedData)
+
+
+
+MID_5_FE <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
+                    cinc + majorpower + log(gdpPRcapita) + num_mem + sea + land +
+                    as.factor(Country) + as.factor(year),
+                  model = "logit",
+                  data = ImputedData)
+
+
+#Complete model!
+
+
+MID_6 <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
+                 polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower,
+               model = "logit",
+               data = ImputedData)
+
+
+MID_6_FE <- zelig(MID_Binary ~ ValueScore + log(TimMID) + 
+                    polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower +
+                    as.factor(Country) + as.factor(year),
+                  model = "logit",
+                  data = ImputedData)
+
+

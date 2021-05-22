@@ -73,21 +73,42 @@ SurveyData %>%
 
 
 
+# Lage en for sammenligning mot polity real life
+
+
+PolImp <- Binded %>%
+  select(Country, year) %>%
+  mutate(Par = 1)
+
+
+
+AllPol <- PolitySelected %>%
+  left_join(PolImp, by = c("Country", "year")) %>%
+  mutate(Par = ifelse(is.na(Par),0,1)) %>%
+  mutate(Par = ifelse(Par == 1, "Participating", "Not Participating"),
+         Par = factor(Par, levels = c("Not Participating", "Participating")))
 
 
 
 
 
 
+AllPol %>%
+  ggplot(aes(polity, group = Par, fill = Par)) +
+  geom_density() +
+  theme_tufte() +
+  scale_fill_viridis(discrete = TRUE, alpha = .5, option = "H")
 
 
 
 
 
-
-
-
-
+ggplot(aes(polity)) +
+  geom_histogram(aes(y = ..density..), colour = "black", fill = "white")+
+  geom_density(alpha = .2, fill = "#FF6666") +
+  labs(y = "", x = "Polity V Democracy Score", title = "Democracy Scores") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5))
 
 
 

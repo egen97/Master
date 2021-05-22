@@ -25,3 +25,4 @@ PolitySelected %>%
   count(polity) %>%
   mutate(sum = cumsum(n)) %>%
   View()
+
