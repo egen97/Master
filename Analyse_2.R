@@ -114,7 +114,7 @@ UCDP_2 <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^
 
 
 
-UCDP_2_LPM <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
+UCDP_2_LPM <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
                       polity,
                     model = "ls",
                     data = ImputedData)
@@ -138,7 +138,7 @@ UCDP_3 <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^
 #Fixed effects 
 
 UCDP_1_FE <- zelig(Conflict_Binary ~ ValueScore + 
-                     log(TimUCDP) + 
+                     TimUCDP + (TimUCDP^2) + (TimUCDP^3) + 
                      as.factor(Country)+ 
                      as.factor(year) ,
                 model = "logit",
@@ -147,7 +147,7 @@ UCDP_1_FE <- zelig(Conflict_Binary ~ ValueScore +
 
 
 UCDP_2_FE <- zelig(Conflict_Binary ~ ValueScore + 
-                     log(TimUCDP)  +
+                     TimUCDP + (TimUCDP^2) + (TimUCDP^3)  +
                      as.factor(Country) +
                      as.factor(year) +
                   polity,
@@ -157,7 +157,8 @@ UCDP_2_FE <- zelig(Conflict_Binary ~ ValueScore +
 
 
 
-UCDP_3_FE <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) +
+UCDP_3_FE <- zelig(Conflict_Binary ~ ValueScore + 
+                     TimUCDP + (TimUCDP^2) + (TimUCDP^3)+
                      as.factor(Country) +
                      as.factor(year) +
                      polity +
@@ -208,7 +209,7 @@ UCDP_6 <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^
                 data = ImputedData)
 
 
-UCDP_6_FE <- zelig(Conflict_Binary ~ ValueScore + log(TimUCDP) + 
+UCDP_6_FE <- zelig(Conflict_Binary ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) + 
                   polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower +
                   as.factor(Country) + as.factor(year),
                 model = "logit",
@@ -252,7 +253,7 @@ MID_3 <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
 #Fixed effects 
 
 MID_1_FE <- zelig(MID_Binary ~ ValueScore + 
-                    log(TimMID) + 
+                    TimMID + (TimMID^2) + (TimMID^3) + 
                     as.factor(Country)+ 
                     as.factor(year) ,
                   model = "logit",
@@ -261,7 +262,7 @@ MID_1_FE <- zelig(MID_Binary ~ ValueScore +
 
 
 MID_2_FE <- zelig(MID_Binary ~ ValueScore + 
-                    log(TimMID)  +
+                    TimMID + (TimMID^2) + (TimMID^3)  +
                     as.factor(Country) +
                     as.factor(year) +
                     polity,
@@ -271,7 +272,7 @@ MID_2_FE <- zelig(MID_Binary ~ ValueScore +
 
 
 
-MID_3_FE <- zelig(MID_Binary ~ ValueScore + log(TimMID) +
+MID_3_FE <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
                     as.factor(Country) +
                     as.factor(year) +
                     polity +
@@ -322,7 +323,7 @@ MID_6 <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
                data = ImputedData)
 
 
-MID_6_FE <- zelig(MID_Binary ~ ValueScore + log(TimMID) + 
+MID_6_FE <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) + 
                     polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower +
                     as.factor(Country) + as.factor(year),
                   model = "logit",
