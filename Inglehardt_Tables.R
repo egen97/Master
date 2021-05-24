@@ -7,7 +7,7 @@ AIC_Extract <- function(Model){
   
   q <- as.data.frame(q)
   
-  q <- rowMeans(q)
+  q <- round(rowMeans(q),2)
   
   return(q)
   

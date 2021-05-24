@@ -5,7 +5,7 @@ WVS <- readRDS("WVS_EVS.rds")
 
 SubSet <- WVS %>%
   select(FightCountry, DeathPena, starts_with("Value"), Weights, TrstArm, S024,
-         starts_with("X"), Age, S017)
+         starts_with("X"), Age)
 
 
 
@@ -115,6 +115,7 @@ texreg::texreg(l = list(Mod1, Mod2), omit.coef = "S024",
                       "Education",
                       "Income",
                       "Age"),
+               custom.model.names = c("Model 1", "Model 1 FE") ,
                booktabs = TRUE,
                use.packages = FALSE,
                label = "FCREG",
