@@ -13,6 +13,16 @@ EVSAge <- EVS %>%
   filter(!(S024 %in% WVSConWave)) %>%
   select(X003) 
 
+WVSS018 <- WVS$S018
+WVSS018 <- unclass(WVSS018)
+
+EVSS018 <- EVS %>% 
+  select(S024, S018) %>%
+  filter(!(S024 %in% WVSConWave)) %>%
+  select(S018) 
+
+EVSS018 <- unclass(EVSS018$S018)
+EVSS018 <- as.character(EVSS018)
 EVSAge <- as.numeric(EVSAge$X003)
 
 WVS <- as_factor(WVS, levels = "values")

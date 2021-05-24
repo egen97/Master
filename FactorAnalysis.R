@@ -1,6 +1,6 @@
 library(tidyverse)
 
-Fact <- WVS_EVS %>%
+Fact <- WVS %>%
   select(starts_with("Value")) %>%
   drop_na()
 

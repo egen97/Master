@@ -1,13 +1,25 @@
-Part <- ImputedData[[1]][[1]]
 
-SurveyData %>%
+
+DFlist <- ImputedData[[1]]
+DFlist <- unclass(DFlist)
+
+Binded <- bind_rows(DFlist)
+
+Binded <- Binded %>%
+  group_by(Country, year) %>%
+  summarise(across(everything(), ~mean(.x)))
+
+
+
+
+
+Binded %>%
   select(Country, polity) %>%
   ggplot(aes(polity)) +
   geom_histogram(aes(y = ..density..), colour = "black", fill = "white")+
   geom_density(alpha = .2, fill = "#FF6666") +
-  labs(y = "", x = "Polity V Democracy Score", title = "Democracy Scores") +
-  theme_classic() +
-  theme(plot.title = element_text(hjust = 0.5))
+  labs(y = "", x = "Polity V Democracy Score") +
+  theme_classic() 
 
 
 
@@ -18,24 +30,24 @@ ggplot(df, aes(x=weight)) +
   geom_histogram(aes(y=..density..), colour="black", fill="white")+
   geom_density(alpha=.2, fill="#FF6666")
 
-SurveyData %>%
+Binded %>%
   select(Country, polity) %>%
   count(polity) %>%
   View()
 
-SurveyData %>%
+Binded %>%
   group_by(Country) %>%
   filter(sum(!is.na(S025))>4)
 
 
 #GDP for all and > 4
-SurveyData %>%
+Binded %>%
   select(Country, gdpPRcapita, S025, year) %>%
   group_by(Country) %>%
   filter(sum(!is.na(S025)) >= 4) %>%
   ggplot(aes(gdpPRcapita)) +
-  geom_histogram(data = SurveyData, aes(gdpPRcapita, y = ..density..), alpha = 1, fill = "navyblue")+
-  geom_density(data = SurveyData, aes(gdpPRcapita, fill = "All"), alpha = .3,)+ # fill = "steelblue2", fill = "All"
+  geom_histogram(data = Binded, aes(gdpPRcapita, y = ..density..), alpha = 1, fill = "navyblue")+
+  geom_density(data = Binded, aes(gdpPRcapita, fill = "All"), alpha = .3,)+ # fill = "steelblue2", fill = "All"
   geom_histogram(aes(y = ..density..), colour = "black", fill = "darksalmon", alpha = .4)+
   geom_density(aes(fill = "4 or more"),alpha = .6) + #, fill = "#FF6666"
   labs(y = "", x = "GDP/cap in thousands") +
@@ -50,18 +62,18 @@ SurveyData %>%
 
 ### GDP development #### 
 
-class(SurveyData$Country)
-SurveyData$Country <- as.factor(SurveyData$Country)
+class(Binded$Country)
+Binded$Country <- as.factor(Binded$Country)
 
-SurveyData %>%
+Binded %>%
   ggplot(aes(year, gdpPRcapita, colour = Country)) +
   geom_line() +
   geom_smooth(colour = "black", alpha = .3, size = 2) +
-  #geom_hline(yintercept = mean(SurveyData$gdpPRcapita, na.rm = TRUE), colour = "navyblue",
+  #geom_hline(yintercept = mean(Binded$gdpPRcapita, na.rm = TRUE), colour = "navyblue",
              #size = 1) +
   geom_segment(aes(x=1980,xend= 2019,
-                   y=mean(SurveyData$gdpPRcapita, na.rm = TRUE),
-                   yend=mean(SurveyData$gdpPRcapita, na.rm = TRUE)),
+                   y=mean(Binded$gdpPRcapita, na.rm = TRUE),
+                   yend=mean(Binded$gdpPRcapita, na.rm = TRUE)),
                colour = "navyblue",
                size = 1.5)+
   guides(colour = FALSE)+
@@ -78,9 +90,10 @@ SurveyData %>%
 
 PolImp <- Binded %>%
   select(Country, year) %>%
-  mutate(Par = 1)
+  mutate(Par = 1,
+         Country = as.numeric(Country))
 
-
+PolitySelected <- readRDS("Data/politySelected.rds")
 
 AllPol <- PolitySelected %>%
   left_join(PolImp, by = c("Country", "year")) %>%
@@ -95,20 +108,17 @@ AllPol <- PolitySelected %>%
 
 AllPol %>%
   ggplot(aes(polity, group = Par, fill = Par)) +
-  geom_density() +
+  geom_density(alpha = .7) +
   theme_tufte() +
-  scale_fill_viridis(discrete = TRUE, alpha = .5, option = "H")
+  scale_fill_manual(values = c("#FF6666", "#10CEE6"))+
+  theme(legend.title=element_blank()) +
+  labs(x = "Polity V Democracy Score", y = "")
+                      
 
 
 
 
 
-ggplot(aes(polity)) +
-  geom_histogram(aes(y = ..density..), colour = "black", fill = "white")+
-  geom_density(alpha = .2, fill = "#FF6666") +
-  labs(y = "", x = "Polity V Democracy Score", title = "Democracy Scores") +
-  theme_classic() +
-  theme(plot.title = element_text(hjust = 0.5))
 
 
 
