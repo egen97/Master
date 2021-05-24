@@ -1,5 +1,5 @@
 
-#Texreg klarer ikke hente ut AIC for some reason
+#### AIC ####
 
 AIC_Extract <- function(Model){
   
@@ -15,26 +15,20 @@ AIC_Extract <- function(Model){
 
 
 
-
 Models_UCDP <- list(UCDP_1, UCDP_2, UCDP_3, UCDP_1_FE, UCDP_2_FE, UCDP_3_FE,
                     UCDP_4, UCDP_5, UCDP_4_FE, UCDP_5_FE, UCDP_6, UCDP_6_FE)
 
 
 aic_list_UCDP <- lapply(Models_UCDP, AIC_Extract)
 
+Models_MID <- list(MID_1, MID_2, MID_3, MID_1_FE, MID_2_FE, MID_3_FE,
+                   MID_4, MID_5, MID_4_FE, MID_5_FE, MID_6, MID_6_FE)
 
-texreg::screenreg(l = list(UCDP_1, UCDP_2, UCDP_3), omit.coef = "(year)|(Country)",
-                   custom.gof.rows = list("Num. obs." = c(3734, 3734, 3734),
-                                          AIC = aic_list[c(1,3,5)]),
-                   include.nobs = F,
-                    custom.note = " %stars \n The time effect containts as well a squared and cubed effect",
-                  custom.coef.names = c("(intercept)",
-                                        "Value Score",
-                                        "Time since conflict change",
-                                        "Polity Score",
-                                        "Ln(GDP/cap)")
-                  )
+aic_list_MID <- lapply(Models_MID, AIC_Extract)
 
+
+
+#### UCDP TABLES ####
 
 # Tabel 1: Model 1, 2, 3 domestic variables
 
@@ -44,15 +38,15 @@ texreg::texreg(l = list(UCDP_1, UCDP_2, UCDP_3), omit.coef = "(year)|(Country)",
                include.nobs = F,
                custom.note = "%stars",
                custom.coef.names = c("(intercept)",
-                                     "Value Score",
+                                     "Post-Materialism Index",
                                      "Time since conflict change",
                                      "Polity Score",
                                      "Ln(GDP/cap)"),
                booktabs = TRUE,
                use.packages = FALSE,
                caption = "UCDP: Domestic controlls",
-               label = "UCDP_1",
-               file = "UCDP_1.tex")
+               label = "UCDP_1_PM",
+               file = "UCDP_1_PM.tex")
 
 
 # Table 2: Model 1,2,3 Fixed Effects
@@ -78,16 +72,16 @@ texreg::texreg( l = list(UCDP_1_FE, UCDP_2_FE, UCDP_3_FE), omit.coef = "(year)|(
                 include.nobs = F,
                 custom.note = " %stars \n Fixed Effects on year and country",
                 custom.coef.names = c("(intercept)",
-                                      "Value Score",
+                                      "Post-Materialism Index",
                                       "Time since conflict change",
                                       "Polity Score",
                                       "Ln(GDP/cap)"),
                 booktabs = TRUE,
                 use.packages = FALSE,
                 caption = "UCDP: Domestic Controlls, Fixed Effects",
-                label = "UCDP_1_FE",
+                label = "UCDP_1_FE_PM",
                 custom.model.names = c("Model 1 FE", "Model 2 FE", "Model 3 FE"),
-                file = "UCDP_1_FE.tex")
+                file = "UCDP_1_FE_PM.tex")
 
 
 
@@ -97,7 +91,7 @@ texreg::texreg( l = list(UCDP_1_FE, UCDP_2_FE, UCDP_3_FE), omit.coef = "(year)|(
 texreg::screenreg(l = list(UCDP_4, UCDP_5),
                   custom.coef.names = c(
                     "(intercept)",
-                    "Value Score",
+                    "Post-Materialism Index",
                     "Time since conflict change",
                     "CINC",
                     "Major Power",
@@ -111,31 +105,31 @@ texreg::screenreg(l = list(UCDP_4, UCDP_5),
                   include.nobs = F,
                   include.loglik = TRUE,
                   custom.model.names = c("Model 4", "Model 5")
-                  )
+)
 
 
 texreg::texreg(l = list(UCDP_4, UCDP_5),
-                  custom.coef.names = c(
-                    "(intercept)",
-                    "Value Score",
-                    "Time since conflict change",
-                    "CINC",
-                    "Major Power",
-                    "Ln(GDP/cap)",
-                    "Nr. Allies",
-                    "Borders: Sea",
-                    "Borders: Land"
-                  ),
+               custom.coef.names = c(
+                 "(intercept)",
+                 "Post-Materialism Index",
+                 "Time since conflict change",
+                 "CINC",
+                 "Major Power",
+                 "Ln(GDP/cap)",
+                 "Nr. Allies",
+                 "Borders: Sea",
+                 "Borders: Land"
+               ),
                custom.note = "%stars",
-                  custom.gof.rows = list("Num. obs." = c(3734, 3734),
-                                         "AIC" = aic_list_UCDP[7:8]),
-                  include.nobs = F,
-                  custom.model.names = c("Model 4", "Model 5"),
+               custom.gof.rows = list("Num. obs." = c(3734, 3734),
+                                      "AIC" = aic_list_UCDP[7:8]),
+               include.nobs = F,
+               custom.model.names = c("Model 4", "Model 5"),
                booktabs = TRUE,
                use.packages = FALSE,
                caption = "UCDP: Military and international controlls",
-               label = "UCDP_2",
-               file = "UCDP_2.tex"
+               label = "UCDP_2_PM",
+               file = "UCDP_2_PM.tex"
 )
 
 
@@ -169,7 +163,7 @@ texreg::texreg(l = list(UCDP_4_FE, UCDP_5_FE),
                omit.coef = c("year|Country"),
                custom.coef.names = c(
                  "(intercept)",
-                 "Value Score",
+                 "Post-Materialism Index",
                  "Time since conflict change",
                  "CINC",
                  "Major Power",
@@ -186,8 +180,8 @@ texreg::texreg(l = list(UCDP_4_FE, UCDP_5_FE),
                booktabs = TRUE,
                use.packages = FALSE,
                caption = "UCDP: Military and international controlls, Fixed Effects",
-               label = "UCDP_2_FE",
-               file = "UCDP_2_FE.tex"
+               label = "UCDP_2_FE_PM",
+               file = "UCDP_2_FE_PM.tex"
 )
 
 
@@ -203,7 +197,7 @@ texreg::screenreg(l = list(UCDP_6, UCDP_6_FE), omit.coef = c("Country|year"),
                     "Borders: Land",
                     "CINC",
                     "Major Power"
-                    ),
+                  ),
                   custom.gof.rows = list("Num. obs" = c(3734, 3734)),
                   include.nobs = F,
                   custom.model.names = c("Model 6", "Model 6 FE"))
@@ -212,7 +206,7 @@ texreg::screenreg(l = list(UCDP_6, UCDP_6_FE), omit.coef = c("Country|year"),
 texreg::texreg(l = list(UCDP_6, UCDP_6_FE), omit.coef = c("Country|year"),
                custom.coef.names = c(
                  "(intercept)",
-                 "Value Score",
+                 "Post-Materialism Index",
                  "Time since conflict change",
                  "Polity Score",
                  "ln(GDP/cap)",
@@ -229,24 +223,12 @@ texreg::texreg(l = list(UCDP_6, UCDP_6_FE), omit.coef = c("Country|year"),
                booktabs = TRUE,
                use.packages = FALSE,
                custom.note = "%stars \n Fixed effects on country and year",
-               label = "UCDP_3",
+               label = "UCDP_3_PM",
                caption = "UCDP: Complete model",
-               file = "UCDP_3.tex")
+               file = "UCDP_3_PM.tex")
 
 
-######## MID ###############
-
-#MID AIC
-
-Models_MID <- list(MID_1, MID_2, MID_3, MID_1_FE, MID_2_FE, MID_3_FE,
-                   MID_4, MID_5, MID_4_FE, MID_5_FE, MID_6, MID_6_FE)
-
-aic_list_MID <- lapply(Models_MID, AIC_Extract)
-
-
-
-
-
+#### MID ####
 # Tabel 1: Model 1, 2, 3 domestic variables
 
 texreg::texreg(l = list(MID_1, MID_2, MID_3), omit.coef = "(year)|(Country)",
@@ -255,15 +237,15 @@ texreg::texreg(l = list(MID_1, MID_2, MID_3), omit.coef = "(year)|(Country)",
                include.nobs = F,
                custom.note = "%stars",
                custom.coef.names = c("(intercept)",
-                                     "Value Score",
+                                     "Post-Materialism Index",
                                      "Time since conflict change",
                                      "Polity Score",
                                      "Ln(GDP/cap)"),
                booktabs = TRUE,
                use.packages = FALSE,
                caption = "MID: Domestic controlls",
-               label = "MID_1",
-               file = "MID_1.tex")
+               label = "MID_1_PM",
+               file = "MID_1_PM.tex")
 
 
 # Table 2: Model 1,2,3 Fixed Effects
@@ -280,16 +262,16 @@ texreg::texreg( l = list(MID_1_FE, MID_2_FE, MID_3_FE), omit.coef = "(year)|(Cou
                 include.nobs = F,
                 custom.note = " %stars \n Fixed Effects on year and country",
                 custom.coef.names = c("(intercept)",
-                                      "Value Score",
+                                      "Post-Materialism Index",
                                       "Time since conflict change",
                                       "Polity Score",
                                       "Ln(GDP/cap)"),
                 booktabs = TRUE,
                 use.packages = FALSE,
                 caption = "MID: Domestic Controlls, Fixed Effects",
-                label = "MID_1_FE",
+                label = "MID_1_FE_PM",
                 custom.model.names = c("Model 1 FE", "Model 2 FE", "Model 3 FE"),
-                file = "MID_1_FE.tex")
+                file = "MID_1_FE_PM.tex")
 
 
 
@@ -302,7 +284,7 @@ texreg::texreg( l = list(MID_1_FE, MID_2_FE, MID_3_FE), omit.coef = "(year)|(Cou
 texreg::texreg(l = list(MID_4, MID_5),
                custom.coef.names = c(
                  "(intercept)",
-                 "Value Score",
+                 "Post-Materialism Index",
                  "Time since conflict change",
                  "CINC",
                  "Major Power",
@@ -319,8 +301,8 @@ texreg::texreg(l = list(MID_4, MID_5),
                booktabs = TRUE,
                use.packages = FALSE,
                caption = "MID: Military and international controlls",
-               label = "MID_2",
-               file = "MID_2.tex"
+               label = "MID_2_PM",
+               file = "MID_2_PM.tex"
 )
 
 
@@ -334,7 +316,7 @@ texreg::texreg(l = list(MID_4_FE, MID_5_FE),
                omit.coef = c("year|Country"),
                custom.coef.names = c(
                  "(intercept)",
-                 "Value Score",
+                 "Post-Materialism Index",
                  "Time since conflict change",
                  "CINC",
                  "Major Power",
@@ -351,8 +333,8 @@ texreg::texreg(l = list(MID_4_FE, MID_5_FE),
                booktabs = TRUE,
                use.packages = FALSE,
                caption = "MID: Military and international controlls, Fixed Effects",
-               label = "MID_2_FE",
-               file = "MID_2_FE.tex"
+               label = "MID_2_FE_PM",
+               file = "MID_2_FE_PM.tex"
 )
 
 
@@ -362,7 +344,7 @@ texreg::texreg(l = list(MID_4_FE, MID_5_FE),
 texreg::texreg(l = list(MID_6, MID_6_FE), omit.coef = c("Country|year"),
                custom.coef.names = c(
                  "(intercept)",
-                 "Value Score",
+                 "Post-Materialism Index",
                  "Time since conflict change",
                  "Polity Score",
                  "ln(GDP/cap)",
@@ -379,7 +361,6 @@ texreg::texreg(l = list(MID_6, MID_6_FE), omit.coef = c("Country|year"),
                booktabs = TRUE,
                use.packages = FALSE,
                custom.note = "%stars \n Fixed effects on country and year",
-               label = "MID_3",
+               label = "MID_3_PM",
                caption = "MID: Complete model",
-               file = "MID_3.tex")
-
+               file = "MID_3_PM.tex")

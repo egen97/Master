@@ -1,102 +1,230 @@
-#### MID Analysis ####
-
-MIDBinary <- zelig(MID_Binary ~ Y002 +
-                     milper + majorpower + cinc + num_mem + land + sea +
-                     polity + log(gdpPRcapita) + DeathPena  +
-                     as.factor(Country) +  as.factor(year) + as.factor(TimMID), 
-                   model = "logit", data = ImputedData)
-
-Highact <- zelig(hiact ~ Y002 +
-                   milper + majorpower + cinc + num_mem + land + sea +
-                   polity + log(gdpPRcapita) + DeathPena  +
-                   as.factor(Country) +  as.factor(year), 
-                 model = "ls", data = ImputedData)
-
-
-MIDLength <- zelig(length ~ Y002 +
-                     milper + majorpower + cinc + num_mem + land + sea +
-                     polity + log(gdpPRcapita) + DeathPena  +
-                     as.factor(Country) +  as.factor(year), 
-                   model = "ls", data = ImputedData)
-
-
-MIDFatal <- zelig(fatalpre ~ Y002 +
-                    milper + majorpower + cinc + num_mem + land + sea +
-                    DeathPena + polity + log(gdpPRcapita) +
-                    as.factor(Country) + as.factor(year),
-                  model = "ls", data = ImputedData)
+UCDP_1 <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3),
+                model = "logit",
+                data = ImputedData) 
 
 
 
 
-#### UCDP Analysis ##########
 
 
-UCDPBinary <- zelig(Conflict_Binary ~ Y002 +
-                      milper + majorpower + cinc + num_mem + land + sea +
-                      DeathPena  + polity + log(gdpPRcapita) +
-                      as.factor(Country) + as.factor(year) + as.factor(TimUCDP), 
-                    data = ImputedData)
 
 
-#texreg::screenreg(UCDPBinary,  omit.coef = "(year)|(Country)|(Tim)")
+
+UCDP_2 <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  polity,
+                model = "logit",
+                data = ImputedData) 
 
 
-#ImputedData <- transform.amelia(ImputedData, intre = intensity_level -1)
 
-UCDPInten <- zelig(intre ~ Y002 +
-                     milper + majorpower + cinc + num_mem + land + sea +
-                     DeathPena + polity + log(gdpPRcapita) +
+
+
+
+
+
+
+
+
+UCDP_3 <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  polity +
+                  log(gdpPRcapita),
+                model = "logit",
+                data = ImputedData) 
+
+
+
+
+
+#Fixed effects 
+
+UCDP_1_FE <- zelig(Conflict_Binary ~ Y002 + 
+                     TimUCDP + (TimUCDP^2) + (TimUCDP^3) + 
+                     as.factor(Country)+ 
+                     as.factor(year) ,
+                   model = "logit",
+                   data = ImputedData) 
+
+
+
+UCDP_2_FE <- zelig(Conflict_Binary ~ Y002 + 
+                     TimUCDP + (TimUCDP^2) + (TimUCDP^3)  +
+                     as.factor(Country) +
+                     as.factor(year) +
+                     polity,
+                   model = "logit",
+                   data = ImputedData) 
+
+
+
+
+UCDP_3_FE <- zelig(Conflict_Binary ~ Y002 + 
+                     TimUCDP + (TimUCDP^2) + (TimUCDP^3)+
+                     as.factor(Country) +
+                     as.factor(year) +
+                     polity +
+                     log(gdpPRcapita),
+                   model = "logit",
+                   data = ImputedData) 
+
+
+
+# Military Power
+
+UCDP_4 <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  cinc + majorpower + log(gdpPRcapita),
+                model = "logit",
+                data = ImputedData)
+
+
+
+UCDP_5 <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  cinc + majorpower + log(gdpPRcapita) + num_mem + sea + land,
+                model = "logit",
+                data = ImputedData)
+
+
+
+
+UCDP_4_FE <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                     cinc + majorpower + log(gdpPRcapita) +
                      as.factor(Country) + as.factor(year),
-                   model = "logit", data = ImputedData)
+                   model = "logit",
+                   data = ImputedData)
+
+
+
+UCDP_5_FE <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                     cinc + majorpower + log(gdpPRcapita) + num_mem + sea + land +
+                     as.factor(Country) + as.factor(year),
+                   model = "logit",
+                   data = ImputedData)
+
+
+#Complete model!
+
+
+UCDP_6 <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                  polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower,
+                model = "logit",
+                data = ImputedData)
+
+
+UCDP_6_FE <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3) + 
+                     polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower +
+                     as.factor(Country) + as.factor(year),
+                   model = "logit",
+                   data = ImputedData)
+
+#### MID #####
+
+
+MID_1 <- zelig(MID_Binary ~ Y002 + TimMID + (TimMID^2) + (TimMID^3),
+               model = "logit",
+               data = ImputedData) 
 
 
 
 
-#### UCDP TEX ########
 
-texreg::texreg(l = list(UCDPBinaryPost, UCDPInten), omit.coef = "(year)|(Country)|(Tim)", 
-               custom.model.names =  c("UCDP/Prio Binary", "Conflict Intensity"),
-               custom.header = list("logistic" = 1:2),
-               custom.coef.names = c(
-                 "(intercept)",
-                 "Post-Materialism Index",
-                 "Military Personnel",
-                 "Major Power",
-                 "COW: CINC",
-                 "Nr. Allies",
-                 "Borders: Land",
-                 "Borders: Sea",
-                 "Support capital punishment",
-                 "Polity",
-                 "ln(GDP/cap)"
-               ),
-               label = "UCDPIng",
-               booktabs = TRUE,
-               caption = "Post-Materialism regression: UCDP/Prio",
-               use.packages = FALSE,
-               file = "UCDPIng.tex"
-)
+MID_2 <- zelig(MID_Binary ~ Y002 + TimMID + (TimMID^2) + (TimMID^3) +
+                 polity,
+               model = "logit",
+               data = ImputedData) 
 
 
 
-#### MID TEX ######
-texreg::texreg(l = list(MIDBinary, Highact, MIDFatal, MIDLength), omit.coef = "(year)|(Country)|(Tim)", 
-               custom.model.names =  c("MID Binary", "Level of Conflict", "Fatalities", "Conflict Length"),
-               custom.header = list("logistic" = 1, "OLS" = 2:4),
-               custom.coef.names = c("(intercept)",
-                                     "Post-Materialism Index",
-                                     "Military Personnel",
-                                     "Major Power",
-                                     "COW: CINC",
-                                     "Nr. Allies",
-                                     "Borders: Land",
-                                     "Borders: Sea",
-                                     "Polity",
-                                     "ln(GDP/cap)",
-                                     "Support capital punishment"),
-               label = "MIDIng",
-               booktabs = TRUE,
-               caption = "Post-Materialism regression: Military Interstate Disputes",
-               use.packages = FALSE,
-               file = "MIDIng.tex")
+
+
+
+
+
+
+
+MID_3 <- zelig(MID_Binary ~ Y002 + TimMID + (TimMID^2) + (TimMID^3) +
+                 polity +
+                 log(gdpPRcapita),
+               model = "logit",
+               data = ImputedData) 
+
+
+
+
+
+#Fixed effects 
+
+MID_1_FE <- zelig(MID_Binary ~ Y002 + 
+                    TimMID + (TimMID^2) + (TimMID^3) + 
+                    as.factor(Country)+ 
+                    as.factor(year) ,
+                  model = "logit",
+                  data = ImputedData) 
+
+
+
+MID_2_FE <- zelig(MID_Binary ~ Y002 + 
+                    TimMID + (TimMID^2) + (TimMID^3)  +
+                    as.factor(Country) +
+                    as.factor(year) +
+                    polity,
+                  model = "logit",
+                  data = ImputedData) 
+
+
+
+
+MID_3_FE <- zelig(MID_Binary ~ Y002 + TimMID + (TimMID^2) + (TimMID^3) +
+                    as.factor(Country) +
+                    as.factor(year) +
+                    polity +
+                    log(gdpPRcapita),
+                  model = "logit",
+                  data = ImputedData) 
+
+
+
+# Military Power
+
+MID_4 <- zelig(MID_Binary ~ Y002 + TimMID + (TimMID^2) + (TimMID^3) +
+                 cinc + majorpower + log(gdpPRcapita),
+               model = "logit",
+               data = ImputedData)
+
+
+
+MID_5 <- zelig(MID_Binary ~ Y002 + TimMID + (TimMID^2) + (TimMID^3) +
+                 cinc + majorpower + log(gdpPRcapita) + num_mem + sea + land,
+               model = "logit",
+               data = ImputedData)
+
+
+
+
+MID_4_FE <- zelig(MID_Binary ~ Y002 + TimMID + (TimMID^2) + (TimMID^3) +
+                    cinc + majorpower + log(gdpPRcapita) +
+                    as.factor(Country) + as.factor(year),
+                  model = "logit",
+                  data = ImputedData)
+
+
+
+MID_5_FE <- zelig(MID_Binary ~ Y002 + TimMID + (TimMID^2) + (TimMID^3) +
+                    cinc + majorpower + log(gdpPRcapita) + num_mem + sea + land +
+                    as.factor(Country) + as.factor(year),
+                  model = "logit",
+                  data = ImputedData)
+
+
+#Complete model!
+
+
+MID_6 <- zelig(MID_Binary ~ Y002 + TimMID + (TimMID^2) + (TimMID^3) +
+                 polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower,
+               model = "logit",
+               data = ImputedData)
+
+
+MID_6_FE <- zelig(MID_Binary ~ Y002 + TimMID + (TimMID^2) + (TimMID^3) + 
+                    polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower +
+                    as.factor(Country) + as.factor(year),
+                  model = "logit",
+                  data = ImputedData)
