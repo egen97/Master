@@ -38,7 +38,7 @@ WVSSelected <- WVS %>%
           C059, E012, E018,
           E036, G006, Y022, Y014A, Y014B,
            E232, F144_02,
-         A189, A190,A191, Y001, X047, X025R, X003, X001, X002) %>%
+         A189, A190,A191, Y001, X047, X025R, X003, X001, X002, S018) %>%
   rename(
     
     "Country" = "S003",
@@ -106,7 +106,7 @@ EVSSelected <- EVS %>%
           C059, E012, E018,
           E036, G006, Y022,
           E232, F144_02,
-          A189, A190,A191, Y001, X047, X025R, X003, X001, X002) %>%
+          A189, A190,A191, Y001, X047, X025R, X003, X001, X002, S018) %>%
   rename(
     "S002" = "S002EVS",
     "Country" = "S003",
@@ -157,7 +157,7 @@ EVSSelected <- EVS %>%
   mutate(across(everything(), ~as.numeric(as.character(.x)))) %>%
   mutate(across(everything(), ~ifelse(.x < 0, NA, .x))) 
 
-
+EVSAge <- unclass(EVSAge)
 EVSSelected$Age <- EVSAge
 
 

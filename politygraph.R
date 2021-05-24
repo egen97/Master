@@ -48,7 +48,7 @@ SurveyData %>%
 
 
 
-### GDP development
+### GDP development #### 
 
 class(SurveyData$Country)
 SurveyData$Country <- as.factor(SurveyData$Country)
