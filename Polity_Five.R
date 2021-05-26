@@ -21,8 +21,7 @@ PolitySelected <- PolitySelected %>%
 
 saveRDS(PolitySelected, "Data/politySelected.rds")
 
-PolitySelected %>%
+CountPol <- PolitySelected %>%
   count(polity) %>%
-  mutate(sum = cumsum(n)) %>%
-  View()
+  mutate(sum = cumsum(n)) 
 

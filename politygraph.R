@@ -60,9 +60,7 @@ PolitySelected <- readRDS("Data/politySelected.rds")
 
 AllPol <- PolitySelected %>%
   left_join(PolImp, by = c("Country", "year")) %>%
-  mutate(Par = ifelse(is.na(Par),0,1)) %>%
-  mutate(Par = ifelse(Par == 1, "Participating", "Not Participating"),
-         Par = factor(Par, levels = c("Not Participating", "Participating")))
+  mutate(Par = ifelse(is.na(Par),0,1)) 
 
 
 
@@ -76,7 +74,21 @@ AllPol %>%
   scale_fill_manual(values = c("#FF6666", "#10CEE6"))+
   theme(legend.title=element_blank()) +
   labs(x = "Polity V Democracy Score", y = "")
-                      
+     
+
+
+
+AllPol %>% 
+  ggplot(aes(polity)) +
+  geom_density(aes(fill = "#FF6666"), alpha = .9) +
+  geom_density(aes(polity,
+                   fill = "#10CEE6"), alpha = .7, data = AllPol %>% filter(Par == 1)) +
+  theme_tufte() +
+  theme(legend.title = element_blank()) +
+  scale_fill_identity(guide = "legend", labels = c("Participants", "World")) +
+  labs(x = "Polity V Democracy Score", y = "")
+
+
 
 
 

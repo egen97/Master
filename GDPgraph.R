@@ -91,12 +91,32 @@ GDP %>%
 #Log-normal
 GDP %>%
   mutate(LogGDP = log(gdpPRcapita)) %>%
-  ggplot(aes(LogGDP, group = Par, fill = Par)) +
+  ggplot(aes(LogGDP,  fill = Par)) +
   geom_density(alpha = .7) +
   theme_tufte() +
   scale_fill_manual(values = c("#FF6666", "#10CEE6"))+
   theme(legend.title=element_blank()) +
   labs(x = "Log of GDP/cap in thousands", y = "")
+
+
+GDP <- 
+  GDP %>%
+  mutate(LogGDP = log(gdpPRcapita))
+
+GDP %>%
+  ggplot(aes(LogGDP)) +
+  geom_density(aes( fill = "#FF6666"), alpha = .7) +
+  geom_density(aes(LogGDP,
+                   fill = "#10CEE6"), alpha = .7, data = GDP %>% filter(Par == "Participating")) +
+  theme_tufte() +
+  theme(legend.title=element_blank()) +
+  labs(x = "Log of GDP/cap in thousands", y = "") +
+  scale_fill_identity(guide = "legend", labels = c("Participants", "World"))
+
+
+
+
+
 
 
 
