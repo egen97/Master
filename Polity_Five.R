@@ -25,3 +25,19 @@ CountPol <- PolitySelected %>%
   count(polity) %>%
   mutate(sum = cumsum(n)) 
 
+
+PolitySelected %>%
+  mutate(Dem = ifelse(polity < -5, 1, 0)) %>%
+  drop_na() %>%
+  count(Dem) %>%
+  mutate(Freq = n/sum(n))
+
+PolitySelected %>%
+  full_join(PolImp, by = c("Country", "year")) %>%
+  filter(Par == 1) %>%
+  mutate(Dem = ifelse(polity < -5, 1, 0)) %>%
+  drop_na() %>%
+  count(Dem) %>%
+  mutate(Freq = n/sum(n))
+
+
