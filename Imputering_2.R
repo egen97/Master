@@ -65,7 +65,6 @@ ImputedData <- amelia(SubSet,
                       logs = c("gdpPRcapita", "Population"),
                       leads = c("polity", "gdpPRcapita", "Population"),
                       lags = c("polity", "gdpPRcapita", "Population"),
-                      emburn = c(10, 300),
                       autopri = 1,
                       paralell = "snow",
                       cl = cl_par)
