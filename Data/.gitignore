@@ -1,1 +1,12 @@
 Original dataset_analysis.tab
+*.rds
+*.sav
+*.rds
+*.rds
+*.csv
+*.rds
+*.dta
+*.RData
+.RDataTmp1
+
+*.ai
