@@ -72,7 +72,7 @@ summary(Mod2_FE)
 
 
 ##### Tabeller ####
-texreg::screenreg(l = list(Mod1, Mod2),
+texreg::texreg(l = list(Mod1, Mod2),
                   custom.coef.names = c(
                     "(intercept)",
                     "Value Score",
@@ -82,8 +82,31 @@ texreg::screenreg(l = list(Mod1, Mod2),
                     "Age"
                   ),
                   include.bic = FALSE,
-                  include.deviance = FALSE
+                  include.deviance = FALSE,
+                  label = "FCreg",
+                  booktabs = TRUE,
+               use.packages = FALSE,
+               caption = "Willigness to fight for own country",
+               file = "FCreg.tex"
                   )
+
+
+texreg::texreg(l = list(Mod1_FE, Mod2_FE), omit.coef = "S024",
+                  custom.coef.names = c(
+                    "(intercept)",
+                    "Value Score",
+                    "Income (deciles)",
+                    "Education",
+                    "Sex",
+                    "Age"
+                  ),
+                  include.bic = FALSE,
+                  include.deviance = FALSE,
+               label = "FCregFE",
+               booktabs = TRUE,
+               use.packages = FALSE,
+               caption = "Willigness to figh for own country, fixed effects",
+               file = "FCregFE.tex")
 
 
 

@@ -75,29 +75,6 @@ texreg::texreg(Mod2,
                   file = "FCreg.tex")
 
 
-# exreg::texreg(l = list(MID_6, MID_6_FE), omit.coef = c("Country|year"),
-#               custom.coef.names = c(
-#                 "(intercept)",
-#                 "Value Score",
-#                 "Time since conflict change",
-#                 "Polity Score",
-#                 "ln(GDP/cap)",
-#                 "Nr. Allies",
-#                 "Borders: Sea",
-#                 "Borders: Land",
-#                 "CINC",
-#                 "Major Power"
-#               ),
-#               custom.gof.rows = list("Num. obs" = c(3734, 3734),
-#                                      "AIC" = aic_list_MID[11:12]),
-#               include.nobs = F,
-#               custom.model.names = c("Model 6", "Model 6 FE"),
-#               booktabs = TRUE,
-#               use.packages = FALSE,
-#               custom.note = "%stars \n Fixed effects on country and year",
-#               label = "MID_3",
-#               caption = "MID: Complete model",
-#               file = "MID_3.tex")
 
 texreg::screenreg(l = list(Mod1, Mod2), omit.coef = "S024",
                   custom.coef.names = 
