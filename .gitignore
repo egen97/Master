@@ -34,5 +34,6 @@ Data/WVS_Vars.rds
 Data/imputed/MidINclude.RData
 *.RData
 .RDataTmp1
-
 *.ai
+Data
+README.html
