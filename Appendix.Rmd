@@ -2,7 +2,7 @@
 title: "Appendix I"
 author: "Eric G. E. Nilsen"
 date: "2 5 2021"
-output: html_document
+output: github_document
 ---
 
 # Imputed vs. Observed Density
@@ -130,6 +130,10 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+```{r}
+#Did not work
+stargazer::stargazer(ImputedData[[1]][[1]] %>% select(Country, year), type = "text", summary = FALSE)
+```
 
 
 
