@@ -36,3 +36,7 @@ Data/imputed/MidINclude.RData
 .RDataTmp1
 
 *.ai
+*.docx
+*.pdf
+*.xlsx
+*.xls
