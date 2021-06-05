@@ -1,5 +1,5 @@
 #### Loading and wrangling data #### 
-WVS <- readRDS("WVS_EVS.rds")
+WVS <- readRDS("Data/WVS_EVS.rds")
 
 AnaDat <- WVS %>%
   select(FightCountry, DeathPena, starts_with("Value"), Weights, TrstArm, S024,
@@ -109,5 +109,23 @@ texreg::texreg(l = list(Mod1_FE, Mod2_FE), omit.coef = "S024",
                file = "FCregFE.tex")
 
 
-
+texreg::texreg(l = list(Mod1, Mod2, Mod1_FE, Mod2_FE), omit.coef = "S024",
+                  custom.coef.names = c(
+                    "(intercept)",
+                    "Self-Enhancement Values",
+                    "Income (deciles)",
+                    "Education",
+                    "Sex",
+                    "Age"
+                  ),
+                  custom.gof.rows = list("Fixed Effects" = c("N", "N", "Y", "Y")),
+                  custom.header = list("Logistic Regression" = 1:4),
+                  include.bic = FALSE,
+                  include.deviance = FALSE,
+                  label = "FCreg",
+                  dcolumn = TRUE,
+                  booktabs = TRUE,
+                  use.packages = FALSE,
+                  caption = "Willigness to figh for own country, fixed effects",
+                 file = "FCreg.tex")
 

@@ -1,30 +1,33 @@
 
 \begin{table}
 \begin{center}
-\begin{tabular}{l c c}
+\begin{tabular}{l D{.}{.}{6.5} D{.}{.}{6.5} D{.}{.}{6.5} D{.}{.}{6.5}}
 \toprule
- & Model 1 & Model 2 \\
+ & \multicolumn{4}{c}{Logistic Regression} \\
+\cmidrule(lr){2-5}
+ & \multicolumn{1}{c}{Model 1} & \multicolumn{1}{c}{Model 2} & \multicolumn{1}{c}{Model 3} & \multicolumn{1}{c}{Model 4} \\
 \midrule
-(intercept)      & $0.01$       & $1.41^{***}$  \\
-                 & $(0.03)$     & $(0.06)$      \\
-Value Score      & $0.08^{***}$ & $0.07^{***}$  \\
-                 & $(0.00)$     & $(0.00)$      \\
-Income (deciles) &              & $0.02^{***}$  \\
-                 &              & $(0.00)$      \\
-Education        &              & $-0.08^{***}$ \\
-                 &              & $(0.01)$      \\
-Sex              &              & $-0.61^{***}$ \\
-                 &              & $(0.01)$      \\
-Age              &              & $-0.01^{***}$ \\
-                 &              & $(0.00)$      \\
+(intercept)             & 0.01                  & 1.41^{***}            & 1.06^{***}            & 2.33^{***}            \\
+                        & (0.03)                & (0.06)                & (0.11)                & (0.12)                \\
+Self-Enhancement Values & 0.08^{***}            & 0.07^{***}            & 0.05^{***}            & 0.04^{***}            \\
+                        & (0.00)                & (0.00)                & (0.00)                & (0.00)                \\
+Income (deciles)        &                       & 0.02^{***}            &                       & 0.01                  \\
+                        &                       & (0.00)                &                       & (0.00)                \\
+Education               &                       & -0.08^{***}           &                       & -0.03^{**}            \\
+                        &                       & (0.01)                &                       & (0.01)                \\
+Sex                     &                       & -0.61^{***}           &                       & -0.67^{***}           \\
+                        &                       & (0.01)                &                       & (0.02)                \\
+Age                     &                       & -0.01^{***}           &                       & -0.00^{***}           \\
+                        &                       & (0.00)                &                       & (0.00)                \\
 \midrule
-AIC              & $128253.05$  & $118449.49$   \\
-Log Likelihood   & $-64124.53$  & $-59218.75$   \\
-Num. obs.        & $139794$     & $132072$      \\
+Fixed Effects           & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Y} & \multicolumn{1}{c}{Y} \\
+AIC                     & 128253.05             & 118449.49             & 115085.91             & 106106.16             \\
+Log Likelihood          & -64124.53             & -59218.75             & -57429.96             & -52937.08             \\
+Num. obs.               & 139794                & 132072                & 139794                & 132072                \\
 \bottomrule
-\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
 \end{tabular}
-\caption{Willigness to fight for own country}
+\caption{Willigness to figh for own country, fixed effects}
 \label{FCreg}
 \end{center}
 \end{table}
