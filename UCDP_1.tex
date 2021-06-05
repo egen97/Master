@@ -1,26 +1,28 @@
 
 \begin{table}
 \begin{center}
-\begin{tabular}{l c c c}
+\begin{tabular}{l D{.}{.}{4.3} D{.}{.}{4.5} D{.}{.}{4.5} D{.}{.}{4.3} D{.}{.}{4.3} D{.}{.}{4.3}}
 \toprule
- & Model 1 & Model 2 & Model 3 \\
+ & \multicolumn{6}{c}{Logistic Regression} \\
+\cmidrule(lr){2-7}
+ & \multicolumn{1}{c}{UCDP/PRIO 1} & \multicolumn{1}{c}{UCDP/PRIO 2} & \multicolumn{1}{c}{UCDP/PRIO 3} & \multicolumn{1}{c}{UCDP/PRIO 4} & \multicolumn{1}{c}{UCDP/PRIO 5} & \multicolumn{1}{c}{UCDP/PRIO 6} \\
 \midrule
-(intercept)                & $1.37$        & $0.19$        & $0.72$        \\
-                           & $(0.73)$      & $(0.80)$      & $(0.79)$      \\
-Value Score                & $-0.12^{*}$   & $-0.06$       & $-0.06$       \\
-                           & $(0.05)$      & $(0.05)$      & $(0.05)$      \\
-Time since conflict change & $-0.08^{***}$ & $-0.08^{***}$ & $-0.09^{***}$ \\
-                           & $(0.01)$      & $(0.01)$      & $(0.01)$      \\
-Polity Score               &               & $0.06^{***}$  & $0.05^{***}$  \\
-                           &               & $(0.01)$      & $(0.01)$      \\
-Ln(GDP/cap)                &               &               & $-0.02^{***}$ \\
-                           &               &               & $(0.00)$      \\
+(Intercept)   & 1.37                        & 0.19                        & 0.72                        & -2.24                      & -2.10                       & -1.91                       \\
+              & (0.73)                      & (0.80)                      & (0.79)                      & (1.24)                     & (1.25)                      & (1.26)                      \\
+ValueScore    & -0.12^{*}                   & -0.06                       & -0.06                       & -0.04                      & -0.04                       & -0.04                       \\
+              & (0.05)                      & (0.05)                      & (0.05)                      & (0.07)                     & (0.07)                      & (0.07)                      \\
+polity        &                             & 0.06^{***}                  & 0.05^{***}                  &                            & -0.05^{*}                   & -0.06^{*}                   \\
+              &                             & (0.01)                      & (0.01)                      &                            & (0.02)                      & (0.02)                      \\
+gdpPRcapita   &                             &                             & -0.02^{***}                 &                            &                             & -0.01                       \\
+              &                             &                             & (0.00)                      &                            &                             & (0.00)                      \\
 \midrule
-Num. obs.                  & $3734$        & $3734$        & $3734$        \\
-AIC                        & 3870.15       & 3786.59       & 3667.21       \\
-Num. imp.                  & $10$          & $10$          & $10$          \\
+Num. obs      & 3734                        & 3734                        & 3734                        & 3734                       & 3734                        & 3734                        \\
+AIC           & \multicolumn{1}{c}{3870.15} & \multicolumn{1}{c}{3786.59} & \multicolumn{1}{c}{3667.21} & \multicolumn{1}{c}{2420.9} & \multicolumn{1}{c}{3786.59} & \multicolumn{1}{c}{3667.21} \\
+Fixed Effects & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{Y}      & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       \\
+Time Effects  & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}      & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       \\
+Num. imp.     & 10                          & 10                          & 10                          & 10                         & 10                          & 10                          \\
 \bottomrule
-\multicolumn{4}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\multicolumn{7}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
 \end{tabular}
 \caption{UCDP: Domestic controlls}
 \label{UCDP_1}
