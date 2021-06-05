@@ -1,0 +1,32 @@
+
+\begin{table}
+\begin{center}
+\scalebox{0.8}{
+\begin{tabular}{l D{.}{.}{4.5} D{.}{.}{4.5} D{.}{.}{4.5} D{.}{.}{4.3} D{.}{.}{4.3} D{.}{.}{4.3}}
+\toprule
+ & \multicolumn{6}{c}{OLS} \\
+\cmidrule(lr){2-7}
+ & \multicolumn{1}{c}{UCDP/PRIO 1} & \multicolumn{1}{c}{UCDP/PRIO 2} & \multicolumn{1}{c}{UCDP/PRIO 3} & \multicolumn{1}{c}{UCDP/PRIO 4} & \multicolumn{1}{c}{UCDP/PRIO 5} & \multicolumn{1}{c}{UCDP/PRIO 6} \\
+\midrule
+(Intercept)   & 0.66^{***}                  & 0.47^{***}                 & 0.54^{***}                  & 0.17                        & 0.17                       & 0.18                        \\
+              & (0.13)                      & (0.14)                     & (0.13)                      & (0.12)                      & (0.12)                     & (0.12)                      \\
+ValueScore    & -0.02^{*}                   & -0.01                      & -0.01                       & -0.00                       & -0.00                      & -0.00                       \\
+              & (0.01)                      & (0.01)                     & (0.01)                      & (0.01)                      & (0.01)                     & (0.01)                      \\
+polity        &                             & 0.01^{***}                 & 0.01^{***}                  &                             & -0.00^{*}                  & -0.00^{*}                   \\
+              &                             & (0.00)                     & (0.00)                      &                             & (0.00)                     & (0.00)                      \\
+gdpPRcapita   &                             &                            & -0.00^{***}                 &                             &                            & -0.00                       \\
+              &                             &                            & (0.00)                      &                             &                            & (0.00)                      \\
+\midrule
+Num. obs      & 3734                        & 3734                       & 3734                        & 3734                        & 3734                       & 3734                        \\
+AIC           & \multicolumn{1}{c}{4032.18} & \multicolumn{1}{c}{3951.1} & \multicolumn{1}{c}{3855.38} & \multicolumn{1}{c}{2281.81} & \multicolumn{1}{c}{3951.1} & \multicolumn{1}{c}{3855.38} \\
+Fixed Effects & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{N}      & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}      & \multicolumn{1}{c}{Y}       \\
+Time Effects  & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}      & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}      & \multicolumn{1}{c}{Y}       \\
+Num. imp.     & 10                          & 10                         & 10                          & 10                          & 10                         & 10                          \\
+\bottomrule
+\multicolumn{7}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\end{tabular}
+}
+\caption{UCDP: Domestic controlls}
+\label{UCDP_1_LPM}
+\end{center}
+\end{table}

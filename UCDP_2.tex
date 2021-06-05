@@ -1,36 +1,42 @@
 
 \begin{table}
 \begin{center}
-\begin{tabular}{l c c}
+\scalebox{0.8}{
+\begin{tabular}{l D{.}{.}{4.5} D{.}{.}{4.5} D{.}{.}{4.5} D{.}{.}{4.3} D{.}{.}{4.3} D{.}{.}{4.3}}
 \toprule
- & Model 4 & Model 5 \\
+ & \multicolumn{6}{c}{Logistic Regression} \\
+\cmidrule(lr){2-7}
+ & \multicolumn{1}{c}{UCDP/PRIO 7} & \multicolumn{1}{c}{UCDP/PRIO 8} & \multicolumn{1}{c}{UCDP/PRIO 9} & \multicolumn{1}{c}{UCDP/PRIO 10} & \multicolumn{1}{c}{UCDP/PRIO 11} & \multicolumn{1}{c}{UCDP/PRIO 12} \\
 \midrule
-(intercept)                & $1.62^{*}$    & $1.43$        \\
-                           & $(0.76)$      & $(0.78)$      \\
-Value Score                & $-0.11^{*}$   & $-0.12^{*}$   \\
-                           & $(0.05)$      & $(0.05)$      \\
-Time since conflict change & $-0.08^{***}$ & $-0.08^{***}$ \\
-                           & $(0.01)$      & $(0.01)$      \\
-CINC                       & $9.70^{***}$  & $5.73^{**}$   \\
-                           & $(1.69)$      & $(1.86)$      \\
-Major Power                & $-1.02^{***}$ & $-1.19^{***}$ \\
-                           & $(0.27)$      & $(0.27)$      \\
-Ln(GDP/cap)                & $-0.02^{***}$ & $-0.02^{***}$ \\
-                           & $(0.00)$      & $(0.00)$      \\
-Nr. Allies                 &               & $-0.01$       \\
-                           &               & $(0.00)$      \\
-Borders: Sea               &               & $0.06^{***}$  \\
-                           &               & $(0.02)$      \\
-Borders: Land              &               & $0.09^{***}$  \\
-                           &               & $(0.02)$      \\
+(intercept)              & 1.62^{*}                   & 1.43                        & 0.22                        & -2.10                      & -2.20                       & -2.01                       \\
+                         & (0.76)                     & (0.78)                      & (0.86)                      & (1.26)                     & (1.32)                      & (1.32)                      \\
+Self-Enchancement Values & -0.11^{*}                  & -0.12^{*}                   & -0.07                       & -0.04                      & -0.04                       & -0.04                       \\
+                         & (0.05)                     & (0.05)                      & (0.05)                      & (0.07)                     & (0.07)                      & (0.07)                      \\
+CINC                     & 9.70^{***}                 & 5.73^{**}                   & 6.87^{***}                  & 12.42^{*}                  & 12.24^{*}                   & 11.42^{*}                   \\
+                         & (1.69)                     & (1.86)                      & (1.85)                      & (5.46)                     & (5.46)                      & (5.45)                      \\
+Major Power              & -1.02^{***}                & -1.19^{***}                 & -1.29^{***}                 & 0.14                       & 0.08                        & 0.18                        \\
+                         & (0.27)                     & (0.27)                      & (0.26)                      & (0.37)                     & (0.37)                      & (0.38)                      \\
+Ln GDP/Cap               & -0.02^{***}                & -0.02^{***}                 & -0.02^{***}                 & -0.00                      & -0.00                       & -0.01                       \\
+                         & (0.00)                     & (0.00)                      & (0.00)                      & (0.00)                     & (0.00)                      & (0.00)                      \\
+Nr. Allies               &                            & -0.01                       & -0.01^{*}                   &                            & 0.03                        & 0.03                        \\
+                         &                            & (0.00)                      & (0.00)                      &                            & (0.02)                      & (0.02)                      \\
+Borders: Sea             &                            & 0.06^{***}                  & 0.05^{**}                   &                            & 0.09                        & 0.09                        \\
+                         &                            & (0.02)                      & (0.02)                      &                            & (0.14)                      & (0.14)                      \\
+Borders: Land            &                            & 0.09^{***}                  & 0.11^{***}                  &                            & -0.06                       & -0.04                       \\
+                         &                            & (0.02)                      & (0.02)                      &                            & (0.12)                      & (0.12)                      \\
+Polity Score             &                            &                             & 0.06^{***}                  &                            &                             & -0.06^{*}                   \\
+                         &                            &                             & (0.01)                      &                            &                             & (0.02)                      \\
 \midrule
-Num. obs.                  & $3734$        & $3734$        \\
-AIC                        & 3689.6        & 3646.26       \\
-Num. imp.                  & $10$          & $10$          \\
+Num. obs                 & 3734                       & 3734                        & 3734                        & 3734                       & 3734                        & 3734                        \\
+AIC                      & \multicolumn{1}{c}{3689.6} & \multicolumn{1}{c}{3646.26} & \multicolumn{1}{c}{3569.97} & \multicolumn{1}{c}{3689.6} & \multicolumn{1}{c}{3646.26} & \multicolumn{1}{c}{3569.97} \\
+Fixed Effects            & \multicolumn{1}{c}{N}      & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{Y}      & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       \\
+Time Effects             & \multicolumn{1}{c}{Y}      & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}      & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       \\
+Num. imp.                & 10                         & 10                          & 10                          & 10                         & 10                          & 10                          \\
 \bottomrule
-\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\multicolumn{7}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
 \end{tabular}
-\caption{UCDP: Military and international controlls}
+}
+\caption{UCDP: Military and international controls}
 \label{UCDP_2}
 \end{center}
 \end{table}
