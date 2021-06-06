@@ -37,6 +37,12 @@ texreg::texreg(l = list(UCDP_1, UCDP_2, UCDP_3, UCDP_1_FE, UCDP_2_FE, UCDP_3_FE)
                   custom.model.names = c("UCDP/PRIO 1", "UCDP/PRIO 2", "UCDP/PRIO 3", 
                                          "UCDP/PRIO 4", "UCDP/PRIO 5", "UCDP/PRIO 6"),
                   custom.header = list("Logistic Regression" = 1:6),
+                  custom.coef.names = c(
+                    "(intercept)",
+                    "Self-Enchancement Values",
+                    "Polity Score",
+                    "Ln GDP/cap"
+                  ),
                booktabs = TRUE,
                dcolumn = TRUE,
                use.packages = FALSE,
@@ -44,7 +50,7 @@ texreg::texreg(l = list(UCDP_1, UCDP_2, UCDP_3, UCDP_1_FE, UCDP_2_FE, UCDP_3_FE)
                scalebox = 0.8,
                caption = "UCDP: Domestic controlls",
                label = "UCDP_1",
-               file = "UCDP_1.tex")
+               file = "UCDP_1.tex") 
 
 
 
@@ -75,7 +81,7 @@ texreg::texreg(l = list(UCDP_4, UCDP_5, UCDP_6, UCDP_4_FE, UCDP_5_FE, UCDP_6_FE)
                booktabs = TRUE,
                dcolumn = TRUE,
                center = TRUE,
-               scalebox = 0.8,
+               scalebox = 0.6,
                use.packages = FALSE,
                caption = "UCDP: Military and international controls",
                label = "UCDP_2",
@@ -120,7 +126,7 @@ texreg::texreg(l = list(MID_1, MID_2, MID_3, MID_1_FE, MID_2_FE, MID_3_FE),
 
 
 
-texreg::screenreg(l = list(MID_4, MID_5, MID_6, MID_4_FE, MID_5_FE, MID_6_FE),
+texreg::texreg(l = list(MID_4, MID_5, MID_6, MID_4_FE, MID_5_FE, MID_6_FE),
                   omit.coef = "Country|year|TimMID",
                   include.nobs = FALSE,
                   custom.gof.rows = list(
@@ -146,7 +152,7 @@ texreg::screenreg(l = list(MID_4, MID_5, MID_6, MID_4_FE, MID_5_FE, MID_6_FE),
                   booktabs = TRUE,
                   dcolumn = TRUE,
                   center = TRUE,
-                  scalebox = 0.8,
+                  scalebox = 0.6,
                   use.packages = FALSE,
                   caption = "MID: Military and internationall controls",
                   label = "MID_2",

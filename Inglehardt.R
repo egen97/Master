@@ -1,3 +1,12 @@
+library(Amelia)
+library(tidyverse)
+library(Zelig)
+library(hutilscpp)
+load("Data/Imputed/PostMatinclude.RData")
+
+
+
+
 UCDP_1 <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3),
                 model = "logit",
                 data = ImputedData) 

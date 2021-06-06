@@ -1,36 +1,42 @@
 
 \begin{table}
 \begin{center}
-\begin{tabular}{l c c}
+\scalebox{0.6}{
+\begin{tabular}{l D{.}{.}{6.3} D{.}{.}{6.3} D{.}{.}{6.3} D{.}{.}{7.3} D{.}{.}{7.3} D{.}{.}{7.3}}
 \toprule
- & Model 4 & Model 5 \\
+ & \multicolumn{6}{c}{Logistic Regression} \\
+\cmidrule(lr){2-7}
+ & \multicolumn{1}{c}{MID 7} & \multicolumn{1}{c}{MID 8} & \multicolumn{1}{c}{MID 9} & \multicolumn{1}{c}{MID} & \multicolumn{1}{c}{MID 11} & \multicolumn{1}{c}{MID 12} \\
 \midrule
-(intercept)                & $0.60$        & $0.40$        \\
-                           & $(2.67)$      & $(2.92)$      \\
-Post-Materialism Index     & $-1.67$       & $-1.45$       \\
-                           & $(1.55)$      & $(1.70)$      \\
-Time since conflict change & $-0.18^{***}$ & $-0.18^{***}$ \\
-                           & $(0.03)$      & $(0.03)$      \\
-CINC                       & $7.76^{*}$    & $8.88^{*}$    \\
-                           & $(3.64)$      & $(4.10)$      \\
-Major Power                & $0.75$        & $0.65$        \\
-                           & $(0.47)$      & $(0.49)$      \\
-Ln(GDP/cap)                & $-0.01^{*}$   & $-0.01^{*}$   \\
-                           & $(0.00)$      & $(0.00)$      \\
-Nr. Allies                 &               & $-0.02$       \\
-                           &               & $(0.02)$      \\
-Borders: Sea               &               & $0.00$        \\
-                           &               & $(0.06)$      \\
-Borders: Land              &               & $-0.00$       \\
-                           &               & $(0.05)$      \\
+(intercept)      & 18.62                  & 18.42                  & 18.50                  & 29.85                   & 41.66                   & 36.29                   \\
+                 & (3363.11)              & (3527.07)              & (3589.85)              & (35647.25)              & (42222.89)              & (50229.40)              \\
+Post-Materialism & -0.64                  & -0.49                  & -0.56                  & -18.79                  & -21.79                  & -28.22                  \\
+                 & (1923.10)              & (2014.33)              & (2067.41)              & (11346.84)              & (11282.70)              & (14231.73)              \\
+CINC             & 3.58                   & 4.83                   & 4.46                   & 74.71                   & -38.70                  & 64.74                   \\
+                 & (10357.77)             & (10821.67)             & (10979.75)             & (334037.35)             & (589282.75)             & (656072.75)             \\
+Major Power      & 0.99                   & 0.84                   & 0.86                   & 39.72                   & 40.88                   & 38.30                   \\
+                 & (1491.61)              & (1508.17)              & (1526.03)              & (19441.11)              & (15945.53)              & (17120.75)              \\
+Ln GDP/Cap       & -0.00                  & -0.00                  & -0.00                  & 0.07                    & -0.05                   & 0.01                    \\
+                 & (9.51)                 & (9.61)                 & (9.82)                 & (75.71)                 & (172.04)                & (231.70)                \\
+Nr. Allies       &                        & -0.01                  & -0.01                  &                         & 0.68                    & 0.97                    \\
+                 &                        & (35.00)                & (35.03)                &                         & (1688.95)               & (1607.88)               \\
+Borders: Sea     &                        & -0.00                  & -0.01                  &                         & -8.71                   & -7.02                   \\
+                 &                        & (142.07)               & (145.93)               &                         & (9635.36)               & (13842.33)              \\
+Borders: Land    &                        & 0.01                   & 0.01                   &                         & 4.70                    & 5.32                    \\
+                 &                        & (109.16)               & (113.64)               &                         & (8537.98)               & (9739.76)               \\
+Polity Score     &                        &                        & 0.01                   &                         &                         & -0.22                   \\
+                 &                        &                        & (50.95)                &                         &                         & (326.35)                \\
 \midrule
-Num. obs.                  & $3734$        & $3734$        \\
-AIC                        & 522.5         & 525.83        \\
-Num. imp.                  & $10$          & $10$          \\
+Num. obs         & 3734                   & 3734                   & 3734                   & 3734                    & 3734                    & 3734                    \\
+AIC              & \multicolumn{1}{c}{12} & \multicolumn{1}{c}{18} & \multicolumn{1}{c}{20} & \multicolumn{1}{c}{274} & \multicolumn{1}{c}{280} & \multicolumn{1}{c}{282} \\
+Fixed Effects    & \multicolumn{1}{c}{N}  & \multicolumn{1}{c}{N}  & \multicolumn{1}{c}{N}  & \multicolumn{1}{c}{Y}   & \multicolumn{1}{c}{Y}   & \multicolumn{1}{c}{Y}   \\
+Time Effects     & \multicolumn{1}{c}{Y}  & \multicolumn{1}{c}{Y}  & \multicolumn{1}{c}{Y}  & \multicolumn{1}{c}{Y}   & \multicolumn{1}{c}{Y}   & \multicolumn{1}{c}{Y}   \\
+Num. imp.        & 10                     & 10                     & 10                     & 10                      & 10                      & 10                      \\
 \bottomrule
-\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\multicolumn{7}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
 \end{tabular}
-\caption{MID: Military and international controlls}
+}
+\caption{MID: Military and internationall controls}
 \label{MID_2_PM}
 \end{center}
 \end{table}
