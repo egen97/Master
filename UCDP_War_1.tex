@@ -1,0 +1,32 @@
+
+\begin{table}
+\begin{center}
+\scalebox{0.8}{
+\begin{tabular}{l D{.}{.}{4.3} D{.}{.}{4.4} D{.}{.}{4.4} D{.}{.}{6.3} D{.}{.}{6.3} D{.}{.}{6.3}}
+\toprule
+ & \multicolumn{6}{c}{Logistic Regression} \\
+\cmidrule(lr){2-7}
+ & \multicolumn{1}{c}{UCDP War 1} & \multicolumn{1}{c}{UCDP War 2} & \multicolumn{1}{c}{UCDP War 3} & \multicolumn{1}{c}{UCDP War 4} & \multicolumn{1}{c}{UCDP War 5} & \multicolumn{1}{c}{UCDP War 6} \\
+\midrule
+(intercept)             & 1.93                        & 1.27                        & 1.15                        & 18.95                      & 18.27                     & 16.74                      \\
+                        & (1.12)                      & (1.18)                      & (1.19)                      & (12445.07)                 & (12399.08)                & (12406.22)                 \\
+Self-Enhancement Values & -0.08                       & -0.05                       & -0.05                       & 0.09                       & 0.09                      & 0.10                       \\
+                        & (0.07)                      & (0.07)                      & (0.07)                      & (0.27)                     & (0.30)                    & (0.31)                     \\
+Polity Score            &                             & 0.03^{**}                   & 0.04^{**}                   &                            & 0.12                      & 0.14                       \\
+                        &                             & (0.01)                      & (0.01)                      &                            & (0.09)                    & (0.09)                     \\
+Ln GDP/Cap              &                             &                             & 0.01                        &                            &                           & 0.02                       \\
+                        &                             &                             & (0.01)                      &                            &                           & (0.02)                     \\
+\midrule
+Num. obs                & 3734                        & 3734                        & 3734                        & 3734                       & 3734                      & 3734                       \\
+AIC                     & \multicolumn{1}{c}{1191.32} & \multicolumn{1}{c}{1185.76} & \multicolumn{1}{c}{1186.25} & \multicolumn{1}{c}{442.67} & \multicolumn{1}{c}{441.8} & \multicolumn{1}{c}{442.97} \\
+Fixed Effects           & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{Y}      & \multicolumn{1}{c}{Y}     & \multicolumn{1}{c}{Y}      \\
+Time Effects            & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}      & \multicolumn{1}{c}{Y}     & \multicolumn{1}{c}{Y}      \\
+Num. imp.               & 10                          & 10                          & 10                          & 10                         & 10                        & 10                         \\
+\bottomrule
+\multicolumn{7}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\end{tabular}
+}
+\caption{MID: Domestic controlls}
+\label{UCDP_War_1}
+\end{center}
+\end{table}

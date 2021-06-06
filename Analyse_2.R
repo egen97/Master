@@ -330,3 +330,127 @@ MID_6_FE <- zelig(MID_Binary ~ ValueScore + TimMID + (TimMID^2) + (TimMID^3) +
                   data = ImputedData)
 
 
+
+
+## UCDP War
+
+ImputedData <- transform.amelia(ImputedData ,MajorWar = ifelse(intensity_level == 2, 1, 0))
+
+
+
+
+
+UCDP_War_1 <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3),
+               model = "logit",
+               data = ImputedData) 
+
+
+
+
+
+UCDP_War_2 <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                 polity,
+               model = "logit",
+               data = ImputedData) 
+
+
+
+
+
+
+
+
+
+
+UCDP_War_3 <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                 polity +
+                 log(gdpPRcapita),
+               model = "logit",
+               data = ImputedData) 
+
+
+
+
+
+#Fixed effects 
+
+UCDP_War_1_FE <- zelig(MajorWar ~ ValueScore + 
+                    TimUCDP + (TimUCDP^2) + (TimUCDP^3) + 
+                    as.factor(Country)+ 
+                    as.factor(year) ,
+                  model = "logit",
+                  data = ImputedData) 
+
+
+
+UCDP_War_2_FE <- zelig(MajorWar ~ ValueScore + 
+                    TimUCDP + (TimUCDP^2) + (TimUCDP^3)  +
+                    as.factor(Country) +
+                    as.factor(year) +
+                    polity,
+                  model = "logit",
+                  data = ImputedData) 
+
+
+
+
+UCDP_War_3_FE <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                    as.factor(Country) +
+                    as.factor(year) +
+                    polity +
+                    log(gdpPRcapita),
+                  model = "logit",
+                  data = ImputedData) 
+
+
+
+# Military Power
+
+UCDP_War_4 <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                 cinc + majorpower + log(gdpPRcapita),
+               model = "logit",
+               data = ImputedData)
+
+
+
+UCDP_War_5 <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                 cinc + majorpower + log(gdpPRcapita) + num_mem + sea + land,
+               model = "logit",
+               data = ImputedData)
+
+
+
+
+UCDP_War_4_FE <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                    cinc + majorpower + log(gdpPRcapita) +
+                    as.factor(Country) + as.factor(year),
+                  model = "logit",
+                  data = ImputedData)
+
+
+
+UCDP_War_5_FE <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                    cinc + majorpower + log(gdpPRcapita) + num_mem + sea + land +
+                    as.factor(Country) + as.factor(year),
+                  model = "logit",
+                  data = ImputedData)
+
+
+#Complete model!
+
+
+UCDP_War_6 <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) +
+                 polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower,
+               model = "logit",
+               data = ImputedData)
+
+
+UCDP_War_6_FE <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^3) + 
+                    polity + log(gdpPRcapita) + num_mem + sea + land + cinc + majorpower +
+                    as.factor(Country) + as.factor(year),
+                  model = "logit",
+                  data = ImputedData)
+
+
+
+

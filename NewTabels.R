@@ -158,3 +158,77 @@ texreg::texreg(l = list(MID_4, MID_5, MID_6, MID_4_FE, MID_5_FE, MID_6_FE),
                   label = "MID_2",
                   file = "MID_2.tex")
 
+
+#### UCDP WAR ####
+
+Models_UCDP_War <- list(UCDP_War_1, UCDP_War_2, UCDP_War_3, UCDP_War_4, UCDP_War_5, UCDP_War_6)
+Models_UCDP_War_FE <- list(UCDP_War_1_FE, UCDP_War_2_FE, UCDP_War_3_FE, UCDP_War_4_FE, UCDP_War_5_FE, UCDP_War_6_FE)
+aic_list_UCDP_WAR <- lapply(Models_UCDP_War, AIC_Extract)
+aic_list_UCDP_WAR_FE <- lapply(Models_UCDP_War_FE, AIC_Extract)
+
+
+
+texreg::texreg(l = list(UCDP_War_1, UCDP_War_2, UCDP_War_3, UCDP_War_1_FE, UCDP_War_2_FE, UCDP_War_3_FE),
+               omit.coef = "Country|year|TimUCDP",
+               include.nobs = FALSE,
+               custom.gof.rows = list(
+                 "Num. obs" = c(  3734,   3734, 3734, 3734, 3734, 3734),
+                 "AIC" = c(aic_list_UCDP_WAR[1:3], aic_list_UCDP_WAR_FE[1:3]),
+                 "Fixed Effects" = c("N", "N", "N", "Y", "Y", "Y"),
+                 "Time Effects" = c("Y", "Y", "Y", "Y", "Y", "Y")
+               ),
+               custom.model.names = c("UCDP War 1", "UCDP War 2", "UCDP War 3", 
+                                      "UCDP War 4", "UCDP War 5", "UCDP War 6"),
+               custom.header = list("Logistic Regression" = 1:6),
+               custom.coef.names = c(
+                 "(intercept)",
+                 "Self-Enhancement Values",
+                 "Polity Score",
+                 "Ln GDP/Cap"
+               ),
+               booktabs = TRUE,
+               dcolumn = TRUE,
+               center = TRUE,
+               scalebox = 0.8,
+               use.packages = FALSE,
+               caption = "MID: Domestic controlls",
+               label = "UCDP_War_1",
+               file = "UCDP_War_1.tex")
+
+
+
+
+
+
+texreg::texreg(l = list(UCDP_War_4, UCDP_War_5, UCDP_War_6, UCDP_War_4_FE, UCDP_War_5_FE, UCDP_War_6_FE),
+               omit.coef = "Country|year|TimUCDP",
+               include.nobs = FALSE,
+               custom.gof.rows = list(
+                 "Num. obs" = c(3734, 3734, 3734, 3734, 3734, 3734),
+                 "AIC" = c(aic_list_UCDP_WAR[4:6], aic_list_UCDP_WAR_FE[4:6]),
+                 "Fixed Effects" = c("N", "N", "N", "Y", "Y", "Y"),
+                 "Time Effects" = c("Y", "Y", "Y", "Y", "Y", "Y")
+               ),
+               custom.model.names = c("UCDP War 7", "UCDP War 8", "UCDP War 9", 
+                                      "UCDP War 10", "UCDP War 11", "UCDP War 12"),
+               custom.header = list("Logistic Regression" = 1:6),
+               custom.coef.names = c(
+                 "(intercept)",
+                 "Self-Enchancement Values",
+                 "CINC",
+                 "Major Power",
+                 "Ln GDP/Cap",
+                 "Nr. Allies",
+                 "Borders: Sea",
+                 "Borders: Land",
+                 "Polity Score"
+               ),
+               booktabs = TRUE,
+               dcolumn = TRUE,
+               center = TRUE,
+               scalebox = 0.8,
+               use.packages = FALSE,
+               caption = "MID: Military and internationall controls",
+               label = "UCDP_War_2",
+               file = "UCDP_war_2.tex")
+
