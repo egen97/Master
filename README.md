@@ -1,6 +1,6 @@
 # Code and appendix for, "*From Pub Fights to International Conflict: How values and mass opinion affect war"*
 
-### Eric. G. E. Nilsen
+### Eric G. E. Nilsen
 
 This repository contains all R-code used in the research to my master thesis, "From Pub Fights to International Conflict: How values and mass opinion affect war". The data used is *not* included due to the providers different copyright-limitations. All data is is cited in the thesis, and easily available online from the original providers. In addition this repository contains the thesis' appendix as a markdown file. 
 Any questions can be directed to the author at: [egnilsen@student.sv.uio.no](mailto:egnilsen@student.sv.uio.no)
