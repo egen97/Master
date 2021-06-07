@@ -2,26 +2,26 @@
 \begin{table}
 \begin{center}
 \scalebox{0.8}{
-\begin{tabular}{l D{.}{.}{5.3} D{.}{.}{5.3} D{.}{.}{5.3} D{.}{.}{5.3} D{.}{.}{5.3} D{.}{.}{5.3}}
+\begin{tabular}{l D{.}{.}{4.4} D{.}{.}{4.5} D{.}{.}{4.5} D{.}{.}{4.3} D{.}{.}{4.3} D{.}{.}{4.3}}
 \toprule
  & \multicolumn{6}{c}{Logistic Regression} \\
 \cmidrule(lr){2-7}
  & \multicolumn{1}{c}{UCDP/PRIO 1} & \multicolumn{1}{c}{UCDP/PRIO 2} & \multicolumn{1}{c}{UCDP/PRIO 3} & \multicolumn{1}{c}{UCDP/PRIO 4} & \multicolumn{1}{c}{UCDP/PRIO 5} & \multicolumn{1}{c}{UCDP/PRIO 6} \\
 \midrule
-(intercept)      & 20.61                 & 20.89                 & 21.07                  & 18.45                   & 18.48                 & 18.19                  \\
-                 & (4853.79)             & (5081.44)             & (5081.34)              & (9478.57)               & (9367.13)             & (9460.97)              \\
-Post-Materialism & 0.23                  & 0.01                  & 0.03                   & -0.37                   & -0.33                 & -0.31                  \\
-                 & (2696.17)             & (2917.98)             & (2905.99)              & (4266.01)               & (4279.17)             & (4277.59)              \\
-Polity Score     &                       & 0.02                  & 0.01                   &                         & -0.04                 & -0.03                  \\
-                 &                       & (85.97)               & (84.94)                &                         & (201.01)              & (206.07)               \\
-Ln GDP/cap       &                       &                       & -0.01                  &                         &                       & 0.01                   \\
-                 &                       &                       & (20.01)                &                         &                       & (36.52)                \\
+(intercept)      & -2.19^{**}                  & -1.15                       & -0.56                       & -2.90^{*}                   & -2.87^{*}                   & -2.67^{*}                   \\
+                 & (0.73)                      & (0.80)                      & (0.84)                      & (1.28)                      & (1.29)                      & (1.30)                      \\
+Post-Materialism & 1.01^{*}                    & 0.26                        & 0.17                        & 0.04                        & 0.09                        & 0.09                        \\
+                 & (0.41)                      & (0.47)                      & (0.49)                      & (0.70)                      & (0.71)                      & (0.72)                      \\
+Polity Score     &                             & 0.06^{***}                  & 0.05^{***}                  &                             & -0.05^{*}                   & -0.06^{*}                   \\
+                 &                             & (0.01)                      & (0.01)                      &                             & (0.02)                      & (0.02)                      \\
+Ln GDP/cap       &                             &                             & -0.02^{***}                 &                             &                             & -0.01                       \\
+                 &                             &                             & (0.00)                      &                             &                             & (0.00)                      \\
 \midrule
-Num. obs         & 3734                  & 3734                  & 3734                   & 3734                    & 3734                  & 3734                   \\
-AIC              & \multicolumn{1}{c}{6} & \multicolumn{1}{c}{8} & \multicolumn{1}{c}{10} & \multicolumn{1}{c}{268} & \multicolumn{1}{c}{8} & \multicolumn{1}{c}{10} \\
-Fixed Effects    & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{N}  & \multicolumn{1}{c}{Y}   & \multicolumn{1}{c}{Y} & \multicolumn{1}{c}{Y}  \\
-Time Effects     & \multicolumn{1}{c}{Y} & \multicolumn{1}{c}{Y} & \multicolumn{1}{c}{Y}  & \multicolumn{1}{c}{Y}   & \multicolumn{1}{c}{Y} & \multicolumn{1}{c}{Y}  \\
-Num. imp.        & 10                    & 10                    & 10                     & 10                      & 10                    & 10                     \\
+Num. obs         & 3734                        & 3734                        & 3734                        & 3734                        & 3734                        & 3734                        \\
+AIC              & \multicolumn{1}{c}{3862.17} & \multicolumn{1}{c}{3787.68} & \multicolumn{1}{c}{3669.54} & \multicolumn{1}{c}{2420.66} & \multicolumn{1}{c}{3787.68} & \multicolumn{1}{c}{3669.54} \\
+Fixed Effects    & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{N}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       \\
+Time Effects     & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       & \multicolumn{1}{c}{Y}       \\
+Num. imp.        & 10                          & 10                          & 10                          & 10                          & 10                          & 10                          \\
 \bottomrule
 \multicolumn{7}{l}{\scriptsize{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
 \end{tabular}
