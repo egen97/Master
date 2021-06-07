@@ -37,6 +37,12 @@ texreg::texreg(l = list(UCDP_1, UCDP_2, UCDP_3, UCDP_1_FE, UCDP_2_FE, UCDP_3_FE)
                custom.model.names = c("UCDP/PRIO 1", "UCDP/PRIO 2", "UCDP/PRIO 3", 
                                       "UCDP/PRIO 4", "UCDP/PRIO 5", "UCDP/PRIO 6"),
                custom.header = list("OLS" = 1:6),
+               custom.coef.names = c(
+                 "(intercept)",
+                 "Self-Enhancement Values",
+                 "Polity",
+                 "Ln GDP/cap"
+               ),
                booktabs = TRUE,
                dcolumn = TRUE,
                use.packages = FALSE,
