@@ -1,4 +1,4 @@
-
+Df <- ImputedData[[1]][[1]]
 #Number of Military Interstate Disputes
 
 Df %>%
@@ -30,7 +30,7 @@ Df %>%
   ggplot(aes(fatalpre)) +
   geom_density(fill = "royalblue", alpha = .4) +
   theme_classic() +
-  labs(title = "Fatalities", subtitle = "Military Interstate Dispute", x = "Nr. of Fatalities", y = "")
+  labs(title = "Fatalities", subtitle = "Military Interstate Dispute", x = "Nr. of Fatalities", y = "Share of MID's")
 
 #fatal.png
 
@@ -54,7 +54,7 @@ Df %>%
   ggplot(aes(decade, Conflict_Binary, fill = intensity_level)) +
   geom_col(alpha = .9) +
   theme_classic() +
-  labs(title = "UCDP/Prio Conflicts", x = "Decade", y = "", fill = "Intensity Level") +
+  labs(title = "UCDP/Prio Conflicts", x = "Decade", y = "Country-Years in Conflict", fill = "Intensity Level") +
   scale_fill_manual(values = c("#0CB2D5", "#DA2F1E"))
 
 
