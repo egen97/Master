@@ -454,3 +454,8 @@ UCDP_War_6_FE <- zelig(MajorWar ~ ValueScore + TimUCDP + (TimUCDP^2) + (TimUCDP^
 
 
 
+texreg::screenreg(list(UCDP_War_1_FE, UCDP_War_1, UCDP_War_2, UCDP_War_2_FE), omit.coef = "Country|year")
+
+
+
+

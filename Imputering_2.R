@@ -23,10 +23,10 @@ SubSet <- SubSet %>%
   group_by(Country, year) %>%
   summarise(across(everything(), ~max(.x))) 
 
-#Legge til aar siden sist konflikt, og verdier
+#Legge til aar siden sist konflikt, og verdier #Tid blir endret i analysen
 
 SubSet <- SubSet %>%
-  mutate(ValueScore = ValueRisk + ValueSucses + ValueGodTim + ValueSecur,
+  mutate(ValueScore = (ValueRisk*(0.638)) + (ValueSucses*0.432) + (ValueGodTim*0.420) + (ValueSecur),
          dispnum = ifelse(dispnum == 0, NA, dispnum), 
          MID_Binary = ifelse(!is.na(dispnum) & fatality > 1, 1, 0))
 

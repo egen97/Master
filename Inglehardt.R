@@ -12,8 +12,8 @@ UCDP_1 <- zelig(Conflict_Binary ~ Y002 + TimUCDP + (TimUCDP^2) + (TimUCDP^3),
                 data = ImputedData) 
 
 
-
-
+texreg::screenreg(list(UCDP_1, UCDP_1_FE, UCDP_2, UCDP_2_FE, UCDP_3, UCDP_3_FE), omit.coef = "Country|year")
+summary(ImputedData[[1]][[1]]$Y002)
 
 
 
