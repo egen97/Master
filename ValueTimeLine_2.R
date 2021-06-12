@@ -37,5 +37,5 @@ Binded %>%
   geom_segment(aes(x = 1980, xend = 2020, y = mean(Binded$ValueScore, na.rm = TRUE),
                    yend = mean(Binded$ValueScore, na.rm = TRUE)),
                    size = 1.5, colour = "#3358DA", alpha = .5) +
-  labs(x = "", y = "Value Score", caption = "The blue line marks the world average throughout the period")
+  labs(x = "", y = "Self-Enhancement score", caption = "The blue line marks the world average throughout the period")
 
