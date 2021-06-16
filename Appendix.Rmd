@@ -12,7 +12,9 @@ This part will show the density between the imputed and observed values for all 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(Amelia)
+library(countrycode)
 load("Data/imputed/CAAPinclude.RData")
+Unimp <- readRDS("Data/wvs_everything.rds")
 
 ```
 
@@ -47,7 +49,7 @@ for(i in plots){
 
 
 
-     
+# Variables    
        
 
 
@@ -130,11 +132,25 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-```{r}
-#Did not work
-stargazer::stargazer(ImputedData[[1]][[1]] %>% select(Country, year), type = "text", summary = FALSE)
+# Country-years
+
+
+
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(Unimp %>% 
+             select(Country, year) %>%
+               
+               mutate(Country = countrycode(Country, origin = "iso3n", destination = "country.name")) %>%
+         
+  group_by(Country) %>% 
+  summarise(observed = paste(year, collapse = ",")) %>%
+    mutate(period = "1980-2020") %>% 
+  drop_na(),
+  format="markdown")
+
+
+
 ```
-
-
-
 
